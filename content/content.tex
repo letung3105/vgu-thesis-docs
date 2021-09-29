@@ -1,0 +1,65 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[english]{babel}
+\usepackage{caption}
+\usepackage[backend=biber, style=ieee]{biblatex}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{glossaries}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage[export]{adjustbox}
+
+
+% ======== SETTINGS ========
+% Path to images
+% \graphicspath{ {../images} }
+% Path to bibliography
+% \addbibresource{../internship.bib}
+\hypersetup{
+  colorlinks = true, % Colours links instead of ugly boxes
+  urlcolor   = blue, % Colour for external hyperlinks
+  linkcolor  = blue, % Colour of internal links
+  citecolor  = blue  % Colour of citations
+}
+\titleformat{\chapter}{\huge\bf}{\thechapter.}{20pt}{\huge\bf}
+\pagenumbering{arabic}
+\geometry{
+  a4paper,
+  inner=1.5in,
+  outer=1in,
+  top=1in,
+  bottom=1in
+}
+
+
+% ======== GLOSSARIES ========
+\makeglossaries
+% \newglossaryentry{PDF}{name={PDF},description={Portable Document Format, a file format for presenting documents, including text and images}}
+\glsaddall
+
+
+% ======== METADATA ========
+\title{Forecasting Covid-19 Situation in Vietnam}
+\author{
+    Tung Le Vo\\
+    Department of Computer Science\\
+    Vietnamese - German University
+}
+\date{\today}
+
+
+% ======== CONTENT ========
+\begin{document}
+
+
+% ======== TITLE ========
+\maketitle
+\newpage
+
+
+% ======== ACKNOWLEDGEMENT ========
+\section*{Acknowledgement}
+
+
+\end{document}
