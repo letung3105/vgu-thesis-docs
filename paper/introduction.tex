@@ -1,1 +1,56 @@
 \chapter{Introduction}
+
+
+Since its emergence in 2019, the Covid-19 pandemic has evolved rapidly and is still affecting millions of lives around the globe.
+According to data from the World Health Organization (WHO), Covid-19 has caused over 230 million infections and over 4.7 millions death worldwide \cite{WHOCoronavirusCOVID19}.
+Despite the high infection rate across the world, Vietnam had been fortunate during most of the pandemic's period, and the country was recognized for its effective government's interventions in reducing the number of cases \cite{EmergingCOVID19Success,haCombatingCOVID19Epidemic2020}.
+Until the first quarter of 2021, decisive actions and policies from the Vietnamese government have proven successful in containing the spread of Covid-19.
+But the situation has quickly changed since the end of April 2021, when a new wave of infection hit the country.
+The Delta variant of the SARS-CoV-2 virus, which is responsible for this wave of infection, has a shorter incubation period and can spread quicker than the previous year \cite{VietnamNewCOVID,mahaseDeltaVariantWhat2021}.
+As a result, policies makers in Vietnam were caught off-guard, and the number of infections has been growing exponentially for the last few months (May 2021 - September 2021).
+In response to the escalating number of infections, the Vietnamese government has enacted similar strategies as in 2020 and more stringent policies in regions with a high infection rate.
+Unlike before, these aggressive responses to the virus spread where all citizens had to stay at home were not as effective in containing the spread of the virus.
+At the time of this writing (October 2021), the number of daily infections is on the decline but remains high, while prolonged restrictions on movement have negatively impacted the livelihood of lots of people and the entire economy \cite{RapidAssessmentDesign, VietnamPoisedMiss}.
+
+Like many other countries, one major factor that leads to the failure in swiftly containing the virus is the lack of knowledge in the dynamics of the pandemic under the effects of new variants and government interventions.
+To understand these dynamics, researchers have proposed diverse methods for modeling the disease.
+These methods use different techniques to investigate the strategies that can reduce the number of daily new infections.
+A systematic review of these methods is given by \citeauthor{rahimiReviewCOVID19Forecasting2021} \cite{rahimiReviewCOVID19Forecasting2021}.
+Governments in different countries have employed these methods to aid in policy making \cite{adamSpecialReportSimulations2020}.
+One popular method is from the \gls{US} Center for Disease Control and Prevention, which is an ensemble of multiple models submitted by researchers around the world \cite{rayEnsembleForecastsCoronavirus2020}.
+
+After almost two years of the pandemic, data has been collected and is available publicly in high quantity.
+One of the frequently used datasets is from the John Hopkins University, which aggregates the daily number of cases, recoveries, and deaths in many countries \cite{dongInteractiveWebbasedDashboard2020}.
+In addition, there is a worldwide effort in generating more datasets to help with analyzing the Covid-19 spread, such as mobility indices from companies with a massive amount of users like Apple \cite{COVID19Mobility}, Google \cite{COVID19Mobility}, and Facebook \cite{DataGoodTools}.
+With an abundance of data, it has been shown that data-driven time-series forecasting techniques using deep learning can have high predicting power.
+Researchers have been experiment with different architectures of \glspl{ANN} \cite{hecht-nielsenTheoryBackpropagationNeural} for predicting the number of cases.
+Here we list some of the examples.
+\citeauthor{chimmulaTimeSeriesForecasting2020} used an \gls{LSTM} network for predicting future transmission of the virus in Canada \cite{chimmulaTimeSeriesForecasting2020}.
+\citeauthor{ramchandaniDeepCOVIDNetInterpretableDeep2020} proposed a new \gls{ANN} architecture that incorporates multivariate spatial time series data to forecast the range of increase in COVID-19 infected case in \gls{US} counties \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}.
+\citeauthor{shahidPredictionsCOVID19Deep2020} performed a comprehensive comparison between the \gls{ARIMA} statistical model and multiple different \glspl{RNN} including \gls{LSTM}, \gls{Bi-LSTM}, and \gls{GRU} \cite{shahidPredictionsCOVID19Deep2020}.
+While achieving high accuracy in predicting future cases, many of these models are black-box algorithms that are not interpretable, rendering it hard to quantify the causal effect of external factors on the progression of the pandemic.
+Having an explainable model is extremely important for healthcare and public authorities to derive meaningful analyses that aid in the planning process.
+Moreover, these black-box algorithms might not capture the underlying dynamics of the disease due to under-reporting, asymptomatic infections, or a general lack of data, especially in the early stages of the outbreak.
+
+Compartmental models, such as the SIR model and the SEIR model \cite{kermackContributionMathematicalTheory1927}, are extensively used by researchers and public authorities.
+In the effort to understand the development of Covid-19, compartmental modeling is among the most popular approaches due to its simplicity and interpretability.
+This technique divides the population into compartments and models the transition of the number of people between these compartments using a system of differential equations \cite{brauerCompartmentalModelsEpidemiology2008}.
+Because of its assumptions, compartmental models typically have many drawbacks: (1) low representational capability due to the low number of parameters, (2) the represented dynamics are stationary due to the constant parameters used in the model, (3) the population is assumed to be well-mixed, i.e., every individual is statistically indifferent, and (4) non-identifiability since a different set of parameters may result in the same dynamics \cite{roosaAssessingParameterIdentifiability2019}.
+Many studies have attempted to overcome these limitations by varying the model's parameters, typically the transmission rate, based on spatial and temporal factors.
+\citeauthor{schneiderCOVID19PandemicPreparedness2020} used a modified SEIR model where transitions between compartments are modeled as a stepwise process to simulate Covid-19 in Austria under different scenarios, eliminating the assumption that time-delay in those transitions is exponentially distributed \cite{schneiderCOVID19PandemicPreparedness2020}.
+\citeauthor{ihmecovid-19forecastingteamModelingCOVID19Scenarios2021} used covariates to informed how the transmission rate changes over time to simulate different scenarios with \glspl{NPI} in the \gls{US} \cite{ihmecovid-19forecastingteamModelingCOVID19Scenarios2021}.
+\citeauthor{changMobilityNetworkModels2021} used a fine-grained mobility network of the population's hourly movements, integrated it with a simple SEIR model having fixed parameters weighted over the mobility's data, and used that to model hourly infections in the \gls{US} \cite{changMobilityNetworkModels2021}.
+\citeauthor{chenTimeDependentSIRModel2020} derived the infection rate from historical data, used regression method to extrapolate the current trends of infection, and incorporated the extrapolated infection rate into a SEIR model for forecasting \cite{chenTimeDependentSIRModel2020}.
+\citeauthor{liSubstantialUndocumentedInfection2020} modeled the spreads of Covid-19 in China using city-to-city movement data with an SIR model \cite{liSubstantialUndocumentedInfection2020}.
+
+Although other countries have been using these modeling and forecasting techniques to analyze the Covid-19 situation, many are not applied to Vietnam.
+One of the reasons is because there was not a high number of recorded cases.
+Thus the specific dynamics of Covid-19 in Vietnam have not been well studied.
+Admit policies from other countries can be adopted; the effectiveness may vary due to socioeconomic, demographic, and cultural factors.
+Moreover, as the number of reported cases is dropping, the Vietnamese government is slowly removing its restrictions in many places to help improve the current economic recession.
+Hence having a model for the distinct circumstances and data availability in Vietnam can be beneficial for assessing the pandemic's situation, especially when restrictions are lifted.
+The model could be of help in the following aspects: (1) informing policies makers about the effects of their decision, (2) informing health care facilities about a possible surge in the number of cases to ensure the supply of personnel and equipment, (3) informing business owners about possible policies to plan their supply and demand needs.
+Lastly, the recent surge in infections has generated data on the number of Covid-19 cases in Vietnam in a much higher quantity and quality that are publicly available and can be used for data-driven modeling.
+
+Given that reasoning, this research focuses on implementing a disease model for Vietnam that is interpretable and can capture the current trends in the development of the pandemic.
+The implemented model will base on classical compartmental models where the mentioned issues are alleviated by allowing the parameter(s) in the system to change to different factors.
