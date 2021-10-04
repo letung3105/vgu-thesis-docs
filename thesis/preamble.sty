@@ -4,7 +4,9 @@
 \usepackage[T1]{fontenc}
 \usepackage{csquotes}
 \usepackage[english]{babel}
+\usepackage{amsmath}
 \usepackage{titlesec}
+\usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{todonotes}
 \usepackage{caption}
@@ -42,6 +44,14 @@
 \titleformat{\chapter}{\huge\bf}{\thechapter.}{20pt}{\huge\bf}
 \pagenumbering{arabic}
 
+% Capitalized references
+\addto\extrasenglish{
+  \def\chapterautorefname{Chapter}
+}
+
+% Extending Tikz
+\usetikzlibrary{automata, positioning, arrows}
+
 % Front page contents
 \title{Forecasting Covid-19 Situation in Vietnam}
 \author{
@@ -62,4 +72,6 @@
 \newacronym{US}{US}{United States}
 \newacronym{NPI}{NPI}{Non-Pharmaceutical Intervention}
 \newacronym{ODE}{ODE}{Ordinary Differential Equation}
+\newacronym{SIR}{SIR}{Susceptible-Infective-Removed}
+\newacronym{SEIR}{SEIR}{Susceptible-Exposed-Infective-Removed}
 \glsaddall

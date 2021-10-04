@@ -31,10 +31,11 @@
 # *.pdf
 
 ## Generated if empty string is given at "Please type another file name for output:"
-paper/*.pdf
-paper/*.txt
+thesis/*.pdf
+thesis/*.txt
 presentation/*.pdf
 presentation/*.txt
+**/__latexindent_temp.tex
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl

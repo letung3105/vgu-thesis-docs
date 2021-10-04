@@ -1,4 +1,5 @@
 \chapter{Introduction}
+\label{chap:introduction}
 
 Since its emergence in 2019, the Covid-19 pandemic has evolved rapidly and is still affecting millions of lives around the globe.
 According to the World Health Organization (WHO), Covid-19 has caused over 230 million infections and over 4.7 million death worldwide \cite{WHOCoronavirusCOVID19}.
@@ -31,16 +32,16 @@ While achieving high accuracy in predicting future cases, many of these models a
 Having an explainable model is extremely important for healthcare and public authorities to derive meaningful analyses that aid in the planning process.
 Moreover, these black-box algorithms might not capture the underlying dynamics of the disease due to under-reporting, asymptomatic infections, or a general lack of data, especially in the early stages of the outbreak.
 
-Compartmental models, such as the SIR model and the SEIR model \cite{kermackContributionMathematicalTheory1927}, are extensively used by researchers and public authorities.
+Compartmental models, such as the \gls{SIR} model and the \gls{SEIR} model \cite{kermackContributionMathematicalTheory1927, kermackContributionsMathematicalTheory1932, kermackContributionsMathematicalTheory1933, brauerCompartmentalModelsEpidemiology2008}, are extensively used by researchers and public authorities.
 In the effort to understand the development of Covid-19, compartmental modeling is among the most popular approaches due to its simplicity and interpretability.
-This technique divides the population into compartments and models the transition of the number of people between these compartments using a system of differential equations \cite{brauerCompartmentalModelsEpidemiology2008}.
+This technique divides the population into compartments and models the transition of the number of people between these compartments using a system of differential equations.
 Because of its assumptions, compartmental models typically have many drawbacks: (1) low representational capability due to the low number of parameters, (2) the represented dynamics are stationary due to the constant parameters used in the model, (3) the population is assumed to be well-mixed, i.e., every individual is statistically indifferent, and (4) non-identifiability since a different set of parameters may result in the same dynamics \cite{roosaAssessingParameterIdentifiability2019}.
 Many studies have attempted to overcome these limitations by varying the model's parameters, typically the transmission rate, based on spatial and temporal factors.
-\citeauthor{schneiderCOVID19PandemicPreparedness2020} used a modified SEIR model where transitions between compartments are modeled as a stepwise process to simulate Covid-19 in Austria under different scenarios, eliminating the assumption that time-delay in those transitions is exponentially distributed \cite{schneiderCOVID19PandemicPreparedness2020}.
+\citeauthor{schneiderCOVID19PandemicPreparedness2020} used a modified \gls{SEIR} model where transitions between compartments are modeled as a stepwise process to simulate Covid-19 in Austria under different scenarios, eliminating the assumption that time-delay in those transitions is exponentially distributed \cite{schneiderCOVID19PandemicPreparedness2020}.
 \citeauthor{ihmecovid-19forecastingteamModelingCOVID19Scenarios2021} used covariates to informed how the transmission rate changes over time to simulate different scenarios with \glspl{NPI} in the \gls{US} \cite{ihmecovid-19forecastingteamModelingCOVID19Scenarios2021}.
-\citeauthor{changMobilityNetworkModels2021} used a fine-grained mobility network of the population's hourly movements, integrated it with a simple SEIR model having fixed parameters weighted over the mobility's data, and used that to model hourly infections in the \gls{US} \cite{changMobilityNetworkModels2021}.
-\citeauthor{chenTimeDependentSIRModel2020} derived the infection rate from historical data, used a regression method to extrapolate the current infection trends, and incorporated the extrapolated infection rate into an SEIR model for forecasting \cite{chenTimeDependentSIRModel2020}.
-\citeauthor{liSubstantialUndocumentedInfection2020} modeled the spreads of Covid-19 in China using city-to-city movement data with a SIR model \cite{liSubstantialUndocumentedInfection2020}.
+\citeauthor{changMobilityNetworkModels2021} used a fine-grained mobility network of the population's hourly movements, integrated it with a simple \gls{SEIR} model having fixed parameters weighted over the mobility's data, and used that to model hourly infections in the \gls{US} \cite{changMobilityNetworkModels2021}.
+\citeauthor{chenTimeDependentSIRModel2020} derived the infection rate from historical data, used a regression method to extrapolate the current infection trends, and incorporated the extrapolated infection rate into an \gls{SEIR} model for forecasting \cite{chenTimeDependentSIRModel2020}.
+\citeauthor{liSubstantialUndocumentedInfection2020} modeled the spreads of Covid-19 in China using city-to-city movement data with a \gls{SIR} model \cite{liSubstantialUndocumentedInfection2020}.
 
 Although countries have been using these modeling and forecasting techniques to analyze the Covid-19 situation, many are not applied to Vietnam.
 One of the reasons is because there was not a high number of recorded cases.
@@ -56,3 +57,13 @@ The implemented model will base on classical deterministic compartmental models 
 Instead of using a predefined multivariate function to adjust the parameters in the system of \glspl{ODE}, we will be using an \gls{ANN} to encode the covariates.
 The method takes advantage of the recent development in \gls{ANN} architectures for solving forward-inverse problems with \glspl{ODE} \cite{chenNeuralOrdinaryDifferential2019, rackauckasUniversalDifferentialEquations2020, raissiPhysicsinformedNeuralNetworks2019}.
 Utilizing the capability of \glspl{ANN} to approximate any arbitrary function \cite{hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}, data-driven approaches can discover the underlying mechanics of Covid-19 without needing to define the governing multivariate function, which requires expert epidemiological knowledge.
+
+The rest of the thesis is structured as follow:
+\begin{itemize}
+    \item \autoref{chap:literature-review} gives an overview of the research backgrounds of the model.
+    A list of related methods and techniques from other researchers is also presented.
+    \item \autoref{chap:methodologies} discusses how the model was formulated, the used dataset, and the evaluation methods.
+    \item \autoref{chap:results} presents our findings and evaluations for the performance of the implemented model.
+    \item \autoref{chap:discussion} compares the results of the implemented model and its performance with related works produced by other researchers.This chapter includes a list of limitations of the model and further improvements that can be made to boost the effectiveness and performance of the model.
+    \item \autoref{chap:conclusion} shows the overall achievement of this thesis.
+\end{itemize}

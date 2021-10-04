@@ -1,3 +1,3 @@
-.PHONY: paper2text
-paper2text: paper/paper.pdf
+.PHONY: gettxt
+gettxt: thesis/thesis.pdf
 	pdftotext -H 770 -W 1000 $^
