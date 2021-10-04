@@ -33,13 +33,13 @@ We also assume that the course of the epidemic is deterministic when using a sys
 
 Now we will mathematically present the model and how it is formulated.
 The following \glspl{ODE} system defines the \gls{SIR} model
-\begin{align}
-    S' &= - \beta S I \nonumber \\
-    I' &= \beta S I - \alpha I \nonumber \\
+\begin{align*}
+    S' &= - \beta S I \\
+    I' &= \beta S I - \alpha I \\
     R' &= \alpha I
-\end{align}
+\end{align*}
 where interactions between the compartments can be visualized in \autoref{fig:sir-model-transition-graph}.
-\begin{figure}[h!]
+\begin{figure}[!h]
     \centering
     \begin{tikzpicture}[->, > = stealth', node distance = 2cm, thick]
         \node[state]               (S) {S};
@@ -66,13 +66,13 @@ Consequently, the total number of newly added infective individuals per unit tim
 On the assumption (\ref{assumption:basic-sir-infective-period}), the length of the infective period is exponentially distributed with a mean of $1 / \alpha$.
 That is derived by considering $u(s)$ to be the number of individuals who are still infective $s$ unit time after having been infected.
 If a portion $\alpha$ of these individuals leaves the infective class per unit of time then
-\begin{equation}
-    u' = \alpha u ,
-\end{equation}
+\begin{equation*}
+    u' = \alpha u,
+\end{equation*}
 and trivially we obtain
-\begin{equation}
+\begin{equation*}
     u(s) = u(0) e ^ {- \alpha s}.
-\end{equation}
+\end{equation*}
 As a result, the fraction of remaining infective individuals $s$ unit time after being infected is $e ^ {- \alpha s}$, so the mean period is $\int_{0}^{\infty} e ^ {- \alpha s} = 1 / \alpha$.
 Under assumption (\ref{assumption:basic-sir-constant-population}), the model considers that the time scale of the disease is much faster than the time scale of natural births and deaths.
 Hence demographic effects are negligible.
@@ -89,9 +89,9 @@ If $\mathcal{R}_0 < 1$, the number of infections dies out, whereas when $\mathca
 By definition, the value $\mathcal{R}_0$ is the number of secondary infections caused by a single infective individual placed within a fully susceptible population of size $K \approx S(0)$ over the infective duration of this person.
 In this situation, the basic reproduction number becomes $\beta K / \alpha$.
 From here, we can deduce the final size of the epidemic by first consider the equation
-\begin{equation}
+\begin{equation*}
     \frac{I'}{S'} = \frac{dI}{dS} = \frac{(\beta S - \alpha) I}{- \beta S I} = -1 + \frac{\alpha}{\beta S}.
-\end{equation}
+\end{equation*}
 Integrating that gives the orbits (phase plane)
 \begin{equation}
     I = -S + \frac{\alpha}{\beta} \ln S + C,
@@ -99,14 +99,14 @@ Integrating that gives the orbits (phase plane)
 \end{equation}
 where $C$ is an arbitrary constant of integration.
 Alternatively, we can define a function that represents the orbits implicitly
-\begin{equation}
+\begin{equation*}
     V(S, I) = S + I - \frac{\alpha}{\beta} \ln S = C.
-\end{equation}
+\end{equation*}
 The constant $C$ can be calculated given the initial conditions of $S$ and $I$, since $C = V(S(0), I(0)) = S(0) + I(0) - \alpha \ln S(0) / \beta$.
 Knowing that $\lim_{t \to \infty} I(t) = 0$ and let $S_\infty = \lim_{t \to \infty} S(t)$ the relation $V(S(0), I(0)) = V(S_\infty, 0)$ is equivalent to
-\begin{equation}
+\begin{equation*}
     K - \frac{\alpha}{\beta} \ln S(0) = S_\infty - \frac{\alpha}{\beta} \ln S_\infty.
-\end{equation}
+\end{equation*}
 Rewriting the equation above in terms of $\mathcal{R}_0$ gives the \textit{final size relation}
 \begin{equation}
     \ln S(0) - \ln S_\infty = \mathcal{R}_0 \left[ 1 - \frac{S_\infty}{K} \right].
@@ -117,24 +117,24 @@ Rewriting the equation above in terms of $\mathcal{R}_0$ gives the \textit{final
 Estimating the contact rate $\beta$ is a challenging task because it depends not only on the disease itself but also on social and behavioral factors.
 In retrospection, one can obtain the values $S(0)$ and $S_\infty$ and calculate $\mathcal{R}_0$ once an epidemic has ended.
 During the early phase of the epidemic, the number of infective individuals grows exponentially, where the equation for I can be approximated with
-\begin{equation}
+\begin{equation*}
     I' = (\beta K - \alpha) I.
-\end{equation}
+\end{equation*}
 The initial growth rate is given by
-\begin{equation}
+\begin{equation*}
     r = \beta K - \alpha = \alpha (\mathcal{R}_0 - 1).
-\end{equation}
+\end{equation*}
 Because both the values $K$ and $\alpha$ can be measure, the contact rate can be calculated as
-\begin{equation}
+\begin{equation*}
     \beta = \frac{r + \alpha}{K}.
-\end{equation}
+\end{equation*}
 Note that early on in the outbreak, this estimation could experience high inaccuracy due to incomplete data or underreporting of the number of cases.
 The estimation accuracy might also suffer significantly with an outbreak of new unknown diseases, where early cases are more likely to be diagnosed.
 
 By substituting $S = \alpha / \beta$ and $I = I_{max}$ into \autoref{eq:sir-I-wrt-S-orbits} we can obtain the maximum number of infective individuals, which is attained when $I' = 0$
-\begin{equation}
+\begin{equation*}
     I_{max} = S(0) + I(0) - \frac{\alpha}{\beta} \ln S(0) - \frac{\alpha}{\beta} + \frac{\alpha}{\beta} \ln \frac{\alpha}{\beta}
-\end{equation}
+\end{equation*}
 
 \subsubsection{Generalized SIR model}
 
@@ -142,17 +142,17 @@ Assumption (\ref{assumption:basic-sir-contact-rate}) of the basic SIR model is u
 It is better to assume that the contact rate is a non-increasing function of the population size.
 A more generalized SIR model can be formulated by replacing assumption (\ref{assumption:basic-sir-contact-rate}) with the assumption that each person in the population makes $C(N)$ contacts in unit time on average with $C'(N) \geq 0$.
 We can define
-\begin{equation}
+\begin{equation*}
     \beta(N) = \frac{C(N)}{N},
-\end{equation}
+\end{equation*}
 and make a reasonable assumption that $\beta'(N) \leq 0$ express the saturation in the number of contacts.
 With that assumption we have a new model
-\begin{align}
-    S' &= - \beta(N)SI \nonumber \\
-    I' &= \beta(N)SI - \alpha I \nonumber \\
-    R' &= f \alpha I \nonumber \\
+\begin{align*}
+    S' &= - \beta(N)SI \\
+    I' &= \beta(N)SI - \alpha I \\
+    R' &= f \alpha I \\
     N' &= - (1 - f) \alpha I
-\end{align}
+\end{align*}
 In this model, we consider the rate of change in the total population $N$ because now the contact rate depends on it.
 Therefore, we have to consider the distinction between the individuals who recover from the disease and the individuals who die of the disease.
 Hence, assuming that a fraction $f$ of the $\alpha I$ members leaving the infective compartment at time $t$ recover.
@@ -166,31 +166,31 @@ In this model, the standard reproduction number is
 A time-dependent reproduction number $\mathcal{R}^*$ can also be calculated.
 This value represents the number of secondary infections caused by an individual at time $t$.
 The equation for getting this value is
-\begin{equation}
+\begin{equation*}
     \mathcal{R}^* = \frac{S\beta(N)}{\alpha}.
-\end{equation}
+\end{equation*}
 
 The final size relation can also be quantified under the assumption that $\lim_{N \to 0} \beta(N)$ is finite, giving the inequalities
-\begin{equation}
+\begin{equation*}
     \mathcal{R}_0 \left[ 1 - \frac{S_\infty}{K} \right] \leq \ln\frac{S(0)}{S_\infty} \leq \frac{\beta(0)(K - S_\infty)}{\alpha K}
-\end{equation}
+\end{equation*}
 
 \subsection{SEIR model}
 
 With many infectious diseases, there is a period where an individual has been infected with the disease but can not transmit it.
 This could be modeled by adding an exposed compartment, labeled as $E$, where the exposed period is exponentially distributed with a mean of $1 / \kappa$.
 The generalized version of the model with four compartments $S$, $E$, $I$, $R$, and $N = S + E + I + R$ is given as
-\begin{align}
-    S' &= - \beta(N)SI \nonumber \\
-    E' &= \beta(N)SI - \kappa E \nonumber \\
-    I' &= \kappa E - \alpha I \nonumber \\
-    R' &= f \alpha I \nonumber \\
+\begin{align*}
+    S' &= - \beta(N)SI \\
+    E' &= \beta(N)SI - \kappa E \\
+    I' &= \kappa E - \alpha I \\
+    R' &= f \alpha I \\
     N' &= - (1 - f) \alpha I
-\end{align}
+\end{align*}
 and the interactions between these compartments are illustrated in \autoref{fig:seir-model-transition-graph}.
 The calculation of the basic reproduction for this model is similar to the calculation for the generalized \gls{SIR} model, which is given by \autoref{eq:generalized-sir-r0}.
 
-\begin{figure}[h!]
+\begin{figure}[!h]
     \centering
     \begin{tikzpicture}[->, > = stealth', node distance = 2cm, thick]
         \node[state]               (S) {S};
@@ -206,25 +206,25 @@ The calculation of the basic reproduction for this model is similar to the calcu
 \end{figure}
 
 Following the same analysis in the previous subsections, the final size relation is expressed by the inequality
-\begin{equation}
+\begin{equation*}
     \ln\frac{S(0)}{S_\infty} \geq \mathcal{R}_0 \left[ 1 - \frac{S_\infty}{K} \right]
-\end{equation}
+\end{equation*}
 
 For diseases that have an asymptomatic phase rather than an exposed stage, we can introduce a factor $\epsilon$.
 This factor represents a reduction in the infectiousness of those who are infected but not showing symptoms.
 A model that represents this situation is given by
-\begin{align}
-    S' &= - \beta(N)S(I + \epsilon E) \nonumber \\
-    E' &= \beta(N)S(I + \epsilon E) - \kappa E \nonumber \\
-    I' &= \kappa E - \alpha I \nonumber \\
-    R' &= f \alpha I \nonumber \\
+\begin{align*}
+    S' &= - \beta(N)S(I + \epsilon E) \\
+    E' &= \beta(N)S(I + \epsilon E) - \kappa E \\
+    I' &= \kappa E - \alpha I \\
+    R' &= f \alpha I \\
     N' &= - (1 - f) \alpha I
-\end{align}
+\end{align*}
 where the basic reproduction number is calculated with
-\begin{equation}
+\begin{equation*}
     \mathcal{R}_0 = \frac{K\beta(K)}{\alpha} + \epsilon\frac{K\beta(K)}{\kappa},
-\end{equation}
+\end{equation*}
 and the final size relation is the following inequality
-\begin{equation}
+\begin{equation*}
     \ln\frac{S(0)}{S_\infty} \geq \mathcal{R}_0 \left[ 1 - \frac{S_\infty}{K} \right] - \frac{\epsilon\beta(K)}{\kappa}I_0.
-\end{equation}
+\end{equation*}
