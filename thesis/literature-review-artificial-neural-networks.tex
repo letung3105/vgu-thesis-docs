@@ -81,14 +81,15 @@ Other terms for this are fully connected \gls{ANN} or densely connected \gls{ANN
 Additionally, an \gls{MLP} is a type of feed-forward \gls{ANN}, i.e., signals in this network are passed from one layer to another in one direction only.
 The counterpart of this is the feedback \gls{ANN}.
 In a feedback \gls{ANN}, signals can flow in any direction, as can be seen in \gls{RNN}.
-Mathematically, each node in an \gls{MLP} computes the following value
-\begin{equation*}
-    a_j = \sigma (w_{i,j} x_i + b),
-\end{equation*}
-where $a_j$ is the value for the $j$th node in the considered layer, $x_i$ is the $i$th node in the previous layer, $w_{i,j}$ is a weighting factor connecting the two nodes, $b$ is the bias term, and $\sigma$ is typically a non-linear function.
+Mathematically, each node in an \gls{MLP} computes the following values
+\begin{align*}
+    a_i^k &= b_i^k + \sum_{j=1}^{r_{k-1}} w_{ij}^k z_j^{k-1} \\
+    z_i^k &= \sigma (a_i^k),
+\end{align*}
+where $\sigma$ is the activation function for the layer $k$, $w_{ij}^k$ is the weight that maps the node $j$ in layer $k - 1$ to node $i$ in layer $k$, $b_i$ is the bias term for node $i$ in layer $k$, $z_i^k$ is the product sum plus bias for node $i$ in layer $k$, $a_i^k$ is the activated output of node $i$ in layer $k$, and $r_k$ is the number of nodes in layer $k$.
 This computation is similar to perceptron, excepting the function $\sigma$, called the \textit{activation function}.
 Let $n$ be the depth of a network, i.e., the number of layers having adjustable weights, and $X$ be the vectors of input signals.
-Let $W_i$, $b_i$, and $\sigma_i$ be the vector of weights, the bias, and the activation function for each layer, where $i \in [1, n]$.
+Let $W_i$, $b_i$, and $\sigma_i$ be the vector of weights, vector of bias terms, and the activation function for each layer, where $i \in [1, n]$.
 An \gls{MLP} is expressing the following function
 \begin{equation*}
     g(X) = \sigma_n(W_n \sigma_{n - 1}(\cdots (W_2 \sigma_1(W_1 X + b_1) + b_2) + \cdots) + b_n),
@@ -117,11 +118,36 @@ which is simply a nesting of multiple simple vectors algebra and applications of
 That means a sufficiently large \gls{ANN} with an arbitrary number of nodes can reasonably approximate any function $f: \mathbb{R}^M \mapsto \mathbb{R}^N$, given that appropriate weights can be found.
 However, the exact method for finding suitable weights is not defined.
 Commonly, the fitting weights are learned by \glspl{ANN} through the back-propagation algorithm \cite{rumelhartLearningRepresentationsBackpropagating1986} and the gradient descent optimization technique \cite{ruderOverviewGradientDescent2017}.
+A simple training procedure for most \glspl{ANN} is given in \autoref{alg:ann-training}.
 Back-propagation is the algorithm for finding the gradients of a loss function with respect to the network's weights.
 A loss function measures how large the error is between the \gls{ANN}'s guess and the true value.
 The algorithm calculates the gradients starting from the output layer and going backward to the input layer.
+To find the gradient of the loss function $\mathcal{L}$ with respect to the weight $w_{ij}^L$, where $L$ is the number of layers, we must calculate
+\begin{equation}
+    \frac{\delta \mathcal{L}}{\delta w_{ij}^L} = \frac{\delta\mathcal{L}}{\delta a_i^L} \frac{\delta a_i^L}{\delta z_i^L} \frac{\delta z_i^L}{\delta w_{ij}^L}.
+    \label{eq:backpropagation-ouput-layer-weights}
+\end{equation}
+Similarly we can compute the gradient with respect to the bias term
+\begin{equation}
+    \frac{\delta \mathcal{L}}{\delta b_i^L} = \frac{\delta\mathcal{L}}{\delta a_i^L} \frac{\delta a_i^L}{\delta z_i^L} \frac{\delta z_i^L}{\delta b_i^L}.
+    \label{eq:backpropagation-ouput-layer-bias}
+\end{equation}
+If we want to calculate the gradient of $\mathcal{L}$ with respect to $w_{jk}^{L-1}$, we first consider the gradient of $\mathcal{L}$ with respect to $a_j^{L-1}$
+\begin{equation}
+    \frac{\delta \mathcal{L}}{\delta a_j^{L-1}} = \sum_{i=1}^{r_{L-1}} \frac{\delta\mathcal{L}}{\delta a_i^L} \frac{\delta a_i^L}{\delta z_i^L} \frac{\delta z_i^L}{\delta a_j^{L-1}}.
+    \label{eq:backpropagation-hidden-layer-activation}
+\end{equation}
+Then we can compute the gradients
+\begin{equation*}
+    \frac{\delta \mathcal{L}}{\delta w_{jk}^{L-1}} = \frac{\delta \mathcal{L}}{\delta a_j^{L-1}} \frac{a_j^{L-1}}{z_j^{L-1}} \frac{z_j^{L-1}}{w_{jk}^{L-1}},
+\end{equation*}
+and
+\begin{equation*}
+    \frac{\delta \mathcal{L}}{\delta b_j^{L-1}} = \frac{\delta \mathcal{L}}{\delta a_j^{L-1}} \frac{a_j^{L-1}}{z_j^{L-1}} \frac{z_j^{L-1}}{b_j^{L-1}},
+\end{equation*}
+This same approach can be applied for any layer in the \gls{ANN}.
 By iterating backward and utilizing the chain rule, recalculations of derivatives can be avoided.
-A simple training procedure for most \glspl{ANN} is given in \autoref{alg:ann-training}.
+As can be seen from \autoref{eq:backpropagation-ouput-layer-weights}, \autoref{eq:backpropagation-ouput-layer-bias}, and \autoref{eq:backpropagation-hidden-layer-activation}, the term $\frac{\delta\mathcal{L}}{\delta a_i^L} \frac{\delta a_i^L}{\delta z_i^L}$ is used multiple times.
 
 \begin{algorithm}
     \caption{Batch gradient descent for training \gls{ANN}. This algorithm goes through all the examples to accumulate the gradients before updating the weights and bias terms. The learning rate $\eta$ influences how much the weights and bias terms are updated in each iteration.}
