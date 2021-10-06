@@ -1,4 +1,9 @@
 {
     "workbench.colorTheme": "Default Light+",
-    "cSpell.enabled": true
+    "cSpell.enabled": true,
+    "cSpell.words": [
+        "approximators",
+        "perceptron",
+        "perceptrons"
+    ]
 }

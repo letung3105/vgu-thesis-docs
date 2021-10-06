@@ -23,7 +23,7 @@ After almost two years of the pandemic, data has been collected and is available
 One of the frequently used datasets is from the John Hopkins University, which aggregates the daily number of cases, recoveries, and deaths in many countries \cite{dongInteractiveWebbasedDashboard2020}.
 In addition, there is a worldwide effort in generating more datasets to help with analyzing the Covid-19 spread, such as mobility indices from companies with a massive amount of users like Apple \cite{COVID19Mobility}, Google \cite{COVID19Mobility}, and Facebook \cite{DataGoodTools}.
 With an abundance of data, it has been shown that data-driven time-series forecasting techniques using deep learning can have high predicting power.
-Researchers have been experimenting with different architectures of \glspl{ANN} \cite{hecht-nielsenTheoryBackpropagationNeural} for predicting the number of cases.
+Researchers have been experimenting with different architectures of \glspl{ANN} for predicting the number of cases.
 Here we list some of the examples.
 \citeauthor{chimmulaTimeSeriesForecasting2020} used a \gls{LSTM} network for predicting the future transmission in Canada \cite{chimmulaTimeSeriesForecasting2020}.
 \citeauthor{ramchandaniDeepCOVIDNetInterpretableDeep2020} proposed a new \gls{ANN} architecture that incorporates multivariate spatial time-series data to forecast the range of increase in COVID-19 infected cases in \gls{US} counties \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}.
@@ -55,8 +55,8 @@ Lastly, the recent surge in infections has generated data on the number of Covid
 Given that reasoning, this thesis focuses on implementing an interpretable disease model for Vietnam that can capture the current trends in the development of the pandemic.
 The implemented model will base on classical deterministic compartmental models where the mentioned issues are alleviated by using covariates to control the parameter(s).
 Instead of using a predefined multivariate function to adjust the parameters in the system of \glspl{ODE}, we will be using an \gls{ANN} to encode the covariates.
-The method takes advantage of the recent development in \gls{ANN} architectures for solving forward-inverse problems with \glspl{ODE} \cite{chenNeuralOrdinaryDifferential2019, rackauckasUniversalDifferentialEquations2020, raissiPhysicsinformedNeuralNetworks2019}.
-Utilizing the capability of \glspl{ANN} to approximate any arbitrary function \cite{hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}, data-driven approaches can discover the underlying mechanics of Covid-19 without needing to define the governing multivariate function, which requires expert epidemiological knowledge.
+The method takes advantage of the recent development in \gls{ANN} architectures for solving forward-inverse problems with \glspl{ODE} \cite{chenNeuralOrdinaryDifferential2019, rackauckasUniversalDifferentialEquations2020}.
+Utilizing the capability of \glspl{ANN} to approximate any arbitrary function \cite{cybenkotApproximationSuperpositionsSigmoidal, hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}, data-driven approaches can discover the underlying mechanics of Covid-19 without needing to define the governing multivariate function, which requires expert epidemiological knowledge.
 
 The rest of the thesis is structured as follow:
 \begin{itemize}

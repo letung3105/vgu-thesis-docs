@@ -39,7 +39,7 @@ The following \glspl{ODE} system defines the \gls{SIR} model
     R' &= \alpha I
 \end{align*}
 where interactions between the compartments can be visualized in \autoref{fig:sir-model-transition-graph}.
-\begin{figure}[!h]
+\begin{figure}
     \centering
     \begin{tikzpicture}[->, > = stealth', node distance = 2cm, thick]
         \node[state]               (S) {S};
@@ -190,7 +190,7 @@ The generalized version of the model with four compartments $S$, $E$, $I$, $R$, 
 and the interactions between these compartments are illustrated in \autoref{fig:seir-model-transition-graph}.
 The calculation of the basic reproduction for this model is similar to the calculation for the generalized \gls{SIR} model, which is given by \autoref{eq:generalized-sir-r0}.
 
-\begin{figure}[!h]
+\begin{figure}
     \centering
     \begin{tikzpicture}[->, > = stealth', node distance = 2cm, thick]
         \node[state]               (S) {S};

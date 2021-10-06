@@ -4,9 +4,13 @@
 \usepackage[T1]{fontenc}
 \usepackage{csquotes}
 \usepackage[english]{babel}
-\usepackage{amsmath}
 \usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{tikz}
+\usepackage{neuralnetwork}
 \usepackage{graphicx}
 \usepackage{todonotes}
 \usepackage{caption}
@@ -47,6 +51,7 @@
 % Capitalized references
 \addto\extrasenglish{
   \def\chapterautorefname{Chapter}
+  \def\algorithmautorefname{Algorithm}
 }
 
 % Extending Tikz
@@ -64,8 +69,11 @@
 % Glossary items
 \makeglossaries
 \newacronym{ANN}{ANN}{Artificial Neural Network}
+\newacronym{CNN}{CNN}{Convolutional Neural Network}
 \newacronym{RNN}{RNN}{Recurrent Neural Network}
+\newacronym{GAN}{GAN}{Generative Adversarial Network}
 \newacronym{LSTM}{LSTM}{Long Short Term Memory}
+\newacronym{MLP}{MLP}{Multi-Layer Perceptron}
 \newacronym{Bi-LSTM}{Bi-LSTM}{Bidirectional Long Short Term Memory}
 \newacronym{GRU}{GRU}{Gated Recurrent Unit}
 \newacronym{ARIMA}{ARIMA}{Autoregressive Integrated Moving Average}
@@ -74,4 +82,5 @@
 \newacronym{ODE}{ODE}{Ordinary Differential Equation}
 \newacronym{SIR}{SIR}{Susceptible-Infective-Removed}
 \newacronym{SEIR}{SEIR}{Susceptible-Exposed-Infective-Removed}
+\newacronym{GPU}{GPU}{Graphics Processing Unit}
 \glsaddall

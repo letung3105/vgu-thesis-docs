@@ -1,0 +1,152 @@
+\section{Artificial Neural Networks}
+
+With the explosion of the amount of collected data and the rapid development of computer hardware in the twenty-first century, deep learning techniques have been used extensively for solving different classes of problems.
+Deep learning techniques are revolutionary in that they can automatically capture the relationship between the inputs and the outputs, allowing machines to perform complex tasks without having humans explicitly told them what to do.
+These capabilities are empowered by the underlying \gls{ANN} architecture, allowing computing systems to mimic the functionality of biological neural networks, which comprise animal brains.
+An \gls{ANN} simulates biological neural networks by having the ability to learn from experiences and examples.
+This process works by using a set of inputs with known outputs.
+The \gls{ANN} is then used to guess the outputs from the inputs.
+The differences between the guess output values and the known output values indicate what changes need to be made to the \gls{ANN}.
+These updates to the \gls{ANN} are done multiple times until the guess error is minimized or some criteria are met.
+This process is now called \textit{supervised learning}.
+
+The idea for a computational model based on the brain was first proposed by \citeauthor{mcculloch1943logical} in \citeyear{mcculloch1943logical} \cite{mcculloch1943logical}.
+They observed that nervous activity, neural events, and their relations could be demonstrated using propositional logic.
+Later on, researchers had been building upon that idea to find more methods for artificially representing the brain.
+In \citeyear{rosenblattPerceptronProbabilisticModel1958}, \citeauthor{rosenblattPerceptronProbabilisticModel1958} introduced the concept of perceptrons which is considered the first \gls{ANN} \cite{rosenblattPerceptronProbabilisticModel1958}.
+Mathematically, a perceptron is expressed as
+\begin{equation}
+    f(x) = \begin{cases}
+        1, & \textrm{if}\ w \cdot x + b > 0 \\
+        0, & \textrm{otherwise}
+    \end{cases}
+    \label{eq:perceptron}
+\end{equation}
+where $w$ and $x$ are vectors of real value, $w \cdot x = \sum_{i=1}^m{w_i x_i}$ is the dot product between the two vectors, and $b$ is the bias for shifting the decision boundary.
+The perceptron is illustrated in \autoref{fig:perceptron}.
+This initial version of \gls{ANN} only works with classification problems in which the classes are linearly separable.
+The training procedure for this type of \gls{ANN} is given in \autoref{alg:perceptron-training}.
+
+\begin{figure}
+    \centering
+    \begin{neuralnetwork}
+        \newcommand{\nodex}[2]{$x_#2$}
+        \newcommand{\nodefx}[2]{$f(x)$}
+        \newcommand{\nodey}[2]{$y_#2$}
+
+        \newcommand{\nodewfirstlayer}[1]{\ifnum0=#1 {} \else $w_#1$ \fi}
+        \newcommand{\nodew}[4]{\ifnum0=#1 \nodewfirstlayer{#2} \else {} \fi}
+        \setdefaultlinklabel{\nodew}
+
+        \inputlayer[count=3, bias=true, text=\nodex]
+        \outputlayer[count=1, bias=false, text=\nodefx]
+        \linklayers
+        \outputlayer[count=1, bias=false, text=\nodey]
+        \linklayers
+    \end{neuralnetwork}
+    \caption{Graph representation of a perceptron described in \autoref{eq:perceptron}. $x_0$ is the bias $b$, and $x_{1-3}$ are the elements of input $x$}
+    \label{fig:perceptron}
+\end{figure}
+
+\begin{algorithm}
+    \caption{Perceptron training algorithm}
+    \label{alg:perceptron-training}
+    \begin{algorithmic}
+        \State $\mathcal{D} \gets \{(x_t, y_t)\ |\ t \in [1, n]\}$ \Comment{n is the number of samples}
+        \State $t \gets 1$
+        \State $w^{(1)} \gets 0$
+        \ForAll{$(x, y) \in \mathcal{D}$}
+            \State $\hat{y} \gets f(x)$ \Comment{See \autoref{eq:perceptron}}
+            \If{$\hat{y} = y$}
+                \State $w^{(t + 1)} \gets w^{(t)}$
+            \Else
+                \State $w^{(t + 1)} \gets w^{(t)} + y x$
+            \EndIf
+            \State $t \gets t + 1$
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+Nowadays, neural networks are highly complex because of the considerably higher computing power we have and the developments of special-purpose hardware, such as the \gls{GPU}.
+Multiple different architectures of neural networks exist, a non-exhaustive list includes: \glspl{CNN} are typically used for processing images or other two-dimensional data \cite{lecunBackpropagationAppliedHandwritten1989}; \glspl{LSTM} solve the vanishing gradient problem and have the ability to handle data with a mix of low and high frequencies \cite{hochreiterLongShortTermMemory1997}; \glspl{GAN} are designed to have competing \glspl{ANN} on tasks such as playing a game \cite{silverMasteringChessShogi2017}.
+In this thesis, we are utilizing the \gls{MLP} architecture.
+The architecture is illustrated in \autoref{fig:multi-layer-perceptron}.
+
+\gls{MLP} is a network that composes multiple nodes, called artificial neurons.
+These nodes in the network form a directed weighted graph, where each node can take input signals from nodes in the previous layer, performs some calculation and sends the results to nodes in the subsequent layer.
+In this configuration, an \gls{MLP} can be thought of as multiple perceptrons that are organized into layers.
+The first layer in the network is called the input layer, and the last layer is called the output layer; any layers in-between are called hidden layers.
+Commonly, the term \gls{MLP} is used to describe an \gls{ANN} where each node in a layer connects to all of the nodes in the subsequent layer, and nodes can only connect from one layer to the immediately subsequent layer.
+Other terms for this are fully connected \gls{ANN} or densely connected \gls{ANN}.
+Additionally, an \gls{MLP} is a type of feed-forward \gls{ANN}, i.e., signals in this network are passed from one layer to another in one direction only.
+The counterpart of this is the feedback \gls{ANN}.
+In a feedback \gls{ANN}, signals can flow in any direction, as can be seen in \gls{RNN}.
+Mathematically, each node in an \gls{MLP} computes the following value
+\begin{equation*}
+    a_j = \sigma (w_{i,j} x_i + b),
+\end{equation*}
+where $a_j$ is the value for the $j$th node in the considered layer, $x_i$ is the $i$th node in the previous layer, $w_{i,j}$ is a weighting factor connecting the two nodes, $b$ is the bias term, and $\sigma$ is typically a non-linear function.
+This computation is similar to perceptron, excepting the function $\sigma$, called the \textit{activation function}.
+Let $n$ be the depth of a network, i.e., the number of layers having adjustable weights, and $X$ be the vectors of input signals.
+Let $W_i$, $b_i$, and $\sigma_i$ be the vector of weights, the bias, and the activation function for each layer, where $i \in [1, n]$.
+An \gls{MLP} is expressing the following function
+\begin{equation*}
+    g(X) = \sigma_n(W_n \sigma_{n - 1}(\cdots (W_2 \sigma_1(W_1 X + b_1) + b_2) + \cdots) + b_n),
+\end{equation*}
+which is simply a nesting of multiple simple vectors algebra and applications of the activation functions.
+
+\begin{figure}
+    \centering
+    \begin{neuralnetwork}
+        \newcommand{\nodex}[2]{$x_#2$}
+        \newcommand{\nodey}[2]{$y_#2$}
+
+        \inputlayer[count=3, bias=false, title={Input\\layer}, text=\nodex]
+        \hiddenlayer[count=4, bias=false, title={Hidden\\layer}]
+        \linklayers[title=$W_1$]
+        \hiddenlayer[count=4, bias=false, title={Hidden\\layer}]
+        \linklayers[title=$W_2$]
+        \outputlayer[count=2, bias=false, title={Output\\layer}, text=\nodey]
+        \linklayers[title=$W_3$]
+    \end{neuralnetwork}
+    \caption{Graph representation of a multi-layer perceptron with four layers}
+    \label{fig:multi-layer-perceptron}
+\end{figure}
+
+\glspl{MLP} and other \glspl{ANN} can be used for various tasks because they are universal approximators \cite{cybenkotApproximationSuperpositionsSigmoidal, hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}.
+That means a sufficiently large \gls{ANN} with an arbitrary number of nodes can reasonably approximate any function $f: \mathbb{R}^M \mapsto \mathbb{R}^N$, given that appropriate weights can be found.
+However, the exact method for finding suitable weights is not defined.
+Commonly, the fitting weights are learned by \glspl{ANN} through the back-propagation algorithm \cite{rumelhartLearningRepresentationsBackpropagating1986} and the gradient descent optimization technique \cite{ruderOverviewGradientDescent2017}.
+Back-propagation is the algorithm for finding the gradients of a loss function with respect to the network's weights.
+A loss function measures how large the error is between the \gls{ANN}'s guess and the true value.
+The algorithm calculates the gradients starting from the output layer and going backward to the input layer.
+By iterating backward and utilizing the chain rule, recalculations of derivatives can be avoided.
+A simple training procedure for most \glspl{ANN} is given in \autoref{alg:ann-training}.
+
+\begin{algorithm}
+    \caption{Batch gradient descent for training \gls{ANN}. This algorithm goes through all the examples to accumulate the gradients before updating the weights and bias terms. The learning rate $\eta$ influences how much the weights and bias terms are updated in each iteration.}
+    \label{alg:ann-training}
+    \begin{algorithmic}
+        \State $\mathcal{D} \gets \{(x_t, y_t)\ |\ t \in [1, n]\}$
+        \Comment{n is the number of samples}
+        \State $\eta \gets \text{chosen learning rate}$
+        \State $W \gets \text{randomly initialized weights}$
+        \State $b \gets \text{randomly initialized bias terms}$
+        \While{criteria are not met}
+            \State $\Delta W \gets 0$
+            \State $\Delta b \gets 0$
+            \ForAll{$(x, y) \in \mathcal{D}$}
+                \State $\hat{y} \gets \mathcal{NN}_{W, b}(x)$
+                \Comment{$\mathcal{NN}_{W, b}$ is an \gls{ANN} with parameters $W$ and $b$ }
+                \State $E \gets \mathcal{L}(\hat{y}, y)$
+                \Comment{$\mathcal{L}$ is a differentiable loss function}
+                \State $\Delta W \gets \Delta W + \eta \frac{\delta E}{\delta W}$
+                \Comment{gradients w.r.t each weight}
+                \State $\Delta b \gets \Delta b + \eta \frac{\delta E}{\delta b}$
+                \Comment{gradients w.r.t each bias term}
+            \EndFor
+            \State $W \gets W - \Delta W$
+            \State $b \gets b - \Delta b$
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
