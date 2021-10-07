@@ -1,9 +1,9 @@
 \section{Neural Ordinary Differential Equations}
 
-In many scientific studies, one often needs to learn how a system behavior changes over time, referred to as the dynamics of the system.
+In many scientific studies, one often needs to learn how a system's behavior changes over time, referred to as the system's dynamics.
 These dynamical systems are modeled using \glspl{ODE} or \glspl{PDE}, similar to the compartmental models introduced in \autoref{sec:literature-review-compartmental-modeling}.
-However, its generally challenging to create a model by hand because real-world data are sometimes hard to interpret or are sampled at irregular interval.
-Using \glspl{NeuralODE}, the dynamics of the system can be learned through data-driven approaches without having to explicitly specify the \glspl{ODE} or \glspl{PDE}.
+However, it is generally challenging to create a model by hand because real-world data are sometimes hard to interpret or are sampled at an irregular interval.
+Using \glspl{NeuralODE}, the system's dynamics can be learned through data-driven approaches without having explicitly specified \glspl{ODE} or \glspl{PDE}.
 
 Models such as residual networks (see \autoref{fig:residual-network-skip-connection}), \gls{RNN} decoders, or normalizing flows build complex transformations by composing a sequence of modifications to a hidden state \cite{chenNeuralOrdinaryDifferential2019}
 \begin{equation*}
@@ -45,9 +45,10 @@ There are several benefits when doing this such as memory efficiency, adaptive c
 \end{figure}
 
 For a \gls{NeuralODE} to be trainable with gradient descent, we must have a way to compute the gradients of the loss with respect to the parameters of the \gls{NeuralODE}.
-Regular method for taking the loss gradients in \glspl{ANN} (back-propagation) can not be applied for \glspl{NeuralODE} because it incurs high memory cost and introduces additional numerical errors.
+The regular method for taking the loss gradients in \glspl{ANN} (back-propagation) can not be applied for \glspl{NeuralODE} because it incurs high memory cost and introduces additional numerical errors.
 Hence, the authors of \cite{chenNeuralOrdinaryDifferential2019} use \textit{adjoint sensitivity analysis} to compute the gradients.
-This is done by solving a second, augmented \gls{ODE} backwards in time, and is applicable to all \gls{ODE} solvers.
+The gradients are computed by solving a second, augmented \gls{ODE} backward in time.
+This method applies to all \gls{ODE} solvers.
 The approach scales linearly with the problem size, and the numerical error can be controlled explicitly.
 \autoref{alg:neural-ode-reverse-mode-diff} shows the overall steps that need to be taken to compute the derivatives.
 We consider the loss function $L$, which takes the result of an \gls{ODE} solver
@@ -55,19 +56,19 @@ We consider the loss function $L$, which takes the result of an \gls{ODE} solver
     L(z(t_1)) = L\left(z(t_0) + \int_{t_0}^{t_1}{f(z(t), t, \theta)dt}\right) = L(ODESolve(z(t_0), f, t_0, t_1, \theta)).
 \end{equation*}
 First, we consider the gradient of the loss with respect to the hidden state $z(t)$, called the adjoint $a(t) = \partial L / \partial z(t)$.
-The dynamics of the adjoint is then given by another \gls{ODE}
+The dynamics of the adjoint are then given by another \gls{ODE}
 \begin{equation*}
     \frac{da(t)}{dt} = -a(t)^T\frac{\partial f(z(t), t, \theta)}{\partial z}.
 \end{equation*}
-The gradient of the loss with respect to the hidden state at the initial time step can be calculated by integrating the adjoint dynamics backwards in time starting from the value $\partial L / \partial z(t_1)$
+The gradient of the loss with respect to the hidden state at the initial time step can be calculated by integrating the adjoint dynamics backward in time starting from the value $\partial L / \partial z(t_1)$
 \begin{equation}
     \frac{dL}{dz(t_0)} = \frac{\partial L}{\partial z(t_1)} + \int_{t_1}^{t_0}{-a(t)^T\frac{\partial f(z(t), t, \theta)}{\partial z}} dt.
     \label{eq:neural-ode-loss-wrt-initial-hidden-state}
 \end{equation}
-Computing $dL/dz(t_0)$ requires the hidden state $z(t)$ at each evaluated time step which is calculated by integrating the dynamics of our system backwards in time starting from the value $z(t_1)$
+Computing $dL/dz(t_0)$ requires the hidden state $z(t)$ at each evaluated time step which is calculated by integrating the dynamics of our system backward in time starting from the value $z(t_1)$
 \begin{equation}
     z(t) = z(t_1) + \int_{t_1}^{t}{f(z(t), t, \theta)dt}.
-    \label{eq:neural-ode-hidden-state-backwards-integral}
+    \label{eq:neural-ode-hidden-state-backward-integral}
 \end{equation}
 Finally, we can calculate the gradients of the loss function with respect to the parameters $\theta$ using
 \begin{equation}
@@ -75,7 +76,7 @@ Finally, we can calculate the gradients of the loss function with respect to the
     \label{eq:neural-ode-loss-wrt-parameters}
 \end{equation}
 The Jacobian products $a(t)^T\frac{\partial f}{\partial z}$ and $a(t)^T\frac{\partial f}{\partial \theta}$ from \autoref{eq:neural-ode-loss-wrt-initial-hidden-state} and \autoref{eq:neural-ode-loss-wrt-parameters} can be computed efficiently with automatic differentiation.
-The integrals in \autoref{eq:neural-ode-loss-wrt-initial-hidden-state}, \autoref{eq:neural-ode-hidden-state-backwards-integral}, and \autoref{eq:neural-ode-loss-wrt-parameters} can be computed in a single call to an \gls{ODE} solver.
+The integrals in \autoref{eq:neural-ode-loss-wrt-initial-hidden-state}, \autoref{eq:neural-ode-hidden-state-backward-integral}, and \autoref{eq:neural-ode-loss-wrt-parameters} can be computed in a single call to an \gls{ODE} solver.
 
 \begin{algorithm}
     \caption{Reverse-mode derivative of an ODE initial value problem (taken from \cite{chenNeuralOrdinaryDifferential2019})}
