@@ -44,7 +44,7 @@ The training procedure for this type of \gls{ANN} is given in \autoref{alg:perce
         \outputlayer[count=1, bias=false, text=\nodey]
         \linklayers
     \end{neuralnetwork}
-    \caption{Graph representation of a perceptron described in \autoref{eq:perceptron}. $x_0$ is the bias $b$, and $x_{1-3}$ are the elements of input $x$}
+    \caption{Graph representation of a perceptron described in \autoref{eq:perceptron}. $x_0$ is the bias $b$, and $x_{1-3}$ are the input signals.}
     \label{fig:perceptron}
 \end{figure}
 
@@ -52,17 +52,25 @@ The training procedure for this type of \gls{ANN} is given in \autoref{alg:perce
     \caption{Perceptron training algorithm}
     \label{alg:perceptron-training}
     \begin{algorithmic}
-        \State $\mathcal{D} \gets \{(x_t, y_t)\ |\ t \in [1, n]\}$ \Comment{n is the number of samples}
+        \State $\mathcal{D} \gets \{(x_t, y_t)\ |\ t \in [1, n]\}$
+        \Comment{Get the training data with $n$ samples}
         \State $t \gets 1$
+        \Comment{Initialize the time step to 1}
         \State $w^{(1)} \gets 0$
+        \Comment{Initialize all the weights to 1}
         \ForAll{$(x, y) \in \mathcal{D}$}
-            \State $\hat{y} \gets f(x)$ \Comment{See \autoref{eq:perceptron}}
+        \Comment{Go through all the training data}
+            \State $\hat{y} \gets f(x)$
+            \Comment{Compute the perceptron output}
             \If{$\hat{y} = y$}
                 \State $w^{(t + 1)} \gets w^{(t)}$
+                \Comment{Keep the weights on correct ouput}
             \Else
                 \State $w^{(t + 1)} \gets w^{(t)} + y x$
+                \Comment{Update the weights on incorrect ouput}
             \EndIf
             \State $t \gets t + 1$
+            \Comment{Increment the time step}
         \EndFor
     \end{algorithmic}
 \end{algorithm}
@@ -124,55 +132,63 @@ A loss function measures how large the error is between the \gls{ANN}'s guess an
 The algorithm calculates the gradients starting from the output layer and going backward to the input layer.
 To find the gradient of the loss function $\mathcal{L}$ with respect to the weight $w_{ij}^L$, where $L$ is the number of layers, we must calculate
 \begin{equation}
-    \frac{\delta \mathcal{L}}{\delta w_{ij}^L} = \frac{\delta\mathcal{L}}{\delta a_i^L} \frac{\delta a_i^L}{\delta z_i^L} \frac{\delta z_i^L}{\delta w_{ij}^L}.
+    \frac{\partial \mathcal{L}}{\partial w_{ij}^L} = \frac{\partial\mathcal{L}}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_i^L} \frac{\partial z_i^L}{\partial w_{ij}^L}.
     \label{eq:backpropagation-ouput-layer-weights}
 \end{equation}
 Similarly we can compute the gradient with respect to the bias term
 \begin{equation}
-    \frac{\delta \mathcal{L}}{\delta b_i^L} = \frac{\delta\mathcal{L}}{\delta a_i^L} \frac{\delta a_i^L}{\delta z_i^L} \frac{\delta z_i^L}{\delta b_i^L}.
+    \frac{\partial \mathcal{L}}{\partial b_i^L} = \frac{\partial\mathcal{L}}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_i^L} \frac{\partial z_i^L}{\partial b_i^L}.
     \label{eq:backpropagation-ouput-layer-bias}
 \end{equation}
 If we want to calculate the gradient of $\mathcal{L}$ with respect to $w_{jk}^{L-1}$, we first consider the gradient of $\mathcal{L}$ with respect to $a_j^{L-1}$
 \begin{equation}
-    \frac{\delta \mathcal{L}}{\delta a_j^{L-1}} = \sum_{i=1}^{r_{L-1}} \frac{\delta\mathcal{L}}{\delta a_i^L} \frac{\delta a_i^L}{\delta z_i^L} \frac{\delta z_i^L}{\delta a_j^{L-1}}.
+    \frac{\partial \mathcal{L}}{\partial a_j^{L-1}} = \sum_{i=1}^{r_{L-1}} \frac{\partial\mathcal{L}}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_i^L} \frac{\partial z_i^L}{\partial a_j^{L-1}}.
     \label{eq:backpropagation-hidden-layer-activation}
 \end{equation}
 Then we can compute the gradients
 \begin{equation*}
-    \frac{\delta \mathcal{L}}{\delta w_{jk}^{L-1}} = \frac{\delta \mathcal{L}}{\delta a_j^{L-1}} \frac{a_j^{L-1}}{z_j^{L-1}} \frac{z_j^{L-1}}{w_{jk}^{L-1}},
+    \frac{\partial \mathcal{L}}{\partial w_{jk}^{L-1}} = \frac{\partial \mathcal{L}}{\partial a_j^{L-1}} \frac{a_j^{L-1}}{z_j^{L-1}} \frac{z_j^{L-1}}{w_{jk}^{L-1}},
 \end{equation*}
 and
 \begin{equation*}
-    \frac{\delta \mathcal{L}}{\delta b_j^{L-1}} = \frac{\delta \mathcal{L}}{\delta a_j^{L-1}} \frac{a_j^{L-1}}{z_j^{L-1}} \frac{z_j^{L-1}}{b_j^{L-1}},
+    \frac{\partial \mathcal{L}}{\partial b_j^{L-1}} = \frac{\partial \mathcal{L}}{\partial a_j^{L-1}} \frac{a_j^{L-1}}{z_j^{L-1}} \frac{z_j^{L-1}}{b_j^{L-1}},
 \end{equation*}
 This same approach can be applied for any layer in the \gls{ANN}.
 By iterating backward and utilizing the chain rule, recalculations of derivatives can be avoided.
-As can be seen from \autoref{eq:backpropagation-ouput-layer-weights}, \autoref{eq:backpropagation-ouput-layer-bias}, and \autoref{eq:backpropagation-hidden-layer-activation}, the term $\frac{\delta\mathcal{L}}{\delta a_i^L} \frac{\delta a_i^L}{\delta z_i^L}$ is used multiple times.
+As can be seen from \autoref{eq:backpropagation-ouput-layer-weights}, \autoref{eq:backpropagation-ouput-layer-bias}, and \autoref{eq:backpropagation-hidden-layer-activation}, the term $\frac{\partial\mathcal{L}}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_i^L}$ is used multiple times.
 
 \begin{algorithm}
-    \caption{Batch gradient descent for training \gls{ANN}. This algorithm goes through all the examples to accumulate the gradients before updating the weights and bias terms. The learning rate $\eta$ influences how much the weights and bias terms are updated in each iteration.}
+    \caption{Batch gradient descent for training \gls{ANN}. The learning rate $\eta$ influences how much the weights and bias terms are updated in each iteration.}
     \label{alg:ann-training}
     \begin{algorithmic}
         \State $\mathcal{D} \gets \{(x_t, y_t)\ |\ t \in [1, n]\}$
-        \Comment{n is the number of samples}
-        \State $\eta \gets \text{chosen learning rate}$
-        \State $W \gets \text{randomly initialized weights}$
-        \State $b \gets \text{randomly initialized bias terms}$
+        \Comment{Get training data with $n$ samples}
+        \State $\eta \gets \text{learning rate}$
+        \Comment{Choose a learning rate}
+        \State $W \gets \text{randomly values}$
+        \Comment{Randomly initailize the weights}
+        \State $b \gets \text{randomly values}$
+        \Comment{Randomly initailize the bias terms}
         \While{criteria are not met}
             \State $\Delta W \gets 0$
+            \Comment{Set the accumulated gradients w.r.t to each weight to zero}
             \State $\Delta b \gets 0$
+            \Comment{Set the accumulated gradients w.r.t to each bias terms to zero}
             \ForAll{$(x, y) \in \mathcal{D}$}
+            \Comment{Go through all training data}
                 \State $\hat{y} \gets \mathcal{NN}_{W, b}(x)$
-                \Comment{$\mathcal{NN}_{W, b}$ is an \gls{ANN} with parameters $W$ and $b$ }
+                \Comment{Compute the neural network output}
                 \State $E \gets \mathcal{L}(\hat{y}, y)$
-                \Comment{$\mathcal{L}$ is a differentiable loss function}
-                \State $\Delta W \gets \Delta W + \eta \frac{\delta E}{\delta W}$
-                \Comment{gradients w.r.t each weight}
-                \State $\Delta b \gets \Delta b + \eta \frac{\delta E}{\delta b}$
-                \Comment{gradients w.r.t each bias term}
+                \Comment{Compute the loss value}
+                \State $\Delta W \gets \Delta W + \eta \frac{\partial E}{\partial W}$
+                \Comment{Accumulate the loss gradients w.r.t to each weight}
+                \State $\Delta b \gets \Delta b + \eta \frac{\partial E}{\partial b}$
+                \Comment{Accumulate the loss gradients w.r.t to each bias term}
             \EndFor
             \State $W \gets W - \Delta W$
+            \Comment{Update all the weights with the accumulated gradients}
             \State $b \gets b - \Delta b$
+            \Comment{Update all the bias terms with the accumulated gradients}
         \EndWhile
     \end{algorithmic}
 \end{algorithm}
