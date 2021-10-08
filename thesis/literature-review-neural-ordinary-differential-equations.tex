@@ -47,13 +47,12 @@ There are several benefits when doing this, such as:
         \node[block, below of = W1] (W2) {weight layer};
         \node[arith, below of = W2] (ADD) {+};
         \node[output, below of = ADD] (OUT) {+};
-        \node[left of = ADD]{$f(x) + x$};
 
-        \draw[->] (IN) to node[left, name=X]{$X$} (W1);
-        \draw[->] (X) to [out=0,in=0,looseness=2.5] (ADD);
+        \draw[->] (IN) to node[left, name = X]{$X$} (W1);
+        \draw[->] (X) to [out = 0, in = 0, looseness = 2.5] (ADD);
         \draw[->] (W1) to node[right]{relu} (W2);
-        \draw[->] (W2) to node[right]{$f(x)$} (ADD);
-        \draw[->] (ADD) to node[right]{relu} (OUT);
+        \draw[->] (W2) to node[xshift = -2em, left]{$f(x)$} (ADD);
+        \draw[->] (ADD) to node[xshift = -2em, left]{$f(x) + x$} node[right]{relu} (OUT);
     \end{tikzpicture}
     \caption{Example of a skip connection in residual network}
     \label{fig:residual-network-skip-connection}
