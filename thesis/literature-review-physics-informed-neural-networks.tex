@@ -1,4 +1,5 @@
 \section{Physics Informed Neural Networks}
+\label{sec:literature-review-physics-informed-neural-network}
 
 Applications of deep learning methods have been achieving multiple breakthroughs, especially in computer vision and natural language processing.
 The performance of these models is enabled by utilizing a vast amount of data that is readily available.
@@ -6,10 +7,6 @@ Nonetheless, the application of deep learning in many domains of science has not
 The cost of data collection for analyzing complex physical, biological, or engineering systems is prohibitive.
 Without big data, state-of-the-art deep learning techniques lack robustness and are not guaranteed to converge.
 Specifically, in the case of Covid-19 or any other disease, we would like to have an accurate model that can fairly estimate the trajectories of the disease at an early stage when data is scarce.
-Consequently, mechanistic models that are based on prior structural knowledge are frequently employed in these domains.
-These mechanistic models often come in the form of \glspl{ODE} or \glspl{PDE} that describe the system's behavior over time, referred to as the system's dynamics.
-We know that deep learning models are highly flexible but require a massive amount of data to be sufficiently useful.
-We also know that mechanistic models are explainable and backed by many years of rigorous studies, but they lack the flexibility of deep learning models and usually make simple assumptions about real-world phenomenons.
 \citeauthor{raissiPhysicsinformedNeuralNetworks2019} observed that prior knowledge about dynamical systems, which is captured by mechanistic models, had not been utilized for training \glspl{ANN} \cite{raissiPhysicsinformedNeuralNetworks2019}.
 By utilizing this information, we can limit the solutions space that an \gls{ANN} can take and enrich the data seen by models to help them converge faster.
 \glspl{PINN} work by using the knowledge given by mechanistic models in the form of \glspl{ODE} or \glspl{PDE} as a regularization term for the loss function \cite{raissiPhysicsinformedNeuralNetworks2019, lagarisArtificialNeuralNetworks1998}.
@@ -26,7 +23,7 @@ An \gls{ANN} is then used to approximate the solution to this problem
 Because the \gls{ANN} is differentiable, we know that if $\mathcal{NN}(t)$ is the solution of our problem, then $d\mathcal{NN}(t)/dt = f(\mathcal(NN)(t), t)$ for all $t$.
 This condition can then be incorporated into the loss function
 \begin{equation*}
-    MSE = \sum_i \left( \frac{d\mathcal{NN}(t_i)}{dt} - f(\mathcal{NN}(t_i), t_i) \right)^2.
+    MSE = \frac{1}{N} \sum_i^N \left( \frac{d\mathcal{NN}(t_i)}{dt} - f(\mathcal{NN}(t_i), t_i) \right)^2.
 \end{equation*}
 Note that the initial condition $u(0) = u_0$ has to be satisfied.
 Thus we define a new function that encodes the initial condition within itself. This function will trivially satisfies the initial condition for any possible set of parameters
@@ -36,7 +33,7 @@ Thus we define a new function that encodes the initial condition within itself. 
 The function above inherits the property of \glspl{ANN} as universal approximators for any continuous function while satisfies the condition $g(0) = u_0$.
 At this point, the loss function turns into
 \begin{equation*}
-    MSE = \sum_i \left( \frac{dg(t_i)}{dt} - f(g(t_i), t_i) \right)^2.
+    MSE = \frac{1}{N} \sum_i^N \left( \frac{dg(t_i)}{dt} - f(g(t_i), t_i) \right)^2.
 \end{equation*}
 
 To derive the loss function for \glspl{PDE} in this framework, we first consider parameterized non-linear \glspl{PDE} of the general form
