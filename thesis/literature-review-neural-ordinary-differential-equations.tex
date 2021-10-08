@@ -1,11 +1,9 @@
 \section{Neural Ordinary Differential Equations}
 
-In many scientific studies, one often needs to learn how a system's behavior changes over time, referred to as the system's dynamics.
-These dynamical systems are modeled using \glspl{ODE} or \glspl{PDE}, similar to the compartmental models introduced in \autoref{sec:literature-review-compartmental-modeling}.
-However, it is generally challenging to create a model by hand because real-world data are sometimes hard to interpret or are sampled at an irregular interval.
+When modeling dynamical systems, it is generally challenging to create a model by hand because real-world data are often hard to interpret or are sampled at an irregular interval.
 Using \glspl{NeuralODE}, the system's dynamics can be learned through data-driven approaches without having explicitly specified \glspl{ODE} or \glspl{PDE}.
-
-Models such as residual networks (see \autoref{fig:residual-network-skip-connection}), \gls{RNN} decoders, or normalizing flows build complex transformations by composing a sequence of modifications to a hidden state \cite{chenNeuralOrdinaryDifferential2019}
+\glspl{NeuralODE} can also be used to replace a stack of residual blocks because they perform the same functionality while reducing the memory cost of training the model.
+\citeauthor{chenNeuralOrdinaryDifferential2019} made an observation that models such as residual networks (see \autoref{fig:residual-network-skip-connection}), \gls{RNN} decoders, or normalizing flows build complex transformations by composing a sequence of modifications to a hidden state \cite{chenNeuralOrdinaryDifferential2019}
 \begin{equation*}
     h_{t+1} = h_t + f(h_t, \theta_t)
 \end{equation*}
@@ -16,20 +14,21 @@ In \gls{NeuralODE}, the continuous dynamics of hidden units are parameterized us
     \frac{dh(t)}{dt} = f(h(t), t, \theta).
 \end{equation*}
 That is starting from the input layer $h(0)$, the output layer $h(T)$ can be defined as the solution to the \gls{ODE} initial value problem at time step $T$.
+Typical \glspl{ANN} create a mapping from the inputs to the outputs, whereas \glspl{NeuralODE} define the dynamics that can turn the inputs into the outputs.
 There are several benefits when doing this, such as:
 \begin{itemize}
     \item \textbf{Memory efficiency}
     Computing the gradients of the loss function with respect to all the inputs of the \gls{ODE} solver does not require back-propagation.
     Thus, intermediate values of the forward pass do not need to be stored.
-    This allow for training with constant memory cost.
+    This allows for training with constant memory cost.
     \item \textbf{Adaptive computation}
-    Modern \gls{ODE} solver guarantees on the growth of approximation error.
+    Modern \gls{ODE} solver guarantees the growth of approximation error.
     They keep track of errors and adapt the evaluation strategy to provide the requested level of accuracy.
     The cost of evaluating the model can scale with the problem's complexity.
     \item \textbf{Scalable and invertible normalizing flows}
-    Continuous transformations allow the change of variables formula become easier to compute.
+    Continuous transformations allow the change of variables formula to become easier to compute.
     \item \textbf{Continuous time-series models}
-    Continuously-defined dynamics can incorporate data that arrives at arbitrary times.
+    Continuously defined dynamics can incorporate data that arrive at arbitrary times.
     Network models such as \glspl{RNN} require the discretization of observation and emission intervals
 \end{itemize}
 
@@ -61,7 +60,7 @@ There are several benefits when doing this, such as:
 
 For a \gls{NeuralODE} to be trainable with gradient descent, we must have a way to compute the gradients of the loss with respect to the parameters of the \gls{NeuralODE}.
 The regular method for taking the loss gradients in \glspl{ANN} (back-propagation) can not be applied for \glspl{NeuralODE} because it incurs high memory cost and introduces additional numerical errors.
-Hence, the authors of \cite{chenNeuralOrdinaryDifferential2019} use \textit{adjoint sensitivity analysis} to compute the gradients.
+Hence, the authors of the method use \textit{adjoint sensitivity analysis} to compute the gradients.
 The gradients are computed by solving a second, augmented \gls{ODE} backward in time.
 This method applies to all \gls{ODE} solvers.
 The approach scales linearly with the problem size, and the numerical error can be controlled explicitly.
@@ -103,10 +102,10 @@ The integrals in \autoref{eq:neural-ode-loss-wrt-initial-hidden-state}, \autoref
             \Function{AugDynamics}{$\left[z(t), a(t), \cdot\right], t, \theta$}
             \Comment{Define dynamics on augmented state}
                 \State \Return $\left[f(z(t), t, \theta), -a(t)^T\frac{\partial f}{\partial z}, -a(t)^T\frac{\partial f}{\partial \theta}\right]$
-                \Comment{Compute the vector-Jacobian project}
+                \Comment{Compute vector-Jacobian products}
             \EndFunction
             \State $\left[z(t_0), \frac{\partial L}{\partial z(t_0)}, \frac{\partial L}{\partial \theta}\right] \gets \Call{ODESolve}{s_0, \textproc{AugDynamics}, t_1, t_0, \theta}$
-            \Comment{Solve reverse-time ODE}
+            \Comment{Solve ODE backward}
             \State \Return $\left[\frac{\partial L}{\partial z(t_0)}, \frac{\partial L}{\partial \theta}\right]$
             \Comment{Return the gradients}
         \EndFunction
