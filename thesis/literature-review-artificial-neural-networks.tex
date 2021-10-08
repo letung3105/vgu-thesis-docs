@@ -129,7 +129,7 @@ Commonly, the fitting weights are learned by \glspl{ANN} through the back-propag
 A simple training procedure for most \glspl{ANN} is given in \autoref{alg:ann-training}.
 Back-propagation is the algorithm for finding the gradients of a loss function with respect to the network's weights.
 A loss function measures how large the error is between the \gls{ANN}'s guess and the true value.
-One choice is the \gls{MSE} $\mathcal{L} = \frac{1}{N} sum_{i=1}^N (\hat(y) - y)^2$
+One choice is the \gls{MSE} $\mathcal{L} = \frac{1}{N} \sum_{i=1}^N (\hat{y} - y)^2$
 The algorithm calculates the gradients starting from the output layer and going backward to the input layer.
 To find the gradient of the loss function $\mathcal{L}$ with respect to the weight $w_{ij}^L$, where $L$ is the number of layers, we must calculate
 \begin{equation}
