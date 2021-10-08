@@ -36,12 +36,12 @@ At this point, the loss function turns into
     MSE = \frac{1}{N} \sum_i^N \left( \frac{dg(t_i)}{dt} - f(g(t_i), t_i) \right)^2.
 \end{equation*}
 
-To derive the loss function for \glspl{PDE} in this framework, we first consider parameterized non-linear \glspl{PDE} of the general form
+To derive the loss function for \glspl{PDE} in this framework, we first consider parameterized nonlinear \glspl{PDE} of the general form
 \begin{equation}
     u_t + \mathcal{N}[u; \lambda] = 0,\ x \in \Omega,\ t \in [0, T],
     \label{eq:pinn-general-pde}
 \end{equation}
-where $u(t, x)$ denotes the hidden solution, $\mathcal{N}[\cdot; \lambda]$ is a non-linear differential operator parameterized by $\lambda$, and $\Omega$ is a subset of $\mathbb{R}^D$.
+where $u(t, x)$ denotes the hidden solution, $\mathcal{N}[\cdot; \lambda]$ is a nonlinear differential operator parameterized by $\lambda$, and $\Omega$ is a subset of $\mathbb{R}^D$.
 We define the function $f(t, x)$ to be given by the left-hand side of \autoref{eq:pinn-general-pde}
 \begin{equation}
     f := u_t + \mathcal{N}[u].
