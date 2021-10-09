@@ -6,7 +6,7 @@ As briefly introduced in \autoref{chap:introduction}, many researches had been c
 In this section, we are presenting in depth a non-exhaustive list of prior works and researches in Covid-19 modeling that share a close resemblance to the method that will be introduced in \autoref{chap:methodologies}.
 This section aims to give the readers a clear view into how these models were created and which factors were considered to create these models.
 
-\cite{dandekarMachineLearningAidedGlobal2020a} modified the classic \gls{SIR} model and introduced a new compartment $T(t)$ to represent the number of individuals that are infect but currently in quarantine at time $t$.
+\citeauthor{dandekarMachineLearningAidedGlobal2020a} modified the classic \gls{SIR} model and introduced a new compartment $T(t)$ to represent the number of individuals that are infect but currently in quarantine at time $t$ \cite{dandekarMachineLearningAidedGlobal2020a}.
 In addition, they introduced a time-varying term $Q(t)$ that represents the strength of quarantine which governs the number of individuals entering the quarantine compartment at each time step.
 An \gls{ANN} is then used to learn $Q(t)$ from data, creating an \gls{UDE}.
 The \gls{ANN} consists of two densely connected hidden layers with ten nodes in each layer and the \gls{ReLU} activation function.
@@ -18,4 +18,3 @@ The system of \glspl{ODE} for the model is
     \frac{dT(t)}{dt} &= Q(i)I(t) - \delta T(t) \\
     Q(t) &= \mathcal{NN}(S(t),I(t),R(t); \theta)
 \end{align*}
-
