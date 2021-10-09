@@ -38,15 +38,26 @@
   eprint=false
 ]{biblatex}
 
+% Front page contents
+\title{Forecasting Covid-19 Situation in Vietnam Using a Data-Driven Epidemiological Compartmental Model}
+\author{
+    Vo Le Tung\\
+    Department of Computer Science\\
+    Vietnamese - German University\\
+    \\
+    Assessor: Assoc. Prof. Huynh Trung Hieu\\
+    Co-Assessor: Assoc. Prof. Nguyen Tuan Duc
+}
+\date{\today}
+
 % Path to images
 \graphicspath{ {../figures} }
 
 % Path to bibliography
 \addbibresource{../references.bib}
 
-% General styling
+% Change chapter numbering style
 \titleformat{\chapter}{\huge\bf}{\thechapter.}{20pt}{\huge\bf}
-\pagenumbering{arabic}
 
 % Capitalized references
 \addto\extrasenglish{
@@ -59,15 +70,6 @@
 
 % Extending Tikz
 \usetikzlibrary{automata, positioning, arrows}
-
-% Front page contents
-\title{Forecasting Covid-19 Situation in Vietnam}
-\author{
-    Tung Le Vo\\
-    Department of Computer Science\\
-    Vietnamese - German University
-}
-\date{\today}
 
 % Glossary items
 \makeglossaries
@@ -88,6 +90,7 @@
 \newacronym{PINN}{PINN}{Physics-Informed Neural Network}
 \newacronym{RNN}{RNN}{Recurrent Neural Network}
 \newacronym{SEIR}{SEIR}{Susceptible-Exposed-Infective-Removed}
+\newacronym{SINDy}{SINDy}{Sparse Identification of Nonlinear Dynamical System}
 \newacronym{SIR}{SIR}{Susceptible-Infective-Removed}
 \newacronym{UDE}{UDE}{Universal Differential Equation}
 \newacronym{US}{US}{United States}

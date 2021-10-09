@@ -3,6 +3,8 @@
 
 \begin{document}
 
+\pagenumbering{roman}
+
 % ======== TITLE ========
 \maketitle
 \newpage
@@ -25,23 +27,26 @@
 % ======== LIST OF TABLES ========
 \listoftables
 
+\newpage
+\pagenumbering{arabic}
+
 % ======== INTRODUCTION ========
-\include{introduction}
+\include{introduction/main}
 
 % ======== LITERATURE REVIEW ========
-\include{literature-review}
+\include{literature-review/main}
 
 % ======== RESULTS ========
-\include{methodologies}
+\include{methodologies/main}
 
 % ======== RESULTS ========
-\include{results}
+\include{results/main}
 
 % ======== DISCUSSION ========
-\include{discussion}
+\include{discussion/main}
 
 % ======== CONCLUSION ========
-\include{conclusion}
+\include{conclusion/main}
 
 % ======== REFERENCES ========
 \printbibliography[title=References]
