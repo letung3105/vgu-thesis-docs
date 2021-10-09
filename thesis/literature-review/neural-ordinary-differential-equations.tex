@@ -14,26 +14,8 @@ In \gls{NeuralODE}, the continuous dynamics of hidden units are parameterized us
 \begin{equation*}
     \frac{dh(t)}{dt} = f(h(t), t, \theta).
 \end{equation*}
-That is starting from the input layer $h(0)$, the output layer $h(T)$ can be defined as the solution to the \gls{ODE} initial value problem at time step $T$.
-Typical \glspl{ANN} create a mapping from the inputs to the outputs, whereas \glspl{NeuralODE} define the dynamics that can turn the inputs into the outputs.
-There are several benefits when doing this, such as:
-\begin{itemize}
-    \item \textbf{Memory efficiency}
-    Computing the gradients of the loss function with respect to all the inputs of the \gls{ODE} solver does not require back-propagation.
-    Thus, intermediate values of the forward pass do not need to be stored.
-    This allows for training with constant memory cost.
-    \item \textbf{Adaptive computation}
-    Modern \gls{ODE} solver guarantees the growth of approximation error.
-    They keep track of errors and adapt the evaluation strategy to provide the requested level of accuracy.
-    The cost of evaluating the model can scale with the problem's complexity.
-    \item \textbf{Scalable and invertible normalizing flows}
-    Continuous transformations allow the change of variables formula to become easier to compute.
-    \item \textbf{Continuous time-series models}
-    Continuously defined dynamics can incorporate data that arrive at arbitrary times.
-    Network models such as \glspl{RNN} require the discretization of observation and emission intervals
-\end{itemize}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \begin{tikzpicture}[->, >=stealth, node distance = 3em, thick]
         \tikzset{
@@ -56,6 +38,33 @@ There are several benefits when doing this, such as:
     \end{tikzpicture}
     \caption{Example of a skip connection in residual network}
     \label{fig:residual-network-skip-connection}
+\end{figure}
+
+That is starting from the input layer $h(0)$, the output layer $h(T)$ can be defined as the solution to the \gls{ODE} initial value problem at time step $T$.
+Typical \glspl{ANN} create a mapping from the inputs to the outputs, whereas \glspl{NeuralODE} define the dynamics that can turn the inputs into the outputs.
+There are several benefits when doing this, such as:
+\begin{itemize}
+    \item \textbf{Memory efficiency}
+    Computing the gradients of the loss function with respect to all the inputs of the \gls{ODE} solver does not require back-propagation.
+    Thus, intermediate values of the forward pass do not need to be stored.
+    This allows for training with constant memory cost.
+    \item \textbf{Adaptive computation}
+    Modern \gls{ODE} solver guarantees the growth of approximation error.
+    They keep track of errors and adapt the evaluation strategy to provide the requested level of accuracy.
+    The cost of evaluating the model can scale with the problem's complexity.
+    \item \textbf{Scalable and invertible normalizing flows}
+    Continuous transformations allow the change of variables formula to become easier to compute.
+    \item \textbf{Continuous time-series models}
+    Continuously defined dynamics can incorporate data that arrive at arbitrary times.
+    Network models such as \glspl{RNN} require the discretization of observation and emission intervals
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.15]{neuralode_resnet.png}
+    \includegraphics[scale=0.15]{neuralode_odenet.png}
+    \caption{\textit{Left}: A residual network defines discrete sequence of transformations. \textit{Right}: A ODE network defines a vector field, which continuously transform the state. \textit{Both}: Circles represent evaluation locations. Figure is taken from \citeauthor{chenNeuralOrdinaryDifferential2019} \cite{chenNeuralOrdinaryDifferential2019})}
+    \label{fig:resnet-vs-odenet}
 \end{figure}
 
 For a \gls{NeuralODE} to be trainable with gradient descent, we must have a way to compute the gradients of the loss with respect to the parameters of the \gls{NeuralODE}.
@@ -92,8 +101,15 @@ Finally, we can calculate the gradients of the loss function with respect to the
 The vector-Jacobian products $a(t)^T\frac{\partial f}{\partial z}$ and $a(t)^T\frac{\partial f}{\partial \theta}$ from \autoref{eq:neural-ode-loss-wrt-initial-hidden-state} and \autoref{eq:neural-ode-loss-wrt-parameters} can be computed efficiently with automatic differentiation.
 The integrals in \autoref{eq:neural-ode-loss-wrt-initial-hidden-state}, \autoref{eq:neural-ode-hidden-state-backward-integral}, and \autoref{eq:neural-ode-loss-wrt-parameters} can be computed in a single call to an \gls{ODE} solver.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.4]{neuralode-adjoint.png}
+    \caption{Reverse-mode differentiation of an ODE solution. An augment system contains the original state and the gradients of the loss with respect to the state is solved backwards in time. If the loss depends on the state at multiple observation times, the adjoin state is updated in the direction of the gradients of the loss with respect to each observation. Figure is taken from \citeauthor{chenNeuralOrdinaryDifferential2019} \cite{chenNeuralOrdinaryDifferential2019}}
+    \label{fig:neuralode-adjoint}
+\end{figure}
+
 \begin{algorithm}
-    \caption{Reverse-mode derivative of an ODE initial value problem (taken from \cite{chenNeuralOrdinaryDifferential2019})}
+    \caption{Reverse-mode derivative of an ODE initial value problem. Figure is taken from \citeauthor{chenNeuralOrdinaryDifferential2019} \cite{chenNeuralOrdinaryDifferential2019})}
     \label{alg:neural-ode-reverse-mode-diff}
     \begin{algorithmic}
         \Function{ODEDerivative}{$\theta, t_0, t_1, z(t_1), \frac{\partial L}{\partial z(t_1)}$}

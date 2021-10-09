@@ -11,6 +11,7 @@ Specifically, in the case of Covid-19 or any other disease, we would like to hav
 By utilizing this information, we can limit the solutions space that an \gls{ANN} can take and enrich the data seen by models to help them converge faster.
 \glspl{PINN} work by using the knowledge given by mechanistic models in the form of \glspl{ODE} or \glspl{PDE} as a regularization term for the loss function \cite{raissiPhysicsinformedNeuralNetworks2019, lagarisArtificialNeuralNetworks1998}.
 With physical constraint incorporated within the loss function, we can guide the \glspl{ANN} to learn the parameters that give rise to a solution that obeys physical laws.
+\autoref{fig:pinn-schematic} shows the general schematic of \glspl{PINN}.
 
 To derive the loss function for \glspl{ODE} in this framework, we first consider
 \begin{equation*}
@@ -35,6 +36,13 @@ At this point, the loss function turns into
 \begin{equation*}
     MSE = \frac{1}{N} \sum_i^N \left( \frac{dg(t_i)}{dt} - f(g(t_i), t_i) \right)^2.
 \end{equation*}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.3]{pinn-schematic.png}
+    \caption{The schematic of PINNs for solving PDEs. Figure is taken from \citeauthor{guoSolvingPartialDifferential2020} \cite{guoSolvingPartialDifferential2020}}
+    \label{fig:pinn-schematic}
+\end{figure}
 
 To derive the loss function for \glspl{PDE} in this framework, we first consider parameterized nonlinear \glspl{PDE} of the general form
 \begin{equation}

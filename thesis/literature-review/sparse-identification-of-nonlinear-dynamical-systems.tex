@@ -11,6 +11,13 @@ where $x(t)$ is a vector of the state of the system at time $t$, and the functio
 One key observation made by the author is that in many dynamical systems, the governing function $f$ is sparse in the space of possible functions.
 Under that observation, methods in compressed sensing and sparse regression can be used to determine which terms are most likely to describe $f$ without performing a brute-force search.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics{sindy-schematic.png}
+    \caption{Schematic of the SINDy algorithm, demonstrated on the Lorenz equations. The few entries in the vectors of $\Xi$, solved for by sparse regression, denote the relevant terms in the right-hand side of the dynamics. Parameter values are $\sigma = 10$, $\beta = 8/3$, $\rho = 28$, $(x_0 , y_0 , z_0)^T = (-8,7,27)^T$. The trajectory on the Lorenz attractor is colored by the adaptive time step required, with red indicating a smaller time step. Figure is taken from \citeauthor{bruntonDiscoveringGoverningEquations2016} \cite{bruntonDiscoveringGoverningEquations2016}}
+    \label{fig:sindy-schematic}
+\end{figure}
+
 To determine the function $f$ from data, we collect the history of the state $x(t)$ and its derivative $\dot{x}(t)$ at time step $t_1, t_2, \cdots, t_m$
 \begin{align*}
     X &=

@@ -1,0 +1,21 @@
+\section{Related works}
+
+Ever since Covid-19 emerged, countless researches have tried to model the dynamics of the disease with varying successes.
+With an on-going epidemic, it is generally challenging to model its dynamics under partially observations.
+As briefly introduced in \autoref{chap:introduction}, many researches had been conducted to overcome the issue of partial observation and unknown interactions in the ongoing Covid-19 pandemic.
+In this section, we are presenting in depth a non-exhaustive list of prior works and researches in Covid-19 modeling that share a close resemblance to the method that will be introduced in \autoref{chap:methodologies}.
+This section aims to give the readers a clear view into how these models were created and which factors were considered to create these models.
+
+\cite{dandekarMachineLearningAidedGlobal2020a} modified the classic \gls{SIR} model and introduced a new compartment $T(t)$ to represent the number of individuals that are infect but currently in quarantine at time $t$.
+In addition, they introduced a time-varying term $Q(t)$ that represents the strength of quarantine which governs the number of individuals entering the quarantine compartment at each time step.
+An \gls{ANN} is then used to learn $Q(t)$ from data, creating an \gls{UDE}.
+The \gls{ANN} consists of two densely connected hidden layers with ten nodes in each layer and the \gls{ReLU} activation function.
+The system of \glspl{ODE} for the model is
+\begin{align*}
+    \frac{dS(t)}{dt} &= -\frac{\beta S(t) I(t)}{N} \\
+    \frac{dI(t)}{dt} &= \frac{\beta S(t) I(t)}{N}  - (\gamma + Q(t)) I(t) \\
+    \frac{dR(t)}{dt} &= \gamma I(t) + \delta T(t) \\
+    \frac{dT(t)}{dt} &= Q(i)I(t) - \delta T(t) \\
+    Q(t) &= \mathcal{NN}(S(t),I(t),R(t); \theta)
+\end{align*}
+
