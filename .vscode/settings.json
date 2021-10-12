@@ -4,8 +4,16 @@
     "cSpell.words": [
         "approximator",
         "approximators",
+        "covariates",
+        "discretization",
+        "interpretability",
         "lockdown",
+        "nonlinearities",
         "perceptron",
-        "perceptrons"
+        "perceptrons",
+        "relu",
+        "SEIR",
+        "underreporting",
+        "unquarantined"
     ]
 }
