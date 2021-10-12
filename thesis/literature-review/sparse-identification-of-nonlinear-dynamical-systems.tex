@@ -2,23 +2,23 @@
 
 Extracting the governing equations from data has been a great challenge in the fields of science and engineering.
 While recent rapid advances in machine learning and data science have enabled the ability to analyze and understand complex static data, methods for capturing physical models of dynamical systems from data have slowly progressed.
-To ease this problem, \citeauthor{bruntonDiscoveringGoverningEquations2016} proposed the \gls{SINDy} method for discovering the underlying dynamics of systems using sparse regression and compressed sensing \cite{bruntonDiscoveringGoverningEquations2016}.
+To ease this problem, \citeauthor{bruntonDiscoveringGoverningEquations2016} \cite{bruntonDiscoveringGoverningEquations2016} proposed the \gls{SINDy} method for discovering the underlying dynamics of systems using sparse regression and compressed sensing.
 Suppose that we are working with dynamical systems of the form
 \begin{equation*}
     \frac{d}{dt} x(t) = f(x(t)),
 \end{equation*}
 where $x(t)$ is a vector of the state of the system at time $t$, and the function $f(x(t))$ describes the dynamic constraints that define the behaviors of the system.
 One key observation made by the author is that in many dynamical systems, the governing function $f$ is sparse in the space of possible functions.
-Under that observation, methods in compressed sensing and sparse regression can be used to determine which terms are most likely to describe $f$ without performing a brute-force search.
+Under that observation, methods in compressed sensing and sparse regression can be used to determine which terms are most likely to describe $f$ without performing a brute-force search \cite{bruntonDiscoveringGoverningEquations2016}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics{sindy-schematic.png}
+    \includegraphics[scale=1.4]{sindy-schematic.png}
     \caption{Schematic of the SINDy algorithm, demonstrated on the Lorenz equations. The few entries in the vectors of $\Xi$, solved for by sparse regression, denote the relevant terms in the right-hand side of the dynamics. Parameter values are $\sigma = 10$, $\beta = 8/3$, $\rho = 28$, $(x_0 , y_0 , z_0)^T = (-8,7,27)^T$. The trajectory on the Lorenz attractor is colored by the adaptive time step required, with red indicating a smaller time step. Figure is taken from \citeauthor{bruntonDiscoveringGoverningEquations2016} \cite{bruntonDiscoveringGoverningEquations2016}}
     \label{fig:sindy-schematic}
 \end{figure}
 
-To determine the function $f$ from data, we collect the history of the state $x(t)$ and its derivative $\dot{x}(t)$ at time step $t_1, t_2, \cdots, t_m$
+To determine the function $f$ from data, we collect the history of the state $x(t)$ and its derivative $\dot{x}(t)$ at time step $t_1, t_2, \cdots, t_m$ \cite{bruntonDiscoveringGoverningEquations2016}
 \begin{align*}
     X &=
     \begin{bmatrix}
@@ -48,7 +48,7 @@ To determine the function $f$ from data, we collect the history of the state $x(
     \end{bmatrix}.
 \end{align*}
 Next, a library $\Theta(X)$ of candidate nonlinear functions of the columns of $X$ is constructed.
-An example of a library that consists of constant, polynomial, and trigonometric terms is given
+An example of a library that consists of constant, polynomial, and trigonometric terms is given \cite{bruntonDiscoveringGoverningEquations2016}
 \begin{equation*}
     \Theta(X) = \begin{bmatrix}
         | & | & |       & |       &        & |      & |      & \\
@@ -66,11 +66,11 @@ where $X^{P_n}$ denotes higher polynomials, i.e., $X^{P_2}$ denotes quadratic no
     \end{bmatrix}.
 \end{equation*}
 Each column of $\Theta(X)$ represents a candidate function for the dynamics $f(x(t))$.
-Based on the observation on the sparsity of terms, i.e., only a few of the nonlinearities are active, a sparse regression problem can be set up to determine the vector of coefficients $\Xi = [\xi_1\ \xi_2\ \cdots\ \xi_n]$ such that
+Based on the observation on the sparsity of terms, i.e., only a few of the nonlinearities are active, a sparse regression problem can be set up to determine the vector of coefficients $\Xi = [\xi_1\ \xi_2\ \cdots\ \xi_n]$ such that \cite{bruntonDiscoveringGoverningEquations2016}
 \begin{equation*}
     \dot{X} = \Theta(X)\Xi.
 \end{equation*}
-Once $\Xi$ has been found, the governing equations can be constructed as
+Once $\Xi$ has been found, the governing equations can be constructed as \cite{bruntonDiscoveringGoverningEquations2016}
 \begin{equation*}
     \dot{x} = f(x) = \Xi^T(\Theta(X^T))^T,
 \end{equation*}
