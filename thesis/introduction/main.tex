@@ -28,8 +28,8 @@ Hence having a model for the distinct circumstances and data availability in Vie
 The model could be of help in the following aspects: (1) informing policies makers about the effects of their decision, (2) informing health care facilities about a possible surge in the number of cases to ensure the supply of personnel and equipment, (3) informing business owners about possible policies to plan their supply and demand needs.
 Lastly, the recent surge in infections has generated data on the number of Covid-19 cases in Vietnam in a much higher quantity and quality that are publicly available and can be used for data-driven modeling.
 
-Given that reasoning, this thesis focuses on implementing an interpretable disease model for Vietnam that can capture the current trends in the development of the pandemic.
-The implemented model will base on classical deterministic compartmental models where the mentioned issues are alleviated by using covariates to control the parameter(s).
+Given that reasoning, this thesis focuses on implementing an interpretable disease model for Vietnam that can capture the current trends in the development of the pandemic at an early stage.
+The implemented model will base on classical compartmental models where the mentioned issues are alleviated by using covariates to control the parameter(s).
 Instead of using a predefined multivariate function to adjust the parameters in the system of \glspl{ODE}, we will be using an \gls{ANN} to encode the covariates.
 The method takes advantage of the recent development in \gls{ANN} architectures for solving forward-inverse problems with \glspl{ODE} \cite{chenNeuralOrdinaryDifferential2019, rackauckasUniversalDifferentialEquations2020}.
 Utilizing the capability of \glspl{ANN} to approximate any arbitrary function \cite{cybenkotApproximationSuperpositionsSigmoidal, hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}, data-driven approaches can discover the underlying mechanics of Covid-19 without needing to define the governing multivariate function, which requires expert epidemiological knowledge.

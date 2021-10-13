@@ -5,9 +5,9 @@ One of the most transparent and most recognizable methods for modeling transmitt
 This kind of modeling has been around for almost a century.
 The most basic was described by \citeauthor{kermackContributionMathematicalTheory1927} \cite{kermackContributionMathematicalTheory1927, kermackContributionsMathematicalTheory1932, kermackContributionsMathematicalTheory1933} in \citeyear{kermackContributionMathematicalTheory1927}, \citeyear{kermackContributionsMathematicalTheory1932}, and \citeyear{ kermackContributionsMathematicalTheory1933}.
 In the subsection, we describe the basic concepts through two models.
-First, we go through the details of the basic SIR model, its assumptions, and the meaning of each term in the \gls{ODE} system.
-Then, we illustrate an extension of the SIR model, the SEIR model.
-Because there have been countless extensions made to the basic SIR model, we are not going through each one of the extended versions for brevity.
+First, we go through the details of the basic \gls{SIR} model, its assumptions, and the meaning of each term in the \gls{ODE} system.
+Then, we illustrate an extension of the \gls{SIR} model, the \gls{SEIR} model.
+Because there have been countless extensions made to the basic \gls{SIR} model, we are not going through each one of the extended versions for brevity.
 Having a basic understanding of how the most basic models work is sufficient for grasping the concepts of more complicated models.
 Compartmental models are flexible such that one easily inserts a new compartment into an existing model to accommodate for the disease that is being studied.
 
@@ -15,7 +15,7 @@ Compartmental models are flexible such that one easily inserts a new compartment
 
 A compartmental model divides the population that is being modeled into compartments, i.e., a subpopulation.
 Individuals can be moved from one compartment to another under certain assumptions about the nature and time rate of transfer.
-As its name, the SIR model partitions the population into three subpopulations: susceptible, infective, and removed.
+As its name, the \gls{SIR} model partitions the population into three subpopulations: susceptible, infective, and removed.
 
 Let $S(t)$ be the number of people susceptible to the disease at time $t$.
 These are the people that have not been infected with the disease at time $t$.
@@ -27,7 +27,7 @@ The movement between one compartment to another is captured by a system of \glsp
 The derivatives in the \glspl{ODE} system express the changes in the size of each compartment with respect to time.
 When modeling with a system of \glspl{ODE}, the number of individuals in each compartment is assumed to be differentiable, and the course of the epidemic is assumed to be deterministic \cite{brauerCompartmentalModelsEpidemiology2008}.
 
-The following \glspl{ODE} system defines the SIR model \cite{brauerCompartmentalModelsEpidemiology2008, kermackContributionMathematicalTheory1927}
+The following \glspl{ODE} system defines the \gls{SIR} model \cite{brauerCompartmentalModelsEpidemiology2008, kermackContributionMathematicalTheory1927}
 \begin{align*}
     S' &= - \beta S I \\
     I' &= \beta S I - \alpha I \\
@@ -105,9 +105,9 @@ Lastly, we can obtain the maximum number of infective individuals, which is atta
 
 \subsubsection{Generalized SIR model}
 
-Assumption (\ref{assumption:basic-sir-contact-rate}) of the basic SIR model is unrealistic.
+Assumption (\ref{assumption:basic-sir-contact-rate}) of the basic \gls{SIR} model is unrealistic.
 It is better to assume that the contact rate is a non-increasing function of the population size.
-A more generalized SIR model can be formulated by replacing assumption (\ref{assumption:basic-sir-contact-rate}) with the assumption that each person in the population makes $C(N)$ contacts in unit time on average with $C'(N) \geq 0$.
+A more generalized \gls{SIR} model can be formulated by replacing assumption (\ref{assumption:basic-sir-contact-rate}) with the assumption that each person in the population makes $C(N)$ contacts in unit time on average with $C'(N) \geq 0$.
 We can define
 \begin{equation*}
     \beta(N) = \frac{C(N)}{N},
@@ -155,7 +155,7 @@ The generalized version of the model with four compartments $S$, $E$, $I$, $R$, 
     N' &= - (1 - f) \alpha I
 \end{align*}
 and the interactions between these compartments are illustrated in \autoref{fig:seir-model-transition-graph}.
-The calculation of the basic reproduction for this model is similar to the calculation for the generalized SIR model, which is given by \autoref{eq:generalized-sir-r0}.
+The calculation of the basic reproduction for this model is similar to the calculation for the generalized \gls{SIR} model, which is given by \autoref{eq:generalized-sir-r0}.
 
 \begin{figure}
     \centering
