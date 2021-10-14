@@ -25,12 +25,19 @@ The list should give the reader a general view of some of the prior researches.
 
 \subsection{Forecasting Covid-19 with mathematical models}
 
+A mathematical model expresses real-world phenomenons and their relations using mathematical tools, and it is widely used in science and engineering.
+This kind of model relies on prior knowledge to arrive at certain constraints and assumptions about a process.
+Within those constraints and assumptions, a set of equations that determine how a system behaves are defined.
+Prior knowledge can be based on previous researches or the intuition of the researchers who have experience in the field.
+In the case of an infectious disease like Covid-19, the information that describes the system includes, but is not limited to, the transmission rate, the incubation period, the recovery period, and the mortality rate.
+The relations between these factors are intricate, and it is challenging to formulate an equation that can represent all the details that in play.
+
 \subsubsection{Compartmental models}
 
 Models such as the \gls{SIR} model and the \gls{SEIR} model \cite{kermackContributionMathematicalTheory1927, kermackContributionsMathematicalTheory1932, kermackContributionsMathematicalTheory1933, brauerCompartmentalModelsEpidemiology2008} are extensively used by researchers and public authorities.
 This technique divides the population into compartments and models the transition of the number of people between these compartments using a system of differential equations.
 In the effort to understand the development of Covid-19, compartmental modeling is among the most popular approaches due to its simplicity and interpretability.
-While Covid-19 exhibits similar characteristics to other transmissible diseases, but its dynamics are quite different due to different government interventions, underreporting, or asymptomatic infections.
+While Covid-19 exhibits similar characteristics to other transmissible diseases, its dynamics are quite different due to different government interventions, underreporting, or asymptomatic infections.
 Thus, many scientists have experimented with adding more compartments to the classic \gls{SIR}/\gls{SEIR} model to better characterize Covid-19.
 Commonly added compartments across literature are for asymptomatic individuals and quarantined individuals.
 Some researchers also model the number of patients in \glspl{ICU} or the number of patients on ventilators, which helps forecast the number of occupied \glspl{ICU} and ventilators so that healthcare facilities can prepare for a possible outbreak.
@@ -65,10 +72,10 @@ Generally, we can see that early compartmental models were tailored to the speci
 Different researchers had different methods for incorporating these factors into the models, but the conclusion based on such models are largely the same.
 They all indicated early on that quarantine, contact tracing, and testing for asymptomatic infective individuals are all effective methods for controlling the spread of the virus.
 
-\subsection{Agent-based models}
+\subsubsection{Agent-based models}
 
 This type of model performs simulations on the level of individuals to derive the epidemic trends for the entire population.
-These \textit{agents} represent a single person in the population, and the interactions between these agents can simulate the spread of the virus.
+Each \textit{agents} represents a single person in the population, and the interactions between these agents can simulate the spread of the virus.
 In a sense, both agent-based models and compartmental models simulate the same phenomenons.
 However, when using agent-based models, we can utilize fine-grained demographic data about a population and assess the situations of the disease based on different scenarios of how people interact with each other.
 Therefore, agent-based models can easily be adapted to changing conditions and are more suitable for modeling the disease based on individualistic behaviors.
@@ -111,7 +118,7 @@ The authors used the model to produce a 10-day forecast for Covid-19 cases, and 
 \citeauthor{ribeiroShorttermForecastingCOVID192020} \cite{ribeiroShorttermForecastingCOVID192020} proposed a framework for Covid-19 time series forecast using an ensemble of the \gls{ARIMA} model in combination and other machine learning approaches.
 The model was then used to forecast the number of new infections in Brazil and it achieved promising results when performing short-term forecasts.
 
-\cite{singhPredictionCOVID19Pandemic2020} \cite{singhPredictionCOVID19Pandemic2020} used an \gls{ARIMA} model to forecast the number of infections in 15 countries.
+\citeauthor{singhPredictionCOVID19Pandemic2020} \cite{singhPredictionCOVID19Pandemic2020} used an \gls{ARIMA} model to forecast the number of infections in 15 countries.
 In addition to applying the model for forecasting, the authors demonstrated that there many differences in the disease dynamics across the countries.
 
 Although the \gls{ARIMA} model is widely used and has shown that it can make reasonably good forecasts on the number of new infections, this type of model does not give much more information about the disease itself.
@@ -143,35 +150,65 @@ One exception is the model from \cite{ramchandaniDeepCOVIDNetInterpretableDeep20
 Having an explainable model is extremely important for healthcare and public authorities to derive meaningful analyses that aid in the planning process.
 Moreover, these black-box algorithms might not capture the underlying dynamics of the disease due to under-reporting, asymptomatic infections, or a general lack of data, especially in the early stages of the outbreak.
 
-\subsection{Embedding knowledge into compartmental models}
+\subsection{Forecasting Covid-19 with improved compartmental models}
 
 Because of its assumptions, compartmental models typically have many drawbacks: (1) low representational capability due to the low number of parameters, (2) the represented dynamics are stationary due to the constant parameters used in the model, (3) the population is assumed to be well-mixed, i.e., every individual is statistically indifferent, and (4) non-identifiability since a different set of parameters may result in the same dynamics \cite{roosaAssessingParameterIdentifiability2019}.
 Many studies have attempted to overcome these limitations by varying the model's parameters, typically the transmission rate, based on spatial and temporal factors.
+Across the literature, many different methods and techniques have been employed to incorporate this knowledge into compartmental models.
+
+\subsubsection{Informing compartmental models with covariates}
+
+Since Covid-19 is an infectious disease, it is reasonable to assume that mobility plays an important role in dictating the disease dynamics.
+Furthermore, governments from different countries have tried different lockdown policies and quarantine policies, so it is important to justify the effectiveness of these policies.
+To quantify the effects of mobility on Covid-19, several researchers have proposed methods for adding this knowledge into compartmental models.
+
+\citeauthor{liSubstantialUndocumentedInfection2020} \cite{liSubstantialUndocumentedInfection2020} modeled the spreads of Covid-19 in China using city-to-city movement data with a \gls{SIR} model.
+Their results suggested that undocumented infective individuals are predominantly responsible for the spread of the disease before the implementation of travel restrictions in China, and travel restrictions can reduce the spread of the disease.
+But the length of time required for the travel restrictions was unknown, and they suggested that travel restrictions might need to be on a global scale to effectively eradicated the disease.
+
+\citeauthor{changMobilityNetworkModels2021} \cite{changMobilityNetworkModels2021} used a fine-grained mobility network of the population's hourly movements, integrated it with a simple \gls{SEIR} model by weighting the parameters with the hourly movements data, and used the model to simulate hourly infections in the US.
+Their results showed that mobility had substantial effects on the dynamics of the disease, and individuals from groups of minorities are more likely to go to crowded locations to get their necessities.
+In addition, these results indicated that widespread lockdown was ineffective and harmful to the population with low income.
+
+In addition, we also know that the population census and the quality of the healthcare system contribute to Covid-19 dynamics.
+Recently, researchers have been encoding different metrics into compartmental models, and some examples are \gls{GDP}, the population age structure, the quality of the healthcare system
+These data points present an essential part in representing the true dynamics of Covid-19.
 
 \citeauthor{schneiderCOVID19PandemicPreparedness2020} \cite{schneiderCOVID19PandemicPreparedness2020} used a modified \gls{SEIR} model where transitions between compartments are modeled as a stepwise process to simulate Covid-19 in Austria under different scenarios, eliminating the assumption that time-delay in those transitions is exponentially distributed.
-A wide range of features was used to inform the transfer rate between the compartments, and they can be used to simulate different scenarios of interventions.
+A wide range of features was used to inform the transfer rate between the compartments and simulate different scenarios of interventions.
 The authors used the model to show that reducing contact is efficient in delaying the peak of the epidemic, and it might also be effective in decreasing the number of peak infections depending on the seasonal fluctuations in the transmissibility of the disease.
 
 \citeauthor{ihmecovid-19forecastingteamModelingCOVID19Scenarios2021} \cite{ihmecovid-19forecastingteamModelingCOVID19Scenarios2021} used covariates to informed how the transmission rate changes over time to simulate different scenarios with \glspl{NPI} in the \gls{US}.
 These covariates directly influence the contact rate in the modified \gls{SEIR} model that they used, and how these covariates affect the contact rate is determined by a weights matrix that is learned from data using a regression technique.
 Their results showed that the model has high predictive performance when compared to other models.
 
-\citeauthor{arikInterpretableSequenceLearning} \cite{arikInterpretableSequenceLearning} used an \gls{SEIR}-based model that takes the undocumented infective individuals into account, the number of hospitalized individuals, and reinfections.
+\citeauthor{arikInterpretableSequenceLearning} \cite{arikInterpretableSequenceLearning} used an \gls{SEIR}-based model that takes the undocumented infective individuals, the number of hospitalized individuals, and reinfections into account.
 In this model, the rates of transfers between compartments are all dependent on different covariates, which are encoded by trainable weights matrices similar to an \gls{ANN}.
 These weights matrices can be trained end-to-end with optimization techniques used in training \gls{ANN}.
 This method has been one of the most accurate comparing with the methods used for state-level forecasts submitted for the US’s ensemble model \cite{rayEnsembleForecastsCoronavirus2020}.
 
-\citeauthor{changMobilityNetworkModels2021} \cite{changMobilityNetworkModels2021} used a fine-grained mobility network of the population's hourly movements, integrated it with a simple \gls{SEIR} model by weighting the parameters with the hourly movements data, and used the model to simulate hourly infections in the US.
-Their results showed that mobility had substantial effects on the dynamics of the disease, and individuals from groups of minorities are more likely to go to crowded locations to get their necessities.
-In addition, these results indicated that widespread lockdown was ineffective and harmful to the population with low income.
+With these models, we can simulate how the disease evolved under different circumstances while still being able to derive epidemiologically significant metrics.
+The models in this form serve not only for understanding how different factors affect Covid-19 but also as a tool for forecasting a variety of future scenarios.
+Moreover, they demonstrated that compartmental models could be dramatically improved through the simple incorporation of additional information.
 
-\citeauthor{liSubstantialUndocumentedInfection2020} \cite{liSubstantialUndocumentedInfection2020} modeled the spreads of Covid-19 in China using city-to-city movement data with a \gls{SIR} model.
-Their results suggested that undocumented infective individuals are predominantly responsible for the spread of the disease before the implementation of travel restrictions in China, and travel restrictions can reduce the spread of the disease.
-But the length of time required for the travel restrictions was unknown, and they suggested that travel restrictions might need to be on a global scale to effectively eradicated the disease.
+\subsubsection{Informing compartmental models with artificial neural networks}
 
-\citeauthor{dandekarMachineLearningAidedGlobal2020a} \cite{dandekarMachineLearningAidedGlobal2020a} modified the classic \gls{SIR} model and introduced a new compartment $T(t)$ to represent the number of infective individuals currently in quarantine at time $t$.
-In addition, they introduced a time-varying term $Q(t)$ that represents the strength of quarantine which governs the number of individuals entering the quarantine compartment at each time step.
-The introduction of $Q(t)$ has the same effects as having a time-dependent contact rate $\beta(t)$.
-An \gls{ANN} is then used to learn $Q(t) = \mathcal{NN}(S(t),I(t),R(t); \theta)$ from data, creating a \gls{UDE}.
+Recent advances in machine learning and deep learning have enabled the ability to incorporate mathematical models with \glspl{ANN} \cite{raissiPhysicsinformedNeuralNetworks2019, chenNeuralOrdinaryDifferential2019, rackauckasUniversalDifferentialEquations2020}.
+Because of the ability to approximate any possible function \cite{cybenkotApproximationSuperpositionsSigmoidal, hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}, \glspl{ANN} can be used to discover unknown interactions within classical mathematical models.
+On the other hand, placing constraints on \glspl{ANN} through mathematical models can help the \glspl{ANN} learn quicker on limited data.
+This fusion helps to create a model that is both interpretable and flexible under rapidly changing circumstances.
+
+\citeauthor{jungRealWorldImplicationsRapidly2020} \cite{jungRealWorldImplicationsRapidly2020} used multiple \glspl{ANN} to learn from data how the parameters in the classical \gls{SEIR} model change over time.
+This hybrid model was then trained using \gls{PINN} \cite{raissiPhysicsinformedNeuralNetworks2019} with data from South Korea and several different cities within the countries.
+The results from \cite{jungRealWorldImplicationsRapidly2020} showed that the \glspl{ANN} could learn how these parameters change over time, and these time-depended parameters can improve the classical \gls{SEIR} model and help avoid statistical uncertainties.
+
+\citeauthor{dandekarMachineLearningAidedGlobal2020a} \cite{dandekarMachineLearningAidedGlobal2020a} modified the classic \gls{SIR} model and introduced a new compartment to represent the number of infective individuals currently in quarantine.
+In addition, they introduced a time-varying term that represented the strength of quarantine and governed the number of individuals entering the quarantine compartment at each time step.
+The introduction of this term for the quarantine strength has the same effects as having a time-dependent contact rate.
+An \gls{ANN} is then used to learn the function that computes the quarantine strength from data, creating a \gls{UDE} \cite{rackauckasUniversalDifferentialEquations2020}.
 This model has been trained with data from 70 countries, and it can learn the correlation between increasing quarantine strength and a decrease in the spread of the disease.
 The authors identified in the research that this model lacks forecasting abilities and suggested the inclusion of real-time metrics on social distancing to enable robust forecasting.
+
+These hybrid models utilized the best of both mathematical models, and \glspl{ANN} showed promising results in both the ability to capture the dynamics of the disease and the predictive performance.
+However, not many studies have tried to extend this type of model, and existing literature only uses the prevalence of the disease as input to the embedded \gls{ANN}.
+Since having covariates to inform the model can have positive effects, as shown in the previous section, it is not unreasonable to believe that the same covariates can be used to improve these hybrid models.
