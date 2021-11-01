@@ -7,3 +7,48 @@ Once we had the trained model for a specific region, it was then used to simulat
 Details about the data used in both the training period and testing period, and how they were processed were given in \autoref{sec:methodologies-data}
 The outputs for the 4 forecasting horizons from all versions of the model were when evaluated and compared against each other using multiple different metrics defined in \autoref{sec:methodologies-evaluation-metrics}.
 Because the \gls{SPC} index \cite{kuchlerGeographicSpreadCOVID192020} only informed about the inter-province/inter-province spread of the disease, the training and evaluation process that used Vietnam country-level data did not consider the version of the model that encoded the \gls{SPC} index.
+
+Both the country-level data and the province-level data were filtered for a period of 59 days starting from the date when the total number of confirmed cases passed 500.
+The number of 500 total confirmed cases were chosen because earlier research that had applied a \gls{UDE} to Covid-19 data had shown that the model can only capture meaningful trends once that number of total confirmed cases is reached \cite{dandekarMachineLearningAidedGlobal2020a}.
+Once we had the datasets for about two months, the first 31 days in the dataset was used to train to the model, while the last 28 days in the dataset was used to evaluated to models' predictive performance.
+We limited out training data to about one month to test the forecasting ability of the model under limited information.
+
+\autoref{tab:ude-model-initial-conditions} contains a list of all the values chosen as the initial conditions for solving the systems of \glspl{ODE}, and \autoref{tab:ude-model-initial-parameters} contains a list of all the values chosen as the initial parameters for solving the systems of \glspl{ODE}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c | c | c |}
+        Location & S & E & I & R & D & C & N \\
+        \hline\hline
+        Vietnam \\
+        \hline
+        Ho Chi Minh city \\
+        \hline
+        Binh Duong \\
+        \hline
+        Dong Nai \\
+        \hline
+        Long An \\
+        \hline
+    \end{tabular}
+    \caption{Initial conditions at each modeled region for solving the systems of \glspl{ODE} defined by each model. For Vietnam's provinces, the initial $D$ and $C$ states were taken from the real-world data, and we assumed that initial $I$ and $D$ states each took account for half of the remaining total confirmed cases, $(C - D) / 2$. In addition, we assumed the initial $E$ state is twice as large as the initial $I$ state. The rest of the states for Vietnam's provinces were then derived by their definitions. For Vietnam country-level data, the initial states $I$, $R$, $D$, and $C$ were taken from real-world data, and we assumed that the initial $E$ state is twice as large as the initial $I$ state. The rest of the states for Vietnam country-level data were then derived by their definitions.}
+    \label{tab:ude-model-initial-conditions}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{| c | c |}
+        Parameter & Value \\
+        \hline\hline
+        $\gamma$ & $1/2$ \\
+        \hline
+        $\lambda$ & $1/14$ \\
+        \hline
+        $\alpha$ & $0.025$ \\
+        \hline
+        $\theta$ & \text{Randomly initialized} \\
+        \hline
+    \end{tabular}
+    \caption{Initial parameters for solving the systems of \glspl{ODE} defined by each model. The values of $\gamma$, $\lambda$, and $\alpha$ were chosen to match existing information about Covid-19 where the mean incubation period was roughly 2 days, the mean infective period was roughly 14 days, and the fatality rate was roughly $2.5\%$.}
+    \label{tab:ude-model-initial-parameters}
+\end{table}

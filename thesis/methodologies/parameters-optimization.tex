@@ -1,0 +1,31 @@
+\section{Parameters optimization}
+\label{sec:methodologies-parameters-fitting}
+
+We used an end-to-end learning mechanism to find the set of model parameters that produced that best fitting curves to the ground truth data.
+In the model learning period, we only had access to observations for some of the compartments in the model because of the availability of data.
+With county-level data and province-level data, we did not have access to the states $\{S, E, I, R\}$ but only the $D$ and $C$ states, which were the number of total deaths and the number of total confirmed cases.
+With country-level data, we did not have access to the states $\{S, E\}$ but only the $I$, $R$, $D$, and $C$ states, which were the number of infective individuals, the number of total recoveries, the number of total deaths, and the number of total confirmed cases.
+Therefore, model could only learn from partially-available observations where the available data for some compartments were used to supervise the learning process while other compartments were left unconstrained.
+
+All versions of the model were trained by minimizing the following loss function
+\begin{equation}
+    \mathcal{L}(\gamma, \lambda, \alpha, \theta) = \sum_{i=1}^N \sum_{t=0}^{T-1} e^{t\zeta} (log(\hat{y}_{i,t} + 1) - log(y_{i,t} + 1))^2.
+    \label{eq:ude-model-loss}
+\end{equation}
+$N$ is the number of compartments that are observable, $T$ is the number of collocation points, i.e., the number of days that were used for training, and $e^{t\zeta}$ is a weighting factor that places higher priority to later data points.
+$\zeta$ is a hyperparameter that can be chosen when we train the model to control how fast we want to weighting factor to grow with respect to time.
+Lastly, $\hat{y}_{t,t}$ is the model's output for compartment $i$ at time $t$, and $y_{i,t}$ is the observation for compartment $i$ at time $t$.
+The errors between the ground truth data and our model's predictions were taken in logarithmic scale, $log(\hat{y}_{i,t} + 1) - log(y_{i,t} + 1)$, because the states of the system were in vastly different scales.
+Here, the number of total confirmed cases were much larger than the number of deaths or the number of recoveries, which dominated the loss value and made the model learned poorly.
+Before taking the log, we added $1$ to the values to take into account when the ground truth values or the predicted values were $0$.
+
+We used a numerical \gls{ODE} solver that implemented the Tsitouras 5/4 Runge-Kutta method \cite{tsitourasRungeKuttaPairs2011} to solve our model's system of \glspl{ODE} on a given training time span.
+In our problem, the model's outputs are the states of the system of \glspl{ODE} at each time step where the time steps corresponded to the dates that were considered.
+Once we obtained the model's outputs, minimization of the loss function in \autoref{eq:ude-model-loss} was carried out using adjoint sensitivity analysis \cite{maComparisonAutomaticDifferentiation2021} with the approach described by \citeauthor{rackauckasUniversalDifferentialEquations2020} \cite{rackauckasUniversalDifferentialEquations2020}.
+
+The minimization process happened in 2 stages.
+First, we used the the ADAM optimizer \cite{kingmaAdamMethodStochastic2017} for some iterations and obtained the minimizing parameters found by the ADAM optimizer.
+Once the ADAM optimizer finished, we performed a second stage of minimization using the BFGS optimizer \cite{broydenConvergenceClassDoublerank1970, fletcherNewApproachVariable1970, goldfarbFamilyVariablemetricMethods1970, shannoConditioningQuasiNewtonMethods1970} with the parameters that we obtained the ADAM optimizer.
+The strategy for using two stages of training had been proven to produce a better output for \gls{UDE} problem \cite{rackauckasUniversalDifferentialEquations2020}.
+After the first training stage with the ADAM optimizer, the parameters were putted in a more reasonable parameters space.
+Then in the second training stage, the BFGS optimizer would converge much quicker than when we used each of the optimizer on its own.

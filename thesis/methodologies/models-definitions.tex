@@ -25,7 +25,7 @@ Unlike the definition of the \gls{SEIR} model given in \autoref{sec:literature-r
 Thus, the total number of newly infected people per unit time in this formulation turned into $\beta SI / N$ instead of $\beta SI$.
 This was done because in our experiments, we observed that using $\beta$ as the number of people that can be infected by a single infective individual resulted in a better fit to the training data and a better out-of-sample performance of the model.
 We noted that existing literature \cite{arikInterpretableSequenceLearning, bastosModelingForecastingEarly2020,dengDynamicsDevelopmentCOVID192020, heSEIRModelingCOVID192020,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021, ndairouMathematicalModelingCOVID192020,sarkarModelingForecastingCOVID192020, zhaoModelingEpidemicDynamics2020} had also utilized the same formulation for the transition between the $S$ and $E$ compartments.
-From \autoref{eq:methodologies-seir-model}, we could obtain the basic reproduction number by using the following equation
+Based on \autoref{eq:methodologies-seir-model}, we could obtain the basic reproduction number by using the following equation
 \begin{equation*}
     \mathcal{R}_0 = \frac{\beta}{\gamma}.
     \label{eq:methodologies-seir-reproduction-number}
@@ -92,14 +92,25 @@ In this second version of the model, the set of covariates $\mathcal{F}$ given t
     \mathcal{F}(t) = \left\lbrace \frac{S(t-1)}{N(t-1)}, I(t-1), \text{MovementRange}(t) \right\rbrace,
 \end{equation*}
 where $\text{MovementRange}(t)$ was the relative change in movement and the ratio of people who were staying put at the area that was being modeled at time $t$.
+When we modeled with data for Vietnam and its provinces, $\text{MovementRange}(t)$ was calculated as the mean of the values of all the subregions within the area that was being modeled.
+That was done because the Movement Range Maps dataset was containing data at a much more granular level but we were only interested in the country-level data and province-level data.
 
 \subsubsection{Informing the model with social network connections}
 
 As shown by the authors in \cite{kuchlerGeographicSpreadCOVID192020}, the strengths of social network connections between different regions were an important predictor to Covid-19 cases.
-Thus, we considered the \gls{SPC} index as defined by the author in \cite{kuchlerGeographicSpreadCOVID192020} in addition to the Movement Range Maps dataset from Facebook and the past system's states.
+They had defined the \gls{SPC} index which is a metric defined specifically for Covid-19 that measures the spreads of the disease based on the \gls{SCI} dataset from Facebook.
+They also noted that the correlation between the \gls{SPC} index and the number of cases were especially strong when there were less restrictions on individuals' mobility.
+Thus, we considered the \gls{SPC} index as an input feature to the \gls{ANN} in addition to the Movement Range Maps dataset from Facebook and the past system's states.
+The \gls{SPC} index is calculated as
+\begin{equation*}
+    SPC_{i,t} = \sum_j^C \text{Cases per 10k}_{j,t} \frac{SCI_{i,j}}{\sum_h^C SCI_{i,h}},
+\end{equation*}
+where $SPC_{i,t}$ is the \gls{SPC} index of location $i$ at time $t$, $C$ is the number of locations, and $\text{Cases per 10k}_{j,t}$ if the number of confirmed cases out of 10,000 people at location $j$ at time $t$.
 In this third version of the model, the set of covariates $\mathcal{F}$ given to the \gls{ANN} at time step $t$ was defined as
 \begin{equation*}
     \mathcal{F}(t) = \left\lbrace \frac{S(t-1)}{N(t-1)}, I(t-1), \text{MovementRange}(t), \text{SPC}(t - \tau) \right\rbrace,
 \end{equation*}
 where $\text{SPC}(t - \tau)$ was the \gls{SPC} index of the area that was being modeled at time $t - \tau$.
-Because the changes in the \gls{SPC} index in one day would not be immediately reflected in the changes in the number of cases for that same day, a temporal lag $\tau$ was considered when the \gls{SPC} index was given as input to the \gls{ANN} \cite{kuchlerGeographicSpreadCOVID192020}.
+Because the changes in the \gls{SPC} index in one day would not be immediately reflected in the changes in the number of cases for that same day, a temporal lag $\tau$ was considered when the \gls{SPC} index was given as input to the \gls{ANN}.
+In \cite{kuchlerGeographicSpreadCOVID192020}, the authors had shown that \gls{SPC} index in one 2-week period highly correlated with the growth in the number of cases in the next 2-week period.
+Therefore, we chose $\tau$ to be 14 days when giving the \gls{SPC} index as input to the model.
