@@ -78,7 +78,7 @@ For a \gls{NeuralODE} to be trainable with gradient descent, we must have a way 
 The regular method for taking the loss gradients in \glspl{ANN} (back-propagation) can not be applied for \glspl{NeuralODE} because it incurs high memory cost and introduces additional numerical errors.
 Hence, \citeauthor{chenNeuralOrdinaryDifferential2019} \cite{chenNeuralOrdinaryDifferential2019} use \textit{adjoint sensitivity analysis} to compute the gradients.
 The gradients are computed by solving a second, augmented \gls{ODE} backward in time.
-This method applies to all \gls{ODE} solvers.
+This method can be applied to all \gls{ODE} solvers.
 The approach scales linearly with the problem size, and the numerical error can be controlled explicitly.
 
 \begin{algorithm}[h]
