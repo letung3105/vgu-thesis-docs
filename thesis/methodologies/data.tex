@@ -1,0 +1,162 @@
+\section{Data}
+\label{sec:methodologies-data}
+
+\subsection{Covid-19 cases data}
+\label{sec:methodologies-data-covid19-cases}
+
+We used datasets for Covid-19 at both the country level and the province level to train and evaluate our models.
+At Vietnam country level, time series data were available for the number of confirmed cases, the number of recoveries, and the number of deaths from the disease.
+However, at Vietnam province level, time series data were only available for the number of confirmed cases and the number of deaths from the disease.
+
+To obtain Vietnam country level time series data, we utilized the Covid-19 datasets \footnote{\url{https://github.com/CSSEGISandData/COVID-19}} from John Hopkins university \cite{dongInteractiveWebbasedDashboard2020}.
+The repository contains three separated \gls{CSV} files, each contains the global time series data since January 22th 2020 for the total number of confirmed cases, the total number of recoveries, and the total number of deaths from the disease.
+The general structure of the files is illustrated in \autoref{tab:jhu-csse-covid-timeseries}.
+From the three \gls{CSV} files, we extracted the data for Vietnam and constructed a single time series dataset for the country (see \autoref{tab:country-covid-timeseries} for an example).
+Because we were considering the most recent outbreak in Vietnam (starting from 27th April 2021), we filtered out the data points before 27th April 2021 and subtracted the remaining data points with the values on 26th April 2021 so that the total counts started on the first date of the outbreak.
+We noted that the time series from the John Hopkins University did not include the total number of recoveries for Vietnam after the 4th August 2021.
+But because we did not consider the data points after that date, the available data is sufficient for conducting our experiments.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c | c | c | c | c | c }
+    Province/State & Country/Region & 1/22/20 & 1/23/20 & 1/24/20 & $\cdots$ \\
+    \hline\hline
+    $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+    \hline
+    --- & Venezuela & 0 & 0 & 0 & $\cdots$ \\
+    \hline
+    --- & Vietnam & 0 & 2 & 2 & $\cdots$ \\
+    \hline
+    $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+\end{tabular}
+\caption{Each row in the dataset from John Hopkins university \cite{dongInteractiveWebbasedDashboard2020} contained the Covid-19 time series data of a geographical location. The value at each time step could be the number of confirmed cases, the number of recoveries, or the number of deaths depending on the \gls{CSV} file that we used.}
+\label{tab:jhu-csse-covid-timeseries}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+    date & infective & confirmed & recoveries & deaths \\
+    \hline\hline
+    1/22/20 & 0 & 0 & 0 & 0 \\
+    \hline
+    1/23/20 & 2 & 2 & 0 & 0 \\
+    \hline
+    1/24/20 & 2 & 2 & 0 & 0 \\
+    \hline
+    $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+\end{tabular}
+\caption{The values in the \textit{infective} column represent the number of infective individuals on that day, and they were calculated by subtracting the values in the \textit{recoveries} column and the \textit{deaths} column from the values in the \textit{confirmed} column. Data for the columns besides \textit{infective} were taken from the dataset from John Hopkins University \cite{dongInteractiveWebbasedDashboard2020}}.
+\label{tab:country-covid-timeseries}
+\end{table}
+
+Although the datasets provided by the John Hopkins university contain data at lower levels for some country, Vietnam was not one of them.
+Instead, we relied on two additional source of information which were the Covid-19 situations dashboard made by Vietnam General Department of Preventative Medicine \footnote{\url{https://ncov.vncdc.gov.vn/}} and the Covid-19 situations dashboard made by \textit{vnexpress.net} \footnote{\url{https://vnexpress.net/covid-19/covid-19-viet-nam}}, a local online newspaper that aggregated Covid-19 data from government's daily announcements on Covid1-19 cases).
+Data from these two sources were available for the outbreak period in Vietnam starting from \date{27th April 2021}.
+From the first source, we downloaded the number of confirmed cases and the number of deaths from Covid-19 for the four provinces/cities that had the highest number of confirmed cases in the countries, which were Ho Chi Minh city, Binh Duong province, Dong Nai province, and Long An province.
+The downloaded time series data for each province was parsed from its original \gls{JSON} format and saved as a \gls{CSV} file.
+For consistency, the structure of the time series data for each province is similar to the one given in \autoref{tab:country-covid-timeseries}, but with the \textit{infective} and \textit{recoveries} columns omitted.
+From the second source, we obtained the number of confirmed cases for all provinces in Vietnam by accessing the underlying \gls{API} of the website.
+This data was used to derive the spatiotemporal metric that was used as the input to our model (see \autoref{sec:methodologies-data-mobility-data}).
+We chose to obtain the number of confirmed cases from the second source instead of the first one because the data here was given in bulk for all the provinces (see \autoref{tab:vietnam-provinces-timeseries}) instead of as individual data files when working with the website from Vietnam General Department of Preventative Medicine.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c | c | c | c | c }
+    date & Binh Duong & Ho Chi Minh city & Ha Noi & $\cdots$ \\
+    \hline\hline
+    27/4 & 0 & 0 & 0 & $\cdots$ \\
+    \hline
+    28/4 & 0 & 0 & 0 & $\cdots$ \\
+    \hline
+    29/4 & 0 & 1 & 0 & $\cdots$ \\
+    \hline
+    $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+\end{tabular}
+\caption{Each row in the dataset returned by \textit{vnexpress.net} contains the number of cases for all provinces in Vietnam on that date.}
+\label{tab:vietnam-provinces-timeseries}
+\end{table}
+
+Both the country-level data and the province-level data were filtered for a period of 59 days starting from the date when the total number of confirmed cases passed 500.
+That was \date{May 14th 2021} for Vietnam country level data, \date{June 9th 2021} for Ho Chi Minh city data, \date{July 2nd 2021} for Binh Duong province data, \date{July 15th 2021} for Dong Nai province data, and \date{July 13th 2021} for Long An province data.
+The number of 500 total confirmed cases were chosen because earlier research that had applied a \gls{UDE} to Covid-19 data had shown that the model can only capture meaningful trends once that number of total confirmed cases is reached \cite{dandekarMachineLearningAidedGlobal2020a}.
+Once we had the datasets for about two months, the first 31 days in the dataset was used to train to the model, while the last 28 days in the dataset was used to evaluated to models' predictive performance.
+We limited out training data to about one month to test the forecasting ability of the model under limited information.
+
+Once the Covid-19 cases data were obtained, a 7 days moving average transform was applied to all the values.
+This was done to smooth out the fluctuating changes in the recorded numbers through out different days of the week, especially in the weekends when the number dropped significantly when compared to other days of the week.
+Using a 7 days moving average also helps our model capture the trends of the disease better and eliminate the influence of outliers in the datasets.
+
+\subsection{Facebook's data}
+\label{sec:methodologies-data-mobility-data}
+
+Because it had been shown that the population mobility can greatly reflect to spread of the disease \cite{changMobilityNetworkModels2021,liSubstantialUndocumentedInfection2020,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021}, we were utilizing the public datasets from Facebook \footnote{\url{https://dataforgood.facebook.com}} to inform our model about the spatiotemporal factors that could have an effect on the disease dynamics.
+Facebook's data was chosen because the company had a massive number of of users with 2.89 billions users world-wide and about 71 millions users in Vietnam, which took account for more than two thirds of the country's population.
+
+The first dataset from Facebook that we used was the Movement Range Maps dataset \footnote{\url{https://dataforgood.facebook.com/dfg/tools/movement-range-maps}}.
+This dataset contained time series of the relative change of mobility in percentages compared to the baseline in February 2020 and the ratio of people that only stay within one area throughout the day \cite{ProtectingPrivacyFacebook2020} (the structure of the time series dataset is given in \autoref{tab:facebook-movement-range-maps}).
+The values in the dataset were calculated using anonymized and privacy-preserving mobile phone location history of Facebook's users that allowed the app to collect their location data.
+Other large technology companies such as Google \footnote{\url{https://www.google.com/covid19/mobility}} and Apple \footnote{\url{https://www.apple.com/covid19/mobility} }also published their mobility datasets for public use, but for consistency, we only consider the dataset from Facebook.
+This data reflected how people in a geographic area reacted to different preventative measures from the government, and was calculated for many subregions within a country.
+For Vietnam, this data was available for level 2 divisions from the \gls{GADM}, i.e., district level.
+Because we were only interested in the country-level and province-level data, we calculated the mean of these values over all the subregions within the area that was being modeled.
+Similar to the Covid-19 cases time series, we also applied a 7 day moving average transform to remove the weekly seasonality in the data where the stay put index was much higher and the relative change in movement was much lower on the weekends compared to other days of the week.
+The 7 day moving average data of the regional mobility was used as input to our model so that the effects intra-country mobility and intra-province mobility could be learned.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+    ds & country & polygon\_id & relative\_change & ratio\_single\_tile\_users \\
+    \hline\hline
+    $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+    \hline
+    2021-01-01 & VNM & VNM.1.10\_1 & 0.12525 & 0.27042 \\
+    \hline
+    2021-01-02 & VNM & VNM.1.10\_1 & 0.05274 & 0.25942 \\
+    \hline
+    2021-01-03 & VNM & VNM.1.10\_1 & 0.18506 & 0.26941 \\
+    \hline
+    $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+\end{tabular}
+\caption{Each row in the Movement Range Map dataset from Facebook contains a date \textit{ds}, a three letters ISO-3166 country code \textit{country}, a unique identifier for the geographical region \textit{polygon\_id}, the relative change in mobility compared to the baseline \textit{relative\_change}, and the proportion of people staying put \textit{ratio\_single\_tile\_users}.}
+\label{tab:facebook-movement-range-maps}
+\end{table}
+
+The second dataset from Facebok that we used was the \gls{SCI} dataset \footnote{\url{https://dataforgood.facebook.com/dfg/tools/social-connectedness-index}}.
+This dataset measured the strength of social connectedness between two geographical areas represented by Facebook friendship ties (the structure of the dataset is given in \autoref{tab:facebook-social-connectedness-index}).
+Formally the \gls{SCI} between two locations $i$ and $j$ was calculated as
+\begin{equation*}
+    \text{Social Connectedness Index}_{i,j} = \frac{\text{FB connections}_{i,j}}{\text{FB users}_i * \text{FB users}_j},
+\end{equation*}
+where $\text{FB users}_i$ and $\text{FB users}_j$ are the numbers of Facebook users in location $j$ and $j$, and $\text{FB connections}_{i,j}$ is the total number of Facebook friendship connections between people in the two locations.
+In the published dataset, the index were scaled to have a minimum value of 1 and a maximum value of 1,000,000,000.
+The $\text{Social Connectedness Index}_{i,j}$ measured the relative probability of a Facebook friendship link between a user in location $i$ and a user in location $j$.
+In other word, if the value is twice as large, then a user in location $i$ is twice as likely to be friend with a user in location $j$.
+For Vietnam, data is  available for level 1 divisions from the \gls{GADM}, i.e., province level.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+    user\_loc & fr\_loc & scaled\_sci \\
+    \hline\hline
+    VNM1 & VNM1 & 783251 \\
+    \hline
+    VNM1 & VNM10 & 10301 \\
+    \hline
+    VNM1 & VNM11 & 8237 \\
+    \hline
+    $\cdots$ & $\cdots$ & $\cdots$ \\
+\end{tabular}
+\caption{The \gls{SCI} dataset from Facebook included every (symmetric) $i$ to $j$ and $j$ to $i$ location pair, including links of each location to itself. The \textit{user\_loc} column represents the first location, the \textit{fr\_loc} column represents the second location, and the \textit{scaled\_sci} is the scaled \gls{SCI}.}
+\label{tab:facebook-social-connectedness-index}
+\end{table}
+
+From the \gls{SCI} dataset, we calculated the \gls{SPC} index \cite{kuchlerGeographicSpreadCOVID192020} which was a metric defined specifically for Covid-19.
+The \gls{SPC} index is calculated as
+\begin{equation*}
+    SPC_{i,t} = \sum_j^C \text{Cases per 10k}_{j,t} \frac{SCI_{i,j}}{\sum_h^C SCI_{i,h}},
+\end{equation*}
+where $SPC_{i,t}$ is the \gls{SPC} index of location $i$ at time $t$, $C$ is the number of locations, and $\text{Cases per 10k}_{j,t}$ if the number of confirmed cases out of 10,000 people at location $j$ at time $t$.
+In \cite{kuchlerGeographicSpreadCOVID192020}, the authors had shown that \gls{SPC} index in one period highly correlated with the growth in the number of cases in the next period.
+The social connections measurement from Facebook was found to be an important predictor of future Covid-19 outbreaks, especially when there are less restrictions on mobility.
+Thus, we used the 7 day moving average time series data of the \gls{SPC} index was given as input to out model to inform to effects of inter-province mobility.

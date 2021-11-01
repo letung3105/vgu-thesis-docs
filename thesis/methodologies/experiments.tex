@@ -1,0 +1,9 @@
+\section{Experiments}
+
+Several experiments were conducted to evaluate the performance of our model on out-of-sample data when different sets of covariates were chosen to inform the model.
+For the experiments, we first trained the different versions of the model described in \autoref{sec:methodologies-models-definitions} using data for the top 4 counties in the \gls{US} with the most confirmed cases, data for the top 4 provinces in Vietnam with the most confirmed cases, and country-level data for Vietnam.
+Each version of the model was trained to find the best fitting parameters using solely the data for the region that was being considered.
+Once we had the trained model for a specific region, it was then used to simulate the subsequent dates after the training period for 4 different forecasting horizons: 1-week horizon, 2-week horizon, 3-week horizon, and 4-week horizon.
+Details about the data used in both the training period and testing period, and how they were processed were given in \autoref{sec:methodologies-data}
+The outputs for the 4 forecasting horizons from all versions of the model were when evaluated and compared against each other using multiple different metrics defined in \autoref{sec:methodologies-evaluation-metrics}.
+Because the \gls{SPC} index \cite{kuchlerGeographicSpreadCOVID192020} only informed about the inter-province/inter-province spread of the disease, the training and evaluation process that used Vietnam country-level data did not consider the version of the model that encoded the \gls{SPC} index.
