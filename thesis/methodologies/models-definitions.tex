@@ -23,7 +23,7 @@ Formally, the system of \glspl{ODE} that governs our extended \gls{SEIR} model w
 where $\beta$ is the infection rate, $\gamma$ is the exposure rate, $\lambda$ is the rate at which infective individuals become not infective anymore, and $\alpha$ is the fatality rate.
 Unlike the definition of the \gls{SEIR} model given in \autoref{sec:literature-review-compartmental-seird-model} where an infective person can infect $\beta N$ other people per unit time, here we letted $\beta$ itself to be the number of people that can be infected by a single infective individual per unit time.
 Thus, the total number of newly infected people per unit time in this formulation turned into $\beta SI / N$ instead of $\beta SI$.
-This was done because in our experiments, we observed that using $\beta$ as the number of people that can be infected by a single infective individual resulted in a better fit to the training data and a better out-of-sample performance of the model.
+This was done because in our experiment, we observed that using $\beta$ as the number of people that can be infected by a single infective individual resulted in a better fit to the training data and a better out-of-sample performance of the model.
 We noted that existing literature \cite{arikInterpretableSequenceLearning, bastosModelingForecastingEarly2020,dengDynamicsDevelopmentCOVID192020, heSEIRModelingCOVID192020,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021, ndairouMathematicalModelingCOVID192020,sarkarModelingForecastingCOVID192020, zhaoModelingEpidemicDynamics2020} had also utilized the same formulation for the transition between the $S$ and $E$ compartments.
 Based on \autoref{eq:methodologies-seir-model}, we could obtain the basic reproduction number by using the following equation
 \begin{equation*}
@@ -81,6 +81,8 @@ In this form, our model was similar to the one that had been proposed in \cite{d
 The other states of the system were not considered as inputs to the \gls{ANN} in this version of the model because, by definitions, the individuals from those states can not transmit the disease.
 Thus they should have zero effect on the transmission rate $\beta(t)$.
 Furthermore, we consider the fraction $S/N$ because it represented the probability of coming into contact with a susceptible individual given the currently effective population, which is more meaningful than the number of susceptible individuals $S$ on its own.
+This model did not rely on external data to inform the embedded \gls{ANN} and based its prediction entirely on the states of the system.
+As such, the model was used as the baseline for comparison in the experiment.
 
 \subsubsection{Informing the model with mobility data}
 
