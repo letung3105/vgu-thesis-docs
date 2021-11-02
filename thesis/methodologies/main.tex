@@ -3,9 +3,9 @@
 
 In this thesis, we focused on finding an interpretable disease model for Covid-19 in Vietnam.
 The model was expected to have the ability to capture the complex dynamics of the disease from data at an early stage, which could help inform people about a potential outbreak of the disease.
-We utilized \glspl{UDE} which added neural network on top of classical compartmental models for infectious diseases to formulate the model.
+We utilized \glspl{UDE} which added an \gls{ANN} on top of classical compartmental models for infectious diseases to formulate the model.
 Because it had been shown that multiple different factors have different effects on the dynamics of the disease, we encoded different covariates into the model to improve the predictive performance \cite{ihmecovid-19forecastingteamModelingCOVID19Scenarios2021,arikInterpretableSequenceLearning}.
-We conducted an experiment with several versions of the model to evaluate the effectiveness of adding different covariates to inform the model.
+We conducted experiments with several versions of the model to evaluate the effectiveness of adding different covariates to inform the model.
 In this section, we will outline the data that we used, the models' formulations, the experiment that we conducted, and how the models were evaluated.
 
 \input{methodologies/data.tex}
@@ -14,7 +14,7 @@ In this section, we will outline the data that we used, the models' formulations
 
 \input{methodologies/parameters-optimization.tex}
 
-\input{methodologies/experiment.tex}
+\input{methodologies/experiments.tex}
 
 \input{methodologies/evaluation-metrics.tex}
 
