@@ -75,12 +75,13 @@ The first set of covariates that we utilized as inputs for the \gls{ANN} in \aut
 We assumed that two states that could have an effect on the contact rate $\beta$ were the number of infective individuals $I$ and the fraction of susceptible individuals among the population $S/N$.
 In other words, the set of covariates $\mathcal{F}$ that were given as input to the \gls{ANN} at time step $t$ in this model was defined as
 \begin{equation*}
-    \mathcal{F}(t) = \left\lbrace \frac{S(t-1)}{N(t-1)}, I(t-1) \right\rbrace
+    \mathcal{F}(t) = \left\lbrace \frac{S(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)} \right\rbrace
 \end{equation*}
-In this form, our model was similar to the one that had been proposed in \cite{dandekarMachineLearningAidedGlobal2020a}.
+In this form, our model is similar to the one that had been proposed in \cite{dandekarMachineLearningAidedGlobal2020a}.
 The other states of the system were not considered as inputs to the \gls{ANN} in this version of the model because, by definition, the individuals from those states can not transmit the disease.
 Thus they should have zero effect on the transmission rate $\beta(t)$.
-Furthermore, we consider the fraction $S/N$ because it represented the probability of coming into contact with a susceptible individual given the currently effective population, which is more meaningful than the number of susceptible individuals $S$ on its own.
+Furthermore, we consider the fractions $S/N$ and $I/N$ as inputs instead of the actual counts because from our preliminary trials with the model, we observed that it helped to create better results and a faster runtime.
+Moreover, using $S/N$ and $I/N$ also partially encoded the effective population size $N$ which better represented the prevalence of the disease.
 This model did not rely on external data to inform the embedded \gls{ANN} and based its prediction entirely on the states of the system.
 As such, the model was used as the baseline for comparisons in the experiments.
 
@@ -91,7 +92,7 @@ Moreover, \cite{changMobilityNetworkModels2021,ihmecovid-19forecastingteamModeli
 Therefore, we used the Movement Range Maps dataset from Facebook (see \autoref{sec:methodologies-data-mobility-data}) in addition to the past system's states in the second set of covariates that were given as inputs for the \gls{ANN} in \autoref{eq:methodologies-seir-ude-model}.
 In this second version of the model, the set of covariates $\mathcal{F}$ given to the \gls{ANN} at time step $t$ was defined as
 \begin{equation*}
-    \mathcal{F}(t) = \left\lbrace \frac{S(t-1)}{N(t-1)}, I(t-1), \text{MovementRange}(t) \right\rbrace,
+    \mathcal{F}(t) = \left\lbrace \frac{S(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)}, \text{MovementRange}(t) \right\rbrace,
 \end{equation*}
 where $\text{MovementRange}(t)$ was the relative change in movement and the ratio of people who were staying put at the area that was being modeled at time $t$.
 When we modeled with data for Vietnam and its provinces, $\text{MovementRange}(t)$ was calculated as the mean of the values of all the subregions within the area that was being modeled.
@@ -99,7 +100,7 @@ That was done because the Movement Range Maps dataset was containing data at a m
 
 \subsubsection{Informing the model with social network connections}
 
-As shown by the authors in \cite{kuchlerGeographicSpreadCOVID192020}, the strengths of social network connections between different regions were an important predictor of Covid-19 cases.
+As shown by the authors in \cite{kuchlerGeographicSpreadCOVID192020}, the strengths of social network connections between different regions were an important predictor of Covid-19 cases in US counties.
 They had defined the \gls{SPC} index which is a metric defined specifically for Covid-19 that measures the spreads of the disease based on the \gls{SCI} dataset from Facebook.
 They also noted that the correlation between the \gls{SPC} index and the number of cases was especially strong when there were fewer restrictions on individuals' mobility.
 Thus, we considered the \gls{SPC} index as an input feature to the \gls{ANN} in addition to the Movement Range Maps dataset from Facebook and the past system's states.
@@ -110,7 +111,7 @@ The \gls{SPC} index is calculated as
 where $SPC_{i,t}$ is the \gls{SPC} index of location $i$ at time $t$, $C$ is the number of locations, and $\text{Cases per 10k}_{j,t}$ if the number of confirmed cases out of 10,000 people at location $j$ at time $t$.
 In this third version of the model, the set of covariates $\mathcal{F}$ given to the \gls{ANN} at time step $t$ was defined as
 \begin{equation*}
-    \mathcal{F}(t) = \left\lbrace \frac{S(t-1)}{N(t-1)}, I(t-1), \text{MovementRange}(t), \text{SPC}(t - \tau) \right\rbrace,
+    \mathcal{F}(t) = \left\lbrace \frac{S(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)}, \text{MovementRange}(t), \text{SPC}(t - \tau) \right\rbrace,
 \end{equation*}
 where $\text{SPC}(t - \tau)$ was the \gls{SPC} index of the area that was being modeled at time $t - \tau$.
 Because the changes in the \gls{SPC} index in one day would not be immediately reflected in the changes in the number of cases for that same day, a temporal lag $\tau$ was considered when the \gls{SPC} index was given as input to the \gls{ANN}.

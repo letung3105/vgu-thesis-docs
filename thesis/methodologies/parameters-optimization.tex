@@ -24,7 +24,7 @@ In our problem, the model's outputs are the states of the system of \glspl{ODE} 
 Once we obtained the model's outputs, minimization of the loss function in \autoref{eq:ude-model-loss} was carried out using adjoint sensitivity analysis \cite{maComparisonAutomaticDifferentiation2021} with the approach described by \citeauthor{rackauckasUniversalDifferentialEquations2020} \cite{rackauckasUniversalDifferentialEquations2020}.
 
 The minimization process happened in 2 stages.
-First, we used the ADAM optimizer \cite{kingmaAdamMethodStochastic2017} for some iterations and obtained the minimizing parameters found by the ADAM optimizer.
+First, we used the ADAM optimizer \cite{kingmaAdamMethodStochastic2017} for some iterations and obtained the minimizing parameters found by it.
 Once the ADAM optimizer finished, we performed a second stage of minimization using the BFGS optimizer \cite{broydenConvergenceClassDoublerank1970, fletcherNewApproachVariable1970, goldfarbFamilyVariablemetricMethods1970, shannoConditioningQuasiNewtonMethods1970} with the parameters that we obtained the ADAM optimizer.
 The strategy for using two stages of training had been proven to produce better output for \gls{UDE} problem \cite{rackauckasUniversalDifferentialEquations2020}.
 After the first training stage with the ADAM optimizer, the parameters were put in a more reasonable parameters space.

@@ -12,7 +12,7 @@ To obtain Vietnam country-level time-series data, we utilized the Covid-19 datas
 The repository had three separate \gls{CSV} files, each containing the global time-series data since January 22th 2020 for the total number of confirmed cases, the total number of recoveries, and the total number of deaths from the disease.
 The general structure of the files is illustrated in \autoref{tab:jhu-csse-covid-timeseries}.
 From the three \gls{CSV} files, we extracted the data for Vietnam and constructed a single time-series dataset for the country (see \autoref{tab:country-covid-timeseries} for an example).
-Because we were considering the most recent outbreak in Vietnam (starting from April 27th 2021), we filtered out the data points before April 27th 2021 and subtracted the remaining data points with the values on April 26th 2021 so that the total counts started on the first date of the outbreak.
+Because we were considering the most recent outbreak in Vietnam (starting from 27th April 2021), we filtered out the data points before 27th April 2021 and subtracted the values of the remaining data points with the values on 26th April 2021 so that the total counts started on the first date of the outbreak.
 We noted that the time-series from the John Hopkins University did not include the total number of recoveries for Vietnam after August 4th 2021.
 But because we did not consider the data points after that date, the available data is sufficient for conducting our experiment.
 
@@ -53,7 +53,9 @@ But because we did not consider the data points after that date, the available d
 The data for Covid-19 cases in counties in the \gls{US} were also obtained from the John Hopkins University.
 The repository created by the John Hopkins University \cite{dongInteractiveWebbasedDashboard2020} contained 2 separated CSV files for the total number of confirmed cases time-series and the total number of deaths time-series for counties in the \gls{US}.
 The procedure that we applied for combining Vietnam country-level data was also used to extract Covid-19 cases data for a single county.
-However, with these datasets, we did not filter out data points before 27th April 2021 because we were not considering a specific outbreak like in the case of Vietnam.
+Similar with Vietnam's data, we only considered data for the most recent outbreak in the \gls{US}.
+We chose 1st July 2021, which was roughly when the fourth wave of the Covid-19 pandemic started in the \gls{US}, to be the starting date of the most recent Covid-19 outbreak in the US.
+We then filtered out the data points before 1st July 2021 and subtracted the values of the remaining data points with the values on 30th June 2021 so that the total counts started on the first date of the considered outbreak.
 
 \begin{table}[h]
 \centering
