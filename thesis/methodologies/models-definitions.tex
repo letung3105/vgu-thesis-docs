@@ -20,9 +20,10 @@ Formally, the system of \glspl{ODE} that governs our extended \gls{SEIR} model w
     \end{aligned}
     \label{eq:methodologies-seir-model}
 \end{equation}
-where $\beta$ is the infection rate, $\gamma$ is the exposure rate, $\lambda$ is the rate at which infective individuals become not infective anymore, and $\alpha$ is the fatality rate.
-Unlike the definition of the \gls{SEIR} model given in \autoref{sec:literature-review-compartmental-seird-model} where an infective person can infect $\beta N$ other people per unit time, here we let $\beta$ itself be the number of people that can be infected by a single infective individual per unit time.
+where $\beta$ is the number of people that are infected per unit time, $\gamma$ is the exposure rate, $\lambda$ is the rate at which infective individuals become not infective anymore, and $\alpha$ is the fatality rate.
+Unlike the definition of the \gls{SEIR} model given in \autoref{sec:literature-review-compartmental-seir-model} where an infective person can infect $\beta N$ other people per unit time, here we let $\beta$ itself be the number of people that can be infected by a single infective individual per unit time.
 Thus, the total number of newly infected people per unit time in this formulation turned into $\beta SI / N$ instead of $\beta SI$.
+In other words, the value of $\beta$ here corresponded to $C(N)$ in the generalized \gls{SIR}/\gls{SEIR} model presented in \autoref{sec:literature-review-generalized-sir-model} where $\beta(N) = C(N) / N$.
 This was done because, in our experiment, we observed that using $\beta$ as the number of people that can be infected by a single infective individual resulted in a better fit to the training data and a better out-of-sample performance of the model.
 We noted that existing literature \cite{arikInterpretableSequenceLearning, bastosModelingForecastingEarly2020,dengDynamicsDevelopmentCOVID192020, heSEIRModelingCOVID192020,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021, ndairouMathematicalModelingCOVID192020,sarkarModelingForecastingCOVID192020, zhaoModelingEpidemicDynamics2020} had also utilized the same formulation for the transition between the $S$ and $E$ compartments.
 Based on \autoref{eq:methodologies-seir-model}, we could obtain the basic reproduction number by using the following equation

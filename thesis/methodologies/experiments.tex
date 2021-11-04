@@ -107,9 +107,9 @@ The hyperparameter $\zeta$ for the loss function in \autoref{eq:ude-model-loss} 
 
 In the 2 experiment settings, the choice of 500 cases was adopted from \cite{dandekarMachineLearningAidedGlobal2020a} in which the authors illustrated that the model could not generalize well enough when training with data before the 500 cases threshold.
 We noted that while the model might be sensitive to the choice of the initial conditions and the initial parameters, we did not consider the effects of choosing a different set of initial conditions and initial parameters.
-Both the Movement Range Maps dataset and the derived \gls{SPC} index exhibited weekly seasonality in the data.
+The Covid-19 dataset, the Movement Range Maps dataset, and the derived \gls{SPC} index all exhibited weekly seasonality in the data.
 In the Movement Range Maps dataset, the relative change in movement tended to drop to a much lower value while the stay-put ratio increased sharply in the weekend.
 This was expected as the data was based on human mobility where people went to work during the week and stayed rested on the weekend.
-With the \gls{SPC} index, the value typically dipped in value in the weekend when fewer Covid-19 tests were made.
-In the experiments, we applied a 7-day moving average transform to the Movement Range Maps dataset and the \gls{SPC} index to remove the weekly seasonality exhibited in the measurements.
+With the Covid-19 cases data the \gls{SPC} index, the value typically dipped in value in the weekend when fewer Covid-19 tests were made.
+In the experiments, we applied a 7-day moving average transform to the Covid-19 cases data, the Movement Range Maps dataset, and the \gls{SPC} index to remove the weekly seasonality exhibited in the measurements.
 The elimination of weekly seasonality in the data allowed the model to better capture the overall trends and helped to avoid confusing the model with highly fluctuating values.
