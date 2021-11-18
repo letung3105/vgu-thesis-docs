@@ -4,10 +4,10 @@
 One of the most transparent and most recognizable methods for modeling transmittable disease is through a compartmental model.
 This kind of modeling has been around for almost a century.
 The most basic was described by \citeauthor{kermackContributionMathematicalTheory1927} \cite{kermackContributionMathematicalTheory1927, kermackContributionsMathematicalTheory1932, kermackContributionsMathematicalTheory1933} in \citeyear{kermackContributionMathematicalTheory1927}, \citeyear{kermackContributionsMathematicalTheory1932}, and \citeyear{ kermackContributionsMathematicalTheory1933}.
-In the subsection, we describe the basic concepts through two models.
-First, we go through the details of the basic \gls{SIR} model, its assumptions, and the meaning of each term in the \gls{ODE} system.
-Then, we illustrate an extension of the \gls{SIR} model, the \gls{SEIR} model.
-Because there have been countless extensions made to the basic \gls{SIR} model, we are not going through each one of the extended versions for brevity.
+In the subsection, describe the basic concepts of compartmental models are described using two different models.
+First, the details of the basic \gls{SIR} model are discussed, its assumptions, and the meaning of each term in the \gls{ODE} system.
+Then, the SEIR model, an extension of the \gls{SIR} model, is illustrated.
+While there have been countless extensions made to the basic \gls{SIR} model, for brevity, not all of the extended versions are considered.
 Having a basic understanding of how the most basic models work is sufficient for grasping the concepts of more complicated models.
 Compartmental models are flexible such that one easily inserts a new compartment into an existing model to accommodate for the disease that is being studied.
 
@@ -62,19 +62,19 @@ The system is defined under the following assumptions \cite{brauerCompartmentalM
     \label{assumption:basic-sir-constant-population}
 \end{enumerate}
 
-We can not solve the system of \glspl{ODE} analytically, but we can acquire its behavior through quantitative approaches.
-We know for a fact that the value $S(t)$ and $I(t)$ can not be negative.
+The system of \glspl{ODE} can not be solved analytically, but its behavior can be acquired through quantitative approaches.
+It is known for a fact that the value $S(t)$ and $I(t)$ can not be negative.
 Thus the solving process can be terminated once $S(t) = 0$ or $I(t) = 0$.
 It can be observed that $S' < 0$ for all $t$ and $I' > 0$ if and only if $S > \alpha / \beta$.
 Consequently, if $S(0) < \alpha / \beta$, $I$ decreases to zero (no epidemic), whereas if $S(0) > \alpha / \beta$, $I$ increases to a maximum achieved when $S = \alpha / \beta$ and then decreases to zero (epidemic) \cite{brauerCompartmentalModelsEpidemiology2008}.
-From the behavior, we can obtain a threshold value of $\beta S(0) / \alpha$, commonly called the \textit{basic reproduction number}
+From the behavior, a threshold value of $\beta S(0) / \alpha$, commonly called the \textit{basic reproduction number}, can be obtained
 \begin{equation*}
     \mathcal{R}_0 = \frac{\beta S(0)}{\alpha}.
 \end{equation*}
 If $\mathcal{R}_0 < 1$, the number of infections dies out, whereas when $\mathcal{R}_0 > 1$, there will be an epidemic.
 By definition, the value $\mathcal{R}_0$ is the number of secondary infections caused by a single infective individual placed within a fully susceptible population of size $K \approx S(0)$ over the infective duration of this person.
 In this situation, the basic reproduction number becomes $\beta K / \alpha$.
-From here, we can deduce the final size of the epidemic by considering the \textit{final size relation} \cite{brauerCompartmentalModelsEpidemiology2008}
+From here, the final size of the epidemic can be deducted by considering the \textit{final size relation} \cite{brauerCompartmentalModelsEpidemiology2008}
 \begin{equation}
     ln \frac{S(0)}{S_\infty} = \mathcal{R}_0 \left[ 1 - \frac{S_\infty}{K} \right].
     \label{eq:sir-final-size-relation}
@@ -98,7 +98,7 @@ Because both the values $K$ and $\alpha$ can be measure, the contact rate can be
 Note that early on in the outbreak, this estimation could experience high inaccuracy due to incomplete data or underreporting of the number of cases.
 The estimation accuracy might also suffer significantly with an outbreak of new unknown diseases, where early cases are more likely to be diagnosed.
 
-Lastly, we can obtain the maximum number of infective individuals, which is attained when $I' = 0$ \cite{brauerCompartmentalModelsEpidemiology2008}
+Lastly, the maximum number of infective individuals can be obtained, which is attained when $I' = 0$ \cite{brauerCompartmentalModelsEpidemiology2008}
 \begin{equation*}
     I_{max} = S(0) + I(0) - \frac{\alpha}{\beta} ln S(0) - \frac{\alpha}{\beta} + \frac{\alpha}{\beta} ln \frac{\alpha}{\beta}
 \end{equation*}
@@ -109,20 +109,20 @@ Lastly, we can obtain the maximum number of infective individuals, which is atta
 Assumption (\ref{assumption:basic-sir-contact-rate}) of the basic \gls{SIR} model is unrealistic.
 It is better to assume that the contact rate is a non-increasing function of the population size.
 A more generalized \gls{SIR} model can be formulated by replacing assumption (\ref{assumption:basic-sir-contact-rate}) with the assumption that each person in the population makes $C(N)$ contacts in unit time on average with $C'(N) \geq 0$.
-We can define
+The contact rate is then calculated as
 \begin{equation*}
     \beta(N) = \frac{C(N)}{N},
 \end{equation*}
 and make a reasonable assumption that $\beta'(N) \leq 0$ express the saturation in the number of contacts \cite{brauerCompartmentalModelsEpidemiology2008}.
-With that assumption we have a new model
+With that assumption, a new model can be formulated
 \begin{align*}
     S' &= - \beta(N)SI \\
     I' &= \beta(N)SI - \alpha I \\
     R' &= f \alpha I \\
     N' &= - (1 - f) \alpha I
 \end{align*}
-In this model, we consider the rate of change in the total population $N$ because now the contact rate depends on it.
-Therefore, we have to consider the distinction between the individuals who recover from the disease and the individuals who die of the disease.
+In this model, the rate of change in the total population $N$ is used because now the contact rate depends on it.
+Therefore, the distinction between the individuals who recover from the disease and the individuals who die of the disease has be be considered.
 Hence, assuming that a fraction $f$ of the $\alpha I$ members leaving the infective compartment at time $t$ recover.
 The remaining fraction $(1 - f)$ dies of the disease.
 
@@ -179,7 +179,7 @@ Following the same analysis in the previous subsections, the final size relation
     ln \frac{S(0)}{S_\infty} \geq \mathcal{R}_0 \left[ 1 - \frac{S_\infty}{K} \right]
 \end{equation*}
 
-For diseases that have an asymptomatic phase rather than an exposed stage, we can introduce a factor $\epsilon$.
+For diseases that have an asymptomatic phase rather than an exposed stage, a factor $\epsilon$ can be introduced.
 This factor represents a reduction in the infectiousness of those who are infected but not showing symptoms.
 A model that represents this situation is given by \cite{brauerCompartmentalModelsEpidemiology2008}
 \begin{align*}

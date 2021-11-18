@@ -74,7 +74,7 @@ There are several benefits when doing this, such as \cite{chenNeuralOrdinaryDiff
     \label{fig:neuralode-adjoint}
 \end{figure}
 
-For a \gls{NeuralODE} to be trainable with gradient descent, we must have a way to compute the gradients of the loss with respect to the parameters of the \gls{NeuralODE}.
+For a \gls{NeuralODE} to be trainable with gradient descent, there must be a way to compute the gradients of the loss with respect to the parameters of the \gls{NeuralODE}.
 The regular method for taking the loss gradients in \glspl{ANN} (back-propagation) can not be applied for \glspl{NeuralODE} because it incurs high memory cost and introduces additional numerical errors.
 Hence, \citeauthor{chenNeuralOrdinaryDifferential2019} \cite{chenNeuralOrdinaryDifferential2019} use \textit{adjoint sensitivity analysis} to compute the gradients.
 The gradients are computed by solving a second, augmented \gls{ODE} backward in time.
@@ -105,7 +105,7 @@ Considering the loss function $L$, which takes the result of an \gls{ODE} solver
 \begin{equation*}
     L(z(t_1)) = L\left(z(t_0) + \int_{t_0}^{t_1}{f(z(t), t, \theta)dt}\right) = L(ODESolve(z(t_0), f, t_0, t_1, \theta)).
 \end{equation*}
-First, we consider the gradient of the loss with respect to the hidden state $z(t)$, called the adjoint $a(t) = \partial L / \partial z(t)$.
+First, the gradient of the loss with respect to the hidden state $z(t)$ is considered, called the adjoint $a(t) = \partial L / \partial z(t)$.
 The dynamics of the adjoint are then given by another \gls{ODE} \cite{chenNeuralOrdinaryDifferential2019}
 \begin{equation*}
     \frac{da(t)}{dt} = -a(t)^T\frac{\partial f(z(t), t, \theta)}{\partial z}.
@@ -115,12 +115,12 @@ The gradient of the loss with respect to the hidden state at the initial time st
     \frac{dL}{dz(t_0)} = \frac{\partial L}{\partial z(t_1)} + \int_{t_1}^{t_0}{-a(t)^T\frac{\partial f(z(t), t, \theta)}{\partial z}} dt.
     \label{eq:neural-ode-loss-wrt-initial-hidden-state}
 \end{equation}
-Computing $dL/dz(t_0)$ requires the hidden state $z(t)$ at each evaluated time step which is calculated by integrating the dynamics of our system backward in time starting from the value $z(t_1)$ \cite{chenNeuralOrdinaryDifferential2019}
+Computing $dL/dz(t_0)$ requires the hidden state $z(t)$ at each evaluated time step which is calculated by integrating the dynamics of the system backward in time starting from the value $z(t_1)$ \cite{chenNeuralOrdinaryDifferential2019}
 \begin{equation}
     z(t) = z(t_1) + \int_{t_1}^{t}{f(z(t), t, \theta)dt}.
     \label{eq:neural-ode-hidden-state-backward-integral}
 \end{equation}
-Finally, we can calculate the gradients of the loss function with respect to the parameters $\theta$ using \cite{chenNeuralOrdinaryDifferential2019}
+Finally, the gradients of the loss function with respect to the parameters $\theta$ can be calculated using \cite{chenNeuralOrdinaryDifferential2019}
 \begin{equation}
     \frac{dL}{d\theta} = \int_{t_1}^{t_0}{-a(t)^T\frac{\partial f(z(t), t, \theta)}{\partial \theta}} dt.
     \label{eq:neural-ode-loss-wrt-parameters}

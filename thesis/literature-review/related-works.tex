@@ -4,23 +4,23 @@ Ever since Covid-19 emerged, researchers have tried to model the dynamics of the
 In an ongoing epidemic, it is generally challenging to model the disease dynamics under partial observations.
 It is especially true with an unprecedented pandemic like Covid-19, where prior knowledge learned from other diseases can not be applied.
 There are two distinct approaches that previous researchers have used to model Covid-19: the mathematical approach and the data-driven approach.
-Each approach has its advantages and disadvantages, so the model depends on the questions that need to be answered and how we want to use it.
+Each approach has its advantages and disadvantages, so the model depends on the questions that need to be answered and how the model will be used.
 
 With the mathematical approach, the characteristics and behaviors of the disease are compressed down into parameters of a governing equation or system of equations.
 This type of model emphasizes prior knowledge about different diseases and the interpretability of the model.
-When using a mathematical model, the metrics that help inform about the prevalence of the disease can be derived from the model.
+When using a mathematical model, the metrics, that help inform about the prevalence of the disease, can be derived from the model.
 One metric that epidemiologists typically want to know is the \textit{basic reproduction number}, also known as $\mathcal{R}_0$.
 This number tells us whether a disease will be an epidemic, and this number must be identified as early as possible so that interventions can be in place.
 
-With the data-driven approach, we consider that we do not have any prior knowledge about the disease that is being modeled.
+With the data-driven approach, none of the knowledge about the disease that is being modeled is a priori.
 This type of modeling learns the dynamics of the disease from data which can help with understanding the data or help with predicting future changes.
 Data-driven models remove the biases and the simplistic assumptions made by mathematical models.
 Thus, unknown information about the disease can be implicitly captured by a data-driven model.
-However, we can not derive epidemiologically significant metrics that can inform scientists about the disease while using data-driven approaches.
+However, epidemiologically significant metrics, that can inform scientists about the disease while using data-driven approaches, can not be derived.
 Furthermore, data-driven approaches can only be applied when data is available in a high quantity at a high quality.
 Therefore, this type of modeling is not commonly utilized at the early stage of the disease when data is not adequately collected.
 
-In the subsequent sections, we are presenting a non-exhaustive list of existing works in Covid-19 modeling and forecasting.
+In the subsequent sections, a non-exhaustive list of existing works in Covid-19 modeling and forecasting are presented.
 The list should give the reader a general view of some of the prior researches.
 
 \subsection{Forecasting Covid-19 with mathematical models}
@@ -41,7 +41,7 @@ While Covid-19 exhibits similar characteristics to other transmissible diseases,
 Thus, many scientists have experimented with adding more compartments to the classic \gls{SIR}/\gls{SEIR} model to better characterize Covid-19.
 Commonly added compartments across literature are for asymptomatic individuals and quarantined individuals.
 Some researchers also model the number of patients in \glspl{ICU} or the number of patients on ventilators, which helps forecast the number of occupied \glspl{ICU} and ventilators so that healthcare facilities can prepare for a possible outbreak.
-We are giving a quick summary of some of the compartmental models created during the early phase of the pandemic while taking note of the problem they were solving.
+Here a quick summary of some of the compartmental models created during the early phase of the pandemic are given while the problem they were solving are noted.
 
 \citeauthor{zhaoModelingEpidemicDynamics2020} \cite{zhaoModelingEpidemicDynamics2020} proposed a new compartmental model tailored specifically for Covid-19 by considering three different classifications of the infective individuals: unquarantined infective, quarantined infective, and confirmed infective.
 This classification of infective cases follows the reality of data collecting and government intervention in China, where infective individuals were placed in quarantine immediately after they were tested positive for the SARS-NCoV-2 virus.
@@ -68,7 +68,7 @@ The model was then simulated and evaluated against data from seventeen different
 The authors showed that reducing contact between infective individuals and uninfected individuals through placing the susceptible individuals in quarantine can effectively reduce the basic reproduction number.
 Furthermore, they demonstrated that Covid-19 could be eradicated through a combination of social distancing and contact tracing.
 
-Generally, we can see that early compartmental models were tailored to the specific characteristics of Covid-19 by considering two major factors: government interventions and asymptomatic infections.
+Generally, it was common that early compartmental models were tailored to the specific characteristics of Covid-19 by considering two major factors: government interventions and asymptomatic infections.
 Different researchers had different methods for incorporating these factors into the models, but the conclusion based on such models are largely the same.
 They all indicated early on that quarantine, contact tracing, and testing for asymptomatic infective individuals are all effective methods for controlling the spread of the virus.
 
@@ -77,7 +77,7 @@ They all indicated early on that quarantine, contact tracing, and testing for as
 This type of model performs simulations on the level of individuals to derive the epidemic trends for the entire population.
 Each \textit{agents} represents a single person in the population, and the interactions between these agents can simulate the spread of the virus.
 In a sense, both agent-based models and compartmental models simulate the same phenomenons.
-However, when using agent-based models, we can utilize fine-grained demographic data about a population and assess the situations of the disease based on different scenarios of how people interact with each other.
+However, when using agent-based models, fine-grained demographic data about a population can be utilized, and the situations of the disease can be assessed based on different scenarios of how people interact with each other.
 Therefore, agent-based models can easily be adapted to changing conditions and are more suitable for modeling the disease based on individualistic behaviors.
 
 \citeauthor{kerrCovasimAgentbasedModel2021} \cite{kerrCovasimAgentbasedModel2021} developed an agent-based simulation tool that considers the population size, age structure, transmission networks for different locations such as households, schools, workplaces, and long-term care facilities.
@@ -122,8 +122,7 @@ The model was then used to forecast the number of new infections in Brazil and i
 In addition to applying the model for forecasting, the authors demonstrated that there many differences in the disease dynamics across the countries.
 
 Although the \gls{ARIMA} model is widely used and has shown that it can make reasonably good forecasts on the number of new infections, this type of model does not give much more information about the disease itself.
-Therefore, it is unsuitable for modeling tasks where we want to know more than just the number of future cases.
-Besides, it is unclear how additional information can be incorporated into such a model now that we know which factors influence the disease dynamics.
+Therefore, it is unsuitable for modeling tasks more than just the number of future cases are needed.
 
 \subsubsection{Deep-learning models}
 
@@ -146,7 +145,7 @@ Inputs to these models are historical data on the number of cases, recoveries, a
 The research showed that \gls{Bi-LSTM} achieved the best overall predictive performance and suggested that such a model can be used to aid in strategic planning for Covid-19.
 
 While achieving high accuracy in predicting future cases, many of these models are black-box algorithms that are not interpretable, rendering it hard to quantify the causal effect of external factors on the progression of the pandemic.
-One exception is the model from \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}, where we can know how each of the external factors affects the dynamics, but well-studied metrics in epidemiology still can not be derived from the model.
+One exception is the model from \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}, where how each of the external factors affects the dynamics can be deducted, but well-studied metrics in epidemiology still can not be derived from the model.
 Having an explainable model is extremely important for healthcare and public authorities to derive meaningful analyses that aid in the planning process.
 Moreover, these black-box algorithms might not capture the underlying dynamics of the disease due to under-reporting, asymptomatic infections, or a general lack of data, especially in the early stages of the outbreak.
 
@@ -170,7 +169,7 @@ But the length of time required for the travel restrictions was unknown, and the
 Their results showed that mobility had substantial effects on the dynamics of the disease, and individuals from groups of minorities are more likely to go to crowded locations to get their necessities.
 In addition, these results indicated that widespread lockdown was ineffective and harmful to the population with low income.
 
-In addition, we also know that the population census and the quality of the healthcare system contribute to Covid-19 dynamics.
+It is known that the population census and the quality of the healthcare system contribute to Covid-19 dynamics.
 Recently, researchers have been encoding different metrics into compartmental models, and some examples are \gls{GDP}, the population age structure, the quality of the healthcare system
 These data points present an essential part in representing the true dynamics of Covid-19.
 
@@ -187,7 +186,7 @@ In this model, the rates of transfers between compartments are all dependent on 
 These weights matrices can be trained end-to-end with optimization techniques used in training \gls{ANN}.
 This method has been one of the most accurate comparing with the methods used for state-level forecasts submitted for the US’s ensemble model \cite{rayEnsembleForecastsCoronavirus2020}.
 
-With these models, we can simulate how the disease evolved under different circumstances while still being able to derive epidemiologically significant metrics.
+With these models, how the disease evolved under different circumstances can be simulated while still being able to derive epidemiologically significant metrics.
 The models in this form serve not only for understanding how different factors affect Covid-19 but also as a tool for forecasting a variety of future scenarios.
 Moreover, they demonstrated that compartmental models could be dramatically improved through the simple incorporation of additional information.
 

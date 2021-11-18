@@ -3,7 +3,7 @@
 Extracting the governing equations from data has been a great challenge in the fields of science and engineering.
 While recent rapid advances in machine learning and data science have enabled the ability to analyze and understand complex static data, methods for capturing physical models of dynamical systems from data have slowly progressed.
 To ease this problem, \citeauthor{bruntonDiscoveringGoverningEquations2016} \cite{bruntonDiscoveringGoverningEquations2016} proposed the \gls{SINDy} method for discovering the underlying dynamics of systems using sparse regression and compressed sensing.
-Suppose that we are working with dynamical systems of the form
+Given the dynamical systems of the form
 \begin{equation*}
     \frac{d}{dt} x(t) = f(x(t)),
 \end{equation*}
@@ -18,7 +18,7 @@ Under that observation, methods in compressed sensing and sparse regression can 
     \label{fig:sindy-schematic}
 \end{figure}
 
-To determine the function $f$ from data, we collect the history of the state $x(t)$ and its derivative $\dot{x}(t)$ at time step $t_1, t_2, \cdots, t_m$ \cite{bruntonDiscoveringGoverningEquations2016}
+To determine the function $f$ from data, the history of the state $x(t)$ and its derivative $\dot{x}(t)$ at time step $t_1, t_2, \cdots, t_m$ are collected \cite{bruntonDiscoveringGoverningEquations2016}
 \begin{align*}
     X &=
     \begin{bmatrix}

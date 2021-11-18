@@ -8,7 +8,7 @@ Based on those observations, many researchers have recently presented with diffe
 
 As introduced in \autoref{sec:literature-review-physics-informed-neural-network}, \glspl{PINN} can enforce physical constraints on \glspl{ANN} through the use of \glspl{PDE}/\glspl{ODE} as a regularization term in the loss function.
 \glspl{PINN} were shown to have high performance for some scientific applications with limited data.
-However, it still lacks the interpretability of  mechanistic models even though we know that the \gls{ANN} has learned some legitimate physical characteristics.
+However, it still lacks the interpretability of  mechanistic models even though it can be seen that the \gls{ANN} has learned real world physical characteristics.
 Instead of incorporating scientific knowledge into the model, \glspl{NeuralODE} take a different approach by using the structure of scientific models as a basis for machine learning.
 While \glspl{NeuralODE} can learn the continuous dynamics data, as shown in \autoref{sec:literature-review-neural-ordinary-differential-equations}, the resulting models do not represent any known mechanisms.
 To address these issues, \citeauthor{rackauckasUniversalDifferentialEquations2020} \cite{rackauckasUniversalDifferentialEquations2020} proposed \glspl{UDE} that extend the approach taken by \glspl{NeuralODE}.
@@ -20,7 +20,7 @@ In general, a \gls{UDE} model will be in the form of \cite{rackauckasUniversalDi
     u' = f(u, t, U_\theta(u, t)),
 \end{equation*}
 where $f$ denotes a known mechanistic model whose missing terms are defined by some universal approximator $U_\theta$.
-The process for training \glspl{UDE} is similar to training typical \glspl{ANN} where we minimize a loss function $\mathcal{L}(\theta)$ defined for the approximated solution $u_\theta(t)$ with respect to the current choice of parameters $\theta$.
+The process for training \glspl{UDE} is similar to training typical \glspl{ANN} a loss function $\mathcal{L}(\theta)$, defined for the approximated solution $u_\theta(t)$ with respect to the current choice of parameters $\theta$, is minimized.
 Common choices for a loss function used to train \glspl{ANN} are applicable in this case, such as the \gls{MSE} $\mathcal{L}(\theta) = \sum_{i=1}^{N} (u_\theta(t_i) - d_i)^2$ at discrete data points $\{(t_i, d_i)\}_{i=i}^N$.
 Then the gradients of the loss with respect to the parameters $\frac{\partial\mathcal{L}}{\partial\theta}$ are calculated for applying local gradient-based methods such as gradient descent.
 Methods for computing the gradients of \glspl{UDE} of different types of differential equations are implemented by \citeauthor{rackauckasUniversalDifferentialEquations2020} \cite{rackauckasUniversalDifferentialEquations2020} as a library in the Julia programming language \cite{bezanson2012julia}, which will be utilized in this thesis.

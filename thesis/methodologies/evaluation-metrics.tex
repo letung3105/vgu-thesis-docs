@@ -1,7 +1,7 @@
 \section{Evaluation metrics}
 \label{sec:methodologies-evaluation-metrics}
 
-We compared the out-of-sample performance of the models using various metrics which include \gls{MAPE}, \gls{MAE}, and \gls{RMSE}. For $n$ observations, given the predictions $\hat{y}_i$ and the ground truth $y_i$, the definitions of these evaluation metrics are given as
+The out-of-sample performance of the models were compared using various metrics which include \gls{MAPE}, \gls{MAE}, and \gls{RMSE}. For $n$ observations, given the predictions $\hat{y}_i$ and the ground truth $y_i$, the definitions of these evaluation metrics are given as
 \begin{align*}
     MAE &= \frac{1}{n} \sum_{i=1}^n \left| \hat{y}_i - y_i \right| \\
     MAPE &= \frac{100}{n} \sum_{i=1}^n \left| \frac{\hat{y}_i - y_i}{y_i} \right| \\
@@ -16,5 +16,5 @@ One downside of \gls{MAPE} is that its value is infinite or undefined when the g
 Thus this should not be applied when the observed values are zero at some time steps.
 Unlike \gls{MAE} and \gls{MAPE}, \gls{RMSE} places more emphasis on larger observation error, as a result, the metric is more sensitive to outliers.
 The value given by \gls{RMSE} is also in the same unit as the input data similar to \gls{MAE}.
-Furthermore, we noted that these metrics had also been used by other researchers to evaluate their models \cite{rayEnsembleForecastsCoronavirus2020, ihmecovid-19forecastingteamModelingCOVID19Scenarios2021,arikInterpretableSequenceLearning}.
-Hence, this gave us more insights into the performance of our model when compared against existing results that were applied to other countries and regions.
+Furthermore, these metrics had also been used by other researchers to evaluate their models \cite{rayEnsembleForecastsCoronavirus2020, ihmecovid-19forecastingteamModelingCOVID19Scenarios2021,arikInterpretableSequenceLearning}.
+Hence, this gave us more insights into the performance of the model when compared against existing results that were applied to other countries and regions.

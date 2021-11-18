@@ -29,8 +29,8 @@ The model could be of help in the following aspects: (1) informing policies make
 Lastly, the recent surge in infections has generated data on the number of Covid-19 cases in Vietnam in a much higher quantity and quality that are publicly available and can be used for data-driven modeling.
 
 Given that reasoning, this thesis focuses on implementing an interpretable disease model for Vietnam that can capture the current trends in the development of the pandemic at an early stage.
-The implemented model will base on classical compartmental models where the mentioned issues are alleviated by using covariates to control the parameter(s).
-Instead of using a predefined multivariate function to adjust the parameters in the system of \glspl{ODE}, we will be using an \gls{ANN} to encode the covariates.
+The implemented model based on classical compartmental models where the mentioned issues are alleviated by using covariates to control the parameter(s).
+Instead of using a predefined multivariate function to adjust the parameters in the system of \glspl{ODE}, an \gls{ANN} was used to encode the covariates.
 The method takes advantage of the recent development in \gls{ANN} architectures for solving forward-inverse problems with \glspl{ODE} \cite{raissiPhysicsinformedNeuralNetworks2019, chenNeuralOrdinaryDifferential2019, rackauckasUniversalDifferentialEquations2020}.
 Utilizing the capability of \glspl{ANN} to approximate any arbitrary function \cite{cybenkotApproximationSuperpositionsSigmoidal, hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}, data-driven approaches can discover the underlying mechanics of Covid-19 without needing to define the governing multivariate function, which requires expert epidemiological knowledge.
 
@@ -39,7 +39,7 @@ The rest of the thesis is structured as follow:
     \item \autoref{chap:literature-review} gives an overview of the research backgrounds of the model.
     A list of related methods and techniques from other researchers is also presented.
     \item \autoref{chap:methodologies} discusses how the model was formulated, the used dataset, and the evaluation methods.
-    \item \autoref{chap:results} presents our findings and evaluations for the performance of the implemented model.
+    \item \autoref{chap:results} presents the findings and evaluations for the performance of the implemented model.
     \item \autoref{chap:discussion} compares the results of the implemented model and its performance with related works produced by other researchers.This chapter includes a list of limitations of the model and further improvements that can be made to boost the effectiveness and performance of the model.
     \item \autoref{chap:conclusion} shows the overall achievement of this thesis.
 \end{itemize}

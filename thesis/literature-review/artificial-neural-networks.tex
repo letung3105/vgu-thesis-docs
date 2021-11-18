@@ -47,9 +47,8 @@ where $w$ and $x$ are vectors of real value, $w \cdot x = \sum_{i=1}^m{w_i x_i}$
 The perceptron is illustrated in \autoref{fig:perceptron}.
 This initial version of \gls{ANN} only works with classification problems in which the classes are linearly separable.
 
-Nowadays, neural networks are highly complex because of the considerably higher computing power we have and the developments of special-purpose hardware, such as the \gls{GPU}.
+Nowadays, neural networks are highly complex because of the considerably higher computing power and the developments of special-purpose hardware, such as the \gls{GPU}.
 Multiple different architectures of neural networks exist, a non-exhaustive list includes: \glspl{CNN} are typically used for processing images or other two-dimensional data \cite{lecunBackpropagationAppliedHandwritten1989}; \glspl{LSTM} solve the vanishing gradient problem and have the ability to handle data with a mix of low and high frequencies \cite{hochreiterLongShortTermMemory1997}; \glspl{GAN} are designed to have competing \glspl{ANN} on tasks such as playing a game \cite{silverMasteringChessShogi2017}.
-In this thesis, we are utilizing the \gls{MLP} architecture.
 
 \begin{figure}[h]
     \centering
@@ -141,22 +140,22 @@ Back-propagation is the algorithm for finding the gradients of a loss function w
 A loss function measures how large the error is between the \gls{ANN}'s guess and the true value.
 One choice is the \gls{MSE} $\mathcal{L} = \frac{1}{N} \sum_{i=1}^N (\hat{y} - y)^2$
 The algorithm calculates the gradients starting from the output layer and going backward to the input layer.
-To find the gradient of the loss function $\mathcal{L}$ with respect to the weight $w_{ij}^L$, where $L$ is the number of layers, we must calculate
+The following equation is used to find the gradient of the loss function $\mathcal{L}$ with respect to the weight $w_{ij}^L$, where $L$ is the number of layers
 \begin{equation}
     \frac{\partial \mathcal{L}}{\partial w_{ij}^L} = \frac{\partial\mathcal{L}}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_i^L} \frac{\partial z_i^L}{\partial w_{ij}^L}.
     \label{eq:backpropagation-ouput-layer-weights}
 \end{equation}
-Similarly we can compute the gradient with respect to the bias term
+Similarly the gradient with respect to the bias term can be calculated by
 \begin{equation}
     \frac{\partial \mathcal{L}}{\partial b_i^L} = \frac{\partial\mathcal{L}}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_i^L} \frac{\partial z_i^L}{\partial b_i^L}.
     \label{eq:backpropagation-ouput-layer-bias}
 \end{equation}
-If we want to calculate the gradient of $\mathcal{L}$ with respect to $w_{jk}^{L-1}$, we first consider the gradient of $\mathcal{L}$ with respect to $a_j^{L-1}$
+If gradient of $\mathcal{L}$ with respect to $w_{jk}^{L-1}$ needs to be calculated, first the gradient of $\mathcal{L}$ with respect to $a_j^{L-1}$ is considered
 \begin{equation}
     \frac{\partial \mathcal{L}}{\partial a_j^{L-1}} = \sum_{i=1}^{r_{L-1}} \frac{\partial\mathcal{L}}{\partial a_i^L} \frac{\partial a_i^L}{\partial z_i^L} \frac{\partial z_i^L}{\partial a_j^{L-1}}.
     \label{eq:backpropagation-hidden-layer-activation}
 \end{equation}
-Then we can compute the gradients
+Then the following gradients can be computed
 \begin{equation*}
     \frac{\partial \mathcal{L}}{\partial w_{jk}^{L-1}} = \frac{\partial \mathcal{L}}{\partial a_j^{L-1}} \frac{a_j^{L-1}}{z_j^{L-1}} \frac{z_j^{L-1}}{w_{jk}^{L-1}},
 \end{equation*}
