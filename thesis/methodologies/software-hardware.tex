@@ -76,4 +76,5 @@ The \textit{DataDeps} package simplified the process of downloading static files
 
 Finally, using the package, several experiments are set up based on the configurations given in \autoref{sec:methodologies-experiments}, and the functions for setting up these experiments are included along with the package.
 The implementation the loss function defined by \autoref{eq:ude-model-loss} is included among these functions, and its definition is shown in \autoref{fig:diffeq-seird-experiment-loss}.
+Moreover, the experiments can be run in parallel when training with data from different locations by using the threads that are available in the system.
 For easy access to the training and evaluation of the experiments, the package \textit{ArgParse} \footnote{\url{https://github.com/carlobaldassi/ArgParse.jl}} is used to provide a command-line interface for running the experiments with predefined locations.
