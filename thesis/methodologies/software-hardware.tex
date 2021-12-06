@@ -1,6 +1,6 @@
 \section{Software and hardware}
 
-The scripts for generating the datasets described in \autoref{sec:methodologies-data}, the models defined in \autoref{sec:methodologies-models-definitions} and the training algorithm defined in \autoref{sec:methodologies-parameters-optimization} were implemented using the Julia programming language \cite{bezanson2012julia}.
+The scripts for generating the datasets described in \autoref{sec:methodologies-data}, the models defined in \autoref{sec:methodologies-models-definitions} and the training algorithm defined in \autoref{sec:methodologies-parameters-estimation} were implemented using the Julia programming language \cite{bezanson2012julia}.
 The implementation was written as a Julia package and was tested with Julia version 1.6.3.
 Julia was chosen for the implementation because of the strongly supported packages for solving differential equations and computing the gradients of those equations.
 The two main packages that were utilized are the \textit{DifferentialEquations} package \cite{rackauckas2017differentialequations} for solving the system of \glspl{ODE} defined by \autoref{eq:methodologies-seir-ude-model} and the \text{DiffEqFlux} \cite{rackauckasUniversalDifferentialEquations2020} package for computing the gradients and optimizing the system's parameters.

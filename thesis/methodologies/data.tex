@@ -12,9 +12,7 @@ To obtain Vietnam country-level time-series data, the Covid-19 datasets \footnot
 The repository had three separate \gls{CSV} files, each containing the global time-series data since January 22th 2020 for the total number of confirmed cases, the total number of recoveries, and the total number of deaths from the disease.
 The general structure of the files is illustrated in \autoref{tab:jhu-csse-covid-timeseries}.
 From the three \gls{CSV} files, the data for Vietnam was extracted and a single time-series dataset for the country was constructed (see \autoref{tab:country-covid-timeseries} for an example).
-Because only the most recent outbreak in Vietnam (starting from 27th April 2021) was considered, the data points before 27th April 2021 were filtered out, and the values of the remaining data points were subtracted with the values on 26th April 2021 so that the total counts started on the first date of the outbreak.
-Noted that the time-series from the John Hopkins University did not include the total number of recoveries for Vietnam after August 4th 2021.
-But because the data points after that date were not considered in the experiments, the available data was sufficient for conducting the experiment.
+Because only the most recent outbreak in Vietnam (starting from 27th April 2021) was considered, the data points before 27th April 2021 were filtered out.
 
 \begin{table}[h]
 \centering
@@ -54,8 +52,7 @@ The data for Covid-19 cases in counties in the \gls{US} were also obtained from 
 The repository created by the John Hopkins University \cite{dongInteractiveWebbasedDashboard2020} contained 2 separated CSV files for the total number of confirmed cases time-series and the total number of deaths time-series for counties in the \gls{US}.
 The procedure that was applied for combining Vietnam country-level data was also used to extract Covid-19 cases data for a single county.
 Similar with Vietnam's data, only data for the most recent outbreak in the \gls{US} was considered.
-1st July 2021 was chosen, to be the starting date of the most recent Covid-19 outbreak in the US, which was roughly when the fourth wave of the Covid-19 pandemic started in the \gls{US}.
-The the data points before 1st July 2021 were filtered out, and the values of the remaining data points were subtracted with the values on 30th June 2021 so that the total counts started on the first date of the considered outbreak.
+1st July 2021 was chosen to be the starting date of the most recent Covid-19 outbreak in the US, which was roughly when the fourth wave of the Covid-19 pandemic started in the \gls{US}.
 
 \begin{table}[h]
 \centering

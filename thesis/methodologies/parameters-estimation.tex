@@ -1,0 +1,103 @@
+\section{Parameters estimation}
+\label{sec:methodologies-parameters-estimation}
+
+An end-to-end learning mechanism was used to find the set of model parameters that produced the best fitting curves to the ground truth data.
+In the model learning period, only the observations for some of the compartments in the model were accessible because of the availability of data.
+For the modeled period, there was no observation for the states $\{S, E, I, R\}$ but only the $D$, $C$, $N$ states, which were the number of total deaths, the number of newly confirmed cases, and the number of total confirmed cases.
+Therefore, the model could only learn from partially-available observations where the available data for some compartments were used to supervise the learning process while other compartments were left unconstrained.
+
+The trainable parameters were $(\gamma', \lambda', \theta_1, \theta_2)$ in which $\theta_1$ and $\theta_2$ were the set of parameters for the embedded \glspl{ANN}, and $\gamma'$ and $\lambda'$ were used to determine $\gamma$ and $\lambda$, such that
+\begin{align*}
+    \gamma &= \gamma_L + (\gamma_U - \gamma_L) * \sigma (\gamma') \\
+    \lambda &= \lambda_L + (\lambda_U - \lambda_L) * \sigma (\lambda')
+\end{align*}
+The transformation allowed the estimated values to stay within a reasonable range based on existing knowledge about Covid-19.
+The best fitting set of parameters was estimated by minimizing the following loss function
+\begin{equation}
+    \mathcal{L}(\hat{y}, y) = \frac{1}{T} \sum_{i=1}^N \sum_{t=0}^{T-1} \left[ e^{\zeta t} \left(\frac{\hat{y}_{i,t} - y_{i,t}}{max(y_i) - min(y_i)}\right)^2\right] + \lambda (\Vert\theta_1\Vert^2_2 + \Vert\theta_2\Vert^2_2).
+    \label{eq:ude-model-loss}
+\end{equation}
+$N$ is the number of compartments that were observable, $T$ is the number of collocation points, i.e., the number of days that were used for training, $\hat{y}_{t,t}$ is the model's output for compartment $i$ at time $t$ when given $(\gamma', \lambda', \theta_1, \theta_2)$ as parameters, and $y_{i,t}$ is the observation for compartment $i$ at time $t$.
+The errors between the ground truth data and the model's predictions were scaled by the difference between the maximum and minimum values of the observations for each compartment.
+Scaling was done so that the errors between the model's predictions and the ground truth data for different compartments could contribute equally to the final loss value even when the states of the compartments were in different scales.
+Moreover, the model's errors were weighted by the term $e^{\zeta t}$ with $\zeta$ being a hyperparameter that determined how fast the weights changed with respect to the time $t$.
+If $\zeta$ is negative then earlier observations will be more important than later observations, whereas if $\zeta$ is positive then later observations will be more important than earlier observations.
+Lastly, an L2 regularization term controlled by the hyperparameter $\lambda$ was included to reduce the chance of over-fitting.
+
+A numerical \gls{ODE} solver that used the Tsitouras 5/4 Runge-Kutta method \cite{tsitourasRungeKuttaPairs2011}, implemented in the \textit{DifferentialEquations.jl} package \cite{rackauckas2017differentialequations}, was used to solve the model's system of \glspl{ODE} on a given training time span.
+In the problem, the model's outputs were the states of the system of \glspl{ODE} at each time step where the time steps correspond to the dates that were considered.
+Once the model's outputs were obtained, minimization of the loss function in \autoref{eq:ude-model-loss} was carried out using local-gradient based optimization techniques where the gradients were calculated through automatic differentiation with the \textit{InterpolatingAdjoint} algorithm implemented in the \textit{DifferentialEquations.jl} package.
+\textit{InterpolatingAdjoint} was chosen as the algorithm for automatic differentiation because of its fast runtime speed and low memory usage comparing to other available algorithms when applied to this problem \cite{rackauckas2017differentialequations}.
+
+The minimization process happened in 2 stages as recommended by \cite{rackauckasUniversalDifferentialEquations2020}.
+In the first stage, a first-order optimization algorithm was used to estimate the parameters to help them reach a reasonable parameters space.
+For the experiments, ADAM \cite{kingmaAdamMethodStochastic2017} was chosen as the optimizer in this stage.
+Parameters estimation with local gradient based algorithm can encounter issue with local minima.
+There is a high chance that the model gets stuck in a bad local minima, especially with time series data since the model can comfortably settle with predicting the time series mean.
+As suggested by the authors of the \textit{DiffEqFlux.jl} package \cite{rackauckasUniversalDifferentialEquations2020}, one technique for reducing the chance of falling into a bad local minima is to place more weight to earlier data points which allow for fitting to earlier portions first.
+This can be done by choosing a negative value for the hyperparameter $\zeta$ in \autoref{eq:ude-model-loss}.
+In addition, during the first fitting stage, the fit region could be grew iteratively allowing the model fit to earlier data points first.
+Specifically, the model was first trained using time series data on the time span from $0$ to $T'$ where $T' < T$.
+Once the training completed, the time span was increased so that later data points could be included, and the model was then trained on the new time span.
+This process repeated until $T'$ equals $T$.
+Then in the second stage, we continued the training with a more complex optimization algorithm so that the model could converge faster to a good minimum.
+For the experiments, BFGS \cite{broydenConvergenceClassDoublerank1970, fletcherNewApproachVariable1970, goldfarbFamilyVariablemetricMethods1970, shannoConditioningQuasiNewtonMethods1970} was chosen as the optimizer for this stage.
+\autoref{alg:seir-ude-training} presents the general procedure that was carried out in the 2 stages optimization process.
+
+\begin{algorithm}
+    \caption{General training procedure for the proposed models.}
+    \label{alg:seir-ude-training}
+    \begin{algorithmic}
+        \State $y \gets \text{real-world observations of the compartments}$
+        \State $T \gets \text{number of observations}$
+        \State $T' \gets$ initial time span size
+        \State $k \gets$ number of time steps to grow the time span
+
+        \State $\theta_1 \gets \text{randomly initialized}$
+        \State $\theta_2 \gets \text{randomly initialized}$
+        \State $p \gets \{ \gamma_0, \lambda_0, \theta_1, \theta_2 \}$
+        \Comment{Set the parameters initial values}
+        \State $u \gets \{ S(0), E(0), I(0), R(0), D(0), N(0), C(0), T(0) \}$
+        \Comment{Set the initial conditions}
+
+        \While{$T' < T$}
+            \State $y' \gets \{ y(t) | t \in \{ 0,1,\cdots,T' \} \}$
+            \Comment{Select data on the current time span}
+            \State $\text{maxiters} \gets \text{max number of iterations to run}$
+            \For{$i \gets 1,\text{maxiters}$}
+                \State $\hat{y} \gets \text{ODESolver}(u, p, (0, T'))$
+                \Comment{Solve the initial value problem}
+
+                \State $p \gets p - ADAM(\Delta_p \mathcal{L}(\hat{y}, y'))$
+                \Comment{Update the parameters}
+
+                \If{$\mathcal{L}(\hat{y}, y') < \mathcal{L}_\text{min}$}
+                    \State $p_\text{min} \gets p$
+                    \Comment{Update the current minizing parameters}
+                    \State $\mathcal{L}_\text{min} \gets \mathcal{L}(\hat{y}, y')$
+                    \Comment{Update the current smallest loss value}
+                \EndIf
+            \EndFor
+
+            \State $T' \gets T' + k$
+            \Comment{Grow the fitting region}
+        \EndWhile
+
+        \State $p \gets p_\text{min}$
+        \State $\text{maxiters} \gets \text{max number of iterations to run}$
+        \For{$i \gets 1,\text{maxiters}$}
+            \State $\hat{y} \gets \text{ODESolver}(u, p, (0, T))$
+            \Comment{Solve the initial value problem}
+
+            \State $p \gets p - BFGS(\Delta_p \mathcal{L}(\hat{y}, y))$
+            \Comment{Update the parameters}
+
+            \If{$\mathcal{L}(\hat{y}, y) < \mathcal{L}_\text{min}$}
+                \State $p_\text{min} \gets p$
+                \Comment{Update the current minizing parameters}
+                \State $\mathcal{L}_\text{min} \gets \mathcal{L}(\hat{y}, y')$
+                \Comment{Update the current smallest loss value}
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
