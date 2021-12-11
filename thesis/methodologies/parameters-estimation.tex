@@ -14,7 +14,7 @@ The trainable parameters were $(\gamma', \lambda', \theta_1, \theta_2)$ in which
 The transformation allowed the estimated values to stay within a reasonable range based on existing knowledge about Covid-19.
 The best fitting set of parameters was estimated by minimizing the following loss function
 \begin{equation}
-    \mathcal{L}(\hat{y}, y) = \frac{1}{T} \sum_{i=1}^N \sum_{t=0}^{T-1} \left[ e^{\zeta t} \left(\frac{\hat{y}_{i,t} - y_{i,t}}{max(y_i) - min(y_i)}\right)^2\right] + \lambda (\Vert\theta_1\Vert^2_2 + \Vert\theta_2\Vert^2_2).
+    \mathcal{L}(\hat{y}, y) = \frac{1}{T} \sum_{i=1}^N \sum_{t=0}^{T-1} \left[ e^{\zeta t} \left(\frac{\hat{y}_{i,t} - y_{i,t}}{max(y_i) - min(y_i)}\right)^2\right] + \frac{\lambda}{2T} (\Vert\theta_1\Vert^2_2 + \Vert\theta_2\Vert^2_2).
     \label{eq:ude-model-loss}
 \end{equation}
 $N$ is the number of compartments that were observable, $T$ is the number of collocation points, i.e., the number of days that were used for training, $\hat{y}_{t,t}$ is the model's output for compartment $i$ at time $t$ when given $(\gamma', \lambda', \theta_1, \theta_2)$ as parameters, and $y_{i,t}$ is the observation for compartment $i$ at time $t$.
