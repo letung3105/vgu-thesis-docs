@@ -103,6 +103,7 @@ Using iterative growing of fit strategy, the model was first trained on a time s
 After each increment of the time span, the maximum number of iterations that ADAM was allowed to run for was increased by 500 starting from 500 for the first fitting time span.
 When the first training stage finished, BFGS optimizer was used for a maximum of $1000$ iterations with the \textit{initial\_stepnorm} parameter set to $0.01$
 The hyperparameter $\zeta$ for adjusting the weighting factor for the loss function in \autoref{eq:ude-model-loss} was chosen to be $-0.001$ to place more importance on earlier time steps which minimized the chance of getting into a bad local minima.
+Finally, the hyperparameter $\lambda$ was set to $0$ to disable loss regularization.
 
 In the 2 experiment settings, the choice of 500 cases was adopted from \cite{dandekarMachineLearningAidedGlobal2020a} in which the authors illustrated that the model could not generalize well enough when training with data before the 500 cases threshold.
 Noted that while the model might be sensitive to the choice of the initial conditions and the initial parameters, the effects of choosing a different set of initial conditions and initial parameters were not considered.
