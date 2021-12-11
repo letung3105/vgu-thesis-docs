@@ -3,7 +3,7 @@
 
 An end-to-end learning mechanism was used to find the set of model parameters that produced the best fitting curves to the ground truth data.
 In the model learning period, only the observations for some of the compartments in the model were accessible because of the availability of data.
-For the modeled period, there was no observation for the states $\{S, E, I, R\}$ but only the $D$, $C$, $N$ states, which were the number of total deaths, the number of newly confirmed cases, and the number of total confirmed cases.
+For the modeled period, there was no observation for the states $\{S, E, I, R\}$ but only the $\{D, C, T\}$ states, which were the number of total deaths, the number of newly confirmed cases, and the number of total confirmed cases.
 Therefore, the model could only learn from partially-available observations where the available data for some compartments were used to supervise the learning process while other compartments were left unconstrained.
 
 The trainable parameters were $(\gamma', \lambda', \theta_1, \theta_2)$ in which $\theta_1$ and $\theta_2$ were the set of parameters for the embedded \glspl{ANN}, and $\gamma'$ and $\lambda'$ were used to determine $\gamma$ and $\lambda$, such that
@@ -48,6 +48,9 @@ For the experiments, BFGS \cite{broydenConvergenceClassDoublerank1970, fletcherN
     \caption{General training procedure for the proposed models.}
     \label{alg:seir-ude-training}
     \begin{algorithmic}
+        \State $\text{maxiters}_\text{ADAM} \gets \text{max number of iterations to run ADAM optimizer}$
+        \State $\text{maxiters}_\text{BFGS} \gets \text{max number of iterations to run BFGS optimizer}$
+
         \State $y \gets \text{real-world observations of the compartments}$
         \State $T \gets \text{number of observations}$
         \State $T' \gets$ initial time span size
@@ -57,14 +60,15 @@ For the experiments, BFGS \cite{broydenConvergenceClassDoublerank1970, fletcherN
         \State $\theta_2 \gets \text{randomly initialized}$
         \State $p \gets \{ \gamma_0, \lambda_0, \theta_1, \theta_2 \}$
         \Comment{Set the parameters initial values}
+        \State $p_\text{min} \gets \{ \gamma_0, \lambda_0, \theta_1, \theta_2 \}$
+        \Comment{Set the current minimizing paramters}
         \State $u \gets \{ S(0), E(0), I(0), R(0), D(0), N(0), C(0), T(0) \}$
         \Comment{Set the initial conditions}
 
         \While{$T' < T$}
             \State $y' \gets \{ y(t) | t \in \{ 0,1,\cdots,T' \} \}$
             \Comment{Select data on the current time span}
-            \State $\text{maxiters} \gets \text{max number of iterations to run}$
-            \For{$i \gets 1,\text{maxiters}$}
+            \For{$i \gets 1,\text{maxiters}_\text{ADAM}$}
                 \State $\hat{y} \gets \text{ODESolver}(u, p, (0, T'))$
                 \Comment{Solve the initial value problem}
 
@@ -83,9 +87,7 @@ For the experiments, BFGS \cite{broydenConvergenceClassDoublerank1970, fletcherN
             \Comment{Grow the fitting region}
         \EndWhile
 
-        \State $p \gets p_\text{min}$
-        \State $\text{maxiters} \gets \text{max number of iterations to run}$
-        \For{$i \gets 1,\text{maxiters}$}
+        \For{$i \gets 1,\text{maxiters}_\text{BFGS}$}
             \State $\hat{y} \gets \text{ODESolver}(u, p, (0, T))$
             \Comment{Solve the initial value problem}
 

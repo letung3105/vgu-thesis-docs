@@ -10,9 +10,10 @@ The the evaluation results of all versions of the model were compared against ea
 Data at both the country level and the subdivision level was collected for a period of about 2 months (60 days) where the first 32 days of the period were used to train the model and the last 28 days of the period were used to evaluate the model out-of-sample performance.
 At each location, data was obtained starting from the first date where the total confirmed cases passed 500.
 The specific date ranges that were used at each location are given in \autoref{tab:chosen-dataset-dates}.
-The initial conditions and initial parameters that were chosen for training are given in \autoref{tab:ude-model-initial-conditions} and \autoref{tab:ude-model-initial-parameters}.
-In the experiments, the initial parameters constant are kept constant across different versions of the model and across different locations.
-In contrast, the initial conditions varied across different locations depending on the ground truth data.
+In the experiments, The initial conditions varied across different locations depending on the ground truth data.
+\autoref{tab:ude-model-initial-conditions} presents the values that were chosen as the initial conditions across different locations.
+Furthermore, the initial parameters and their upper and lower bounds were initialized using the same method across different versions of the model and across different locations.
+\autoref{tab:ude-model-initial-parameters} lists the values that were chosen as the initial parameters across different locations.
 
 \begin{table}[h]
     \centering
@@ -29,15 +30,15 @@ In contrast, the initial conditions varied across different locations depending 
         \hline
         Long An & 13th July 2021 & 13th August 2021 & 10th September 2021 \\
         \hline
-        United States & 8th March 2020 & 8th April 2020 & 6th May 2020 \\
+        United States & 1st July 2021 & 1st August 2020 & 29th August 2020 \\
         \hline
-        Los Angeles, California & 23rd March 2020 & 23rd April 2020 & 21st May 2020 \\
+        Los Angeles, California & 1st July 2021 & 1st August 2020 & 29th August 2020 \\
         \hline
-        Cook, Illinois & 21st March 2020 & 21st April 2020 & 19th May 2020 \\
+        Cook, Illinois & 1st July 2021 & 1st August 2020 & 29th August 2020 \\
         \hline
-        Harris, Texas & 29th March 2020 & 29th April 2020 & 27th May 2020 \\
+        Harris, Texas & 1st July 2021 & 1st August 2020 & 29th August 2020 \\
         \hline
-        Maricopa, Arizona & 29th March 2020 & 29th April 2020 & 27th May 2020 \\
+        Maricopa, Arizona & 1st July 2021 & 1st August 2020 & 29th August 2020 \\
         \hline
     \end{tabular}
     \caption{The date ranges that were chosen for the training process and the evaluation process of the model.}
@@ -46,65 +47,62 @@ In contrast, the initial conditions varied across different locations depending 
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{| c | c | c | c | c | c | c | c |}
-        Location & S & E & I & R & D & C & N \\
+    \begin{tabular}{| c | c | c | c | c |}
+        Location & $S(0)$ & $E(0)$ & $I(0)$ & $R(0)$ \\
         \hline\hline
-        Vietnam & 9.7581192e7 & 948 & 474 & 86 & 0 & 560 & 9.75827e7 \\
+        Vietnam & 9.75e7 & 25 & 5 & 2817 \\
         \hline
-        Ho Chi Minh city & 9.226579e6 & 508 & 254 & 254 & 5 & 513 & 9.227595e6 \\
+        Ho Chi Minh city & 9.22e6 & 173.5 & 34.7 & 360.1 \\
         \hline
-        Binh Duong & 2.579584e6 & 508 & 254 & 254 & 0 & 508 & 2.5806e6 \\
+        Binh Duong & 2.58e6 & 206.4 & 41.2 & 314.7 \\
         \hline
-        Dong Nai & 3.176393e6 & 502 & 251 & 252 & 2 & 505 & 3.177398e6 \\
+        Dong Nai & 3.17e6 & 295 & 59 & 194.8 \\
         \hline
-        Long An & 1.712664e6 & 514 & 257 & 258 & 7 & 522 & 1.713693e6 \\
+        Long An & 1.71e6 & 217.8 & 43.5 & 300.5 \\
         \hline
-        United States & 3.32888343e8 & 982 & 491 & 7 & 21 & 519 & 3.32889823e8 \\
+        United States & 2.99e8 & 71890 & 14378 & 3.31e7 \\
         \hline
-        Los Angeles, California & 1.0038043e7 & 528 & 264 & 265 & 7 & 536 & 1.00391e7 \\
+        Los Angeles, California & 8.78e6 & 2500 & 500 & 1.22e6 \\
         \hline
-        Cook, Illinois & 5.149141e6 & 544 & 272 & 273 & 3 & 548 & 5.15023e6 \\
+        Cook, Illinois & 4.59e6 & 615 & 123 & 546508 \\
         \hline
-        Harris, Texas & 4.712287e6 & 512 & 256 & 257 & 13 & 526 & 4.713312e6 \\
+        Harris, Texas & 4.30e6 & 930 & 186 & 396430 \\
         \hline
-        Maricopa, Arizona & 4.484329e6 & 540 & 270 & 270 & 5 & 545 & 4.485409e6 \\
+        Maricopa, Arizona & 3.92e6 & 1325 & 265 & 549899 \\
         \hline
     \end{tabular}
-    \caption{Initial conditions at each modeled region for solving the systems of \glspl{ODE} defined by each model. For Vietnam's provinces and \gls{US} counties, the initial $D$ and $C$ states were taken from the real-world data. Each of the initial $I$ and $D$ states was assumed to take account for half of the remaining total confirmed cases, $(C - D) / 2$. In addition, the initial $E$ state was assumed to be twice as large as the initial $I$ state. The rest of the states for were then derived by their definitions. For Vietnam and the \gls{US} country-level data, the initial states $I$, $R$, $D$, and $C$ were taken from real-world data, and the initial $E$ state was assumed to be twice as large as the initial $I$ state. The rest of the states for country-level data were then derived by their definitions.}
+    \caption{Initial conditions at each modeled region for solving the systems of \glspl{ODE} defined by each model. The initial values for the states $\{D, N, C, T\}$ were taken directly from the datasets, and they are not presented in this table. The value of $I(0)$ was assumed to be the number of new cases on the date of the first time step, and $E(0)$ was assumed to be 5 times the value of $I(0)$. Then $S(0)$ was calculated by subtracting $T(0)$ and $E(0)$ from average population. Lastly, $R(0)$ was calculated by subtracting $I(0)$ and $D(0)$ from $T(0)$.}
     \label{tab:ude-model-initial-conditions}
 \end{table}
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{| c | c |}
-        Parameter & Value \\
+    \begin{tabular}{| c | c | c | c |}
+        Parameter & Value & Lower bound & Upper bound \\
         \hline\hline
-        $\gamma$ & $1/2$ \\
+        $\gamma$ & $1/4$ & $1/4$ & $1/4$ \\
         \hline
-        $\lambda$ & $1/14$ \\
+        $\lambda$ & $1/14$ & $1/14$ & $1/14$ \\
         \hline
-        $\alpha$ & $0.025$ \\
+        $\theta_1$ & \textit{glorot\_normal initialization} & \textit{N/A} & \textit{N/A} \\
         \hline
-        $\theta$ & \text{Randomly initialized} \\
+        $\theta_2$ & \textit{glorot\_normal initialization} & \textit{N/A} & \textit{N/A} \\
         \hline
     \end{tabular}
-    \caption{Initial parameters for solving the systems of \glspl{ODE} defined by each model. The values of $\gamma$, $\lambda$, and $\alpha$ were chosen to match existing information about the Covid-19 Delta variant \cite{mahaseDeltaVariantWhat2021} where the mean incubation period was roughly 2 days, the mean infective period was roughly 14 days, and the fatality rate was roughly $2.5\%$.}
+    \caption{Initial parameters for solving the systems of \glspl{ODE} defined by each model. The values of $\gamma$, $\lambda$, and $\alpha$ were chosen to match existing information about the Covid-19 Delta variant \cite{mahaseDeltaVariantWhat2021} where the mean incubation period was roughly 4 days, and the mean infective period was roughly 14 days.}
     \label{tab:ude-model-initial-parameters}
 \end{table}
 
 At the country level, data for 2 countries Vietnam and the \gls{US} were used to train and evaluate the performance of the model.
-Two versions of the model were evaluated in this setting are the baseline model and the model that used Facebook's Movement Range Maps dataset.
+Two versions of the model evaluated in this setting were the baseline model and the model that used Facebook's Movement Range Maps dataset.
 Because the \gls{SPC} index was not defined at the country level, the version that used the \gls{SPC} index was not considered.
-Once the data was obtained, the model was trained with the ADAM optimizer learning rate set to $0.01$ and with the BFGS optimizer initial stepnorm set to $0.01$.
-The ADAM optimizer was let run for a maximum of 500 iterations and the BFGS optimizer was let run for a maximum of 1000 iterations.
-The hyperparameter $\zeta$ for adjusting the weighting factor for the loss function in \autoref{eq:ude-model-loss} was chosen to be $0.1$.
+At the country's subdivision level, all three versions of the model were trained on Covid-19 time series data for the top 4 most populous counties in the \gls{US} (Los Angeles - California, Cook County - Illinois, Harris County - Texas, and Maricopa County - Arizona) and the top 4 provinces in Vietnam that had the highest cases count during the outbreak starting from 27th April 2021 (Ho Chi Minh city, Binh Duong, Dong Nai, and Long An).
 
-At the country's subdivision level, data for the top 4 most populous counties in the \gls{US} were , which are Los Angeles (California), Cook County (Illinois), Harris County (Texas), and Maricopa Country (Arizona).
-In addition, data for the 4 provinces in Vietnam that had the highest cases count during the outbreak starting from 27th April 2021 were also used, which are Ho Chi Minh city, Binh Duong, Dong Nai, and Long An.
-In this setting, all three versions of the model were trained and evaluated.
-To train the model with country subdivisions' data, a learning rate of $0.01$ for the ADAM optimizer and an initial stepnorm of $0.01$ for the BFGS optimizer were used.
-The ADAM optimizer was used for a maximum of 500 iterations before the BFGS optimizer was applied for another maximum of 1000 iterations.
-The hyperparameter $\zeta$ for the loss function in \autoref{eq:ude-model-loss} was set to $0.1$.
+Once the data was obtained, the model was first trained using ADAM optimizer with learning rate set to $0.05$, and the learning rate was exponentially decayed with the rate of $0.5$ for each $1000$ iterations until the minimum value of $0.00001$ was reached.
+Using iterative growing of fit strategy, the model was first trained on a time span of size 4 which was then increased by 4 after each training session on the previous fitting time span finished.
+After each increment of the time span, the maximum number of iterations that ADAM was allowed to run for was increased by 500 starting from 500 for the first fitting time span.
+When the first training stage finished, BFGS optimizer was used for a maximum of $1000$ iterations with the \textit{initial\_stepnorm} parameter set to $0.01$
+The hyperparameter $\zeta$ for adjusting the weighting factor for the loss function in \autoref{eq:ude-model-loss} was chosen to be $-0.001$ to place more importance on earlier time steps which minimized the chance of getting into a bad local minima.
 
 In the 2 experiment settings, the choice of 500 cases was adopted from \cite{dandekarMachineLearningAidedGlobal2020a} in which the authors illustrated that the model could not generalize well enough when training with data before the 500 cases threshold.
 Noted that while the model might be sensitive to the choice of the initial conditions and the initial parameters, the effects of choosing a different set of initial conditions and initial parameters were not considered.
@@ -112,5 +110,7 @@ The Covid-19 dataset, the Movement Range Maps dataset, and the derived \gls{SPC}
 In the Movement Range Maps dataset, the relative change in movement tended to drop to a much lower value while the stay-put ratio increased sharply in the weekend.
 This was expected as the data was based on human mobility where people went to work during the week and stayed rested on the weekend.
 With the Covid-19 cases data the \gls{SPC} index, the value typically dipped in value in the weekend when fewer Covid-19 tests were made.
-In the experiments, a 7-day moving average transform was applied to the Covid-19 cases data, the Movement Range Maps dataset, and the \gls{SPC} index to remove the weekly seasonality exhibited in the measurements.
+Therefore, in the experiments, a 7-day moving average transform was applied to the Covid-19 cases data, the Movement Range Maps dataset, and the \gls{SPC} index to remove the weekly seasonality exhibited in the measurements.
 The elimination of weekly seasonality in the data allowed the model to better capture the overall trends and helped to avoid confusing the model with highly fluctuating values.
+Moreover, after being transformed with a 7-day moving average, values from the Movement Range Maps dataset and the \gls{SPC} index were scaled to have values ranging from 0 to 1 within the training time span.
+This ensured all the input features to the \glspl{ANN} had the same scale during training which would help improve the performance of the model.
