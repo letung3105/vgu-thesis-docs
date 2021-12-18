@@ -7,8 +7,12 @@ During the training process, the model was separately trained with data from eac
 After the model training process was done, the performance of each version of the model was evaluated on out-of-sample data for 4 different future horizons: 1-week horizon, 2-week horizon, 3-week horizon, and 4-week horizon.
 The the evaluation results of all versions of the model were compared against each other to set if the covariates can improve the model performance.
 
-Data at both the country level and the subdivision level was collected for a period of about 2 months (60 days) where the first 32 days of the period were used to train the model and the last 28 days of the period were used to evaluate the model out-of-sample performance.
-At each location, data was obtained starting from the first date where the total confirmed cases passed 500.
+Data at both the country level and the subdivision level was collected for a period of about 3 months (76 days) where the first 48 days of the period were used to train the model and the last 28 days of the period were used to evaluate the model out-of-sample performance.
+The period of 48 days was chosen to train the model because it was found that the model yielded the best predictions when trained with data for 48 days while still kept the training duration relatively low.
+The others training periods that had been against with were 32 days and 60 days.
+With 32 days, the model could fit well to the data from the training period and provided useful insights about the disease but it failed to extrapolate and had the low accuracy when tested on out-of-sample data.
+While with 60 days, it took much longer to finish training the model but the accuracy did not significantly improves comparing to training with 48 days.
+At each location, data was obtained starting from the first date where the total confirmed cases passed 500 cases and the total number of deaths passed 10 cases.
 The specific date ranges that were used at each location are given in \autoref{tab:chosen-dataset-dates}.
 In the experiments, The initial conditions varied across different locations depending on the ground truth data.
 \autoref{tab:ude-model-initial-conditions} presents the values that were chosen as the initial conditions across different locations.
@@ -80,9 +84,13 @@ Furthermore, the initial parameters and their upper and lower bounds were initia
     \begin{tabular}{| c | c | c | c |}
         Parameter & Value & Lower bound & Upper bound \\
         \hline\hline
+        $\beta$ & \textit{N/A} & $0.05$ & $1.67$ \\
+        \hline
         $\gamma$ & $1/4$ & $1/4$ & $1/4$ \\
         \hline
         $\lambda$ & $1/14$ & $1/14$ & $1/14$ \\
+        \hline
+        $\alpha$ & \textit{N/A} & $0.005$ & $0.05$ \\
         \hline
         $\theta_1$ & \textit{glorot\_normal initialization} & \textit{N/A} & \textit{N/A} \\
         \hline
@@ -100,12 +108,11 @@ At the country's subdivision level, all three versions of the model were trained
 
 Once the data was obtained, the model was first trained using ADAM optimizer with learning rate set to $0.05$, and the learning rate was exponentially decayed with the rate of $0.5$ for each $1000$ iterations until the minimum value of $0.00001$ was reached.
 Using iterative growing of fit strategy, the model was first trained on a time span of size 4 which was then increased by 4 after each training session on the previous fitting time span finished.
-After each increment of the time span, the maximum number of iterations that ADAM was allowed to run for was increased by 500 starting from 500 for the first fitting time span.
+At each time span in the first stage, the ADAM optimizer was configured to run for the maximum of 1000 iterations.
 When the first training stage finished, BFGS optimizer was used for a maximum of $1000$ iterations with the \textit{initial\_stepnorm} parameter set to $0.01$
 The hyperparameter $\zeta$ for adjusting the weighting factor for the loss function in \autoref{eq:ude-model-loss} was chosen to be $-0.001$ to place more importance on earlier time steps which minimized the chance of getting into a bad local minima.
-Finally, the hyperparameter $\lambda$ was set to $0$ to disable loss regularization.
+Finally, the hyperparameter $\lambda$ was set to $0.00001$ to help reduce the change of over-fitting.
 
-In the 2 experiment settings, the choice of 500 cases was adopted from \cite{dandekarMachineLearningAidedGlobal2020a} in which the authors illustrated that the model could not generalize well enough when training with data before the 500 cases threshold.
 Noted that while the model might be sensitive to the choice of the initial conditions and the initial parameters, the effects of choosing a different set of initial conditions and initial parameters were not considered.
 The Covid-19 dataset, the Movement Range Maps dataset, and the derived \gls{SPC} index all exhibited weekly seasonality in the data.
 In the Movement Range Maps dataset, the relative change in movement tended to drop to a much lower value while the stay-put ratio increased sharply in the weekend.

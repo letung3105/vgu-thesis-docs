@@ -1,0 +1,45 @@
+{
+    "γ0": 0.25,
+    "λ0": 0.07142857142857142,
+    "β_bounds": [
+        0.05,
+        1.67
+    ],
+    "γ_bounds": [
+        0.25,
+        0.25
+    ],
+    "λ_bounds": [
+        0.07142857142857142,
+        0.07142857142857142
+    ],
+    "α_bounds": [
+        0.005,
+        0.05
+    ],
+    "train_range": {
+        "value": 48
+    },
+    "forecast_range": {
+        "value": 28
+    },
+    "movement_range_lag": {
+        "value": 0
+    },
+    "social_proximity_lag": {
+        "value": 0
+    },
+    "loss_type": "sse",
+    "loss_regularization": 1.0e-5,
+    "loss_time_weighting": -0.001,
+    "train_algorithm": "train_growing_trajectory_two_stages",
+    "maxiters_growth": 0,
+    "lr_limit": 1.0e-5,
+    "lr_decay_step": 1000,
+    "tspan_size_growth": 4,
+    "lr_decay_rate": 0.5,
+    "tspan_size_initial": 4,
+    "lr": 0.05,
+    "maxiters_second": 1000,
+    "maxiters_initial": 1000
+}

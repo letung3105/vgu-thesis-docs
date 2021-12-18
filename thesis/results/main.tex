@@ -1,5 +1,130 @@
 \chapter{Results}
 \label{chap:results}
 
-In this section, the validation results obtained after performing the experimental procedure described in \autoref{sec:methodologies-experiments} are presented.
-First the model's outputs that were obtained after the model finished the training procedure were shown.
+\input{results/country_level.tex}
+\input{results/us_counties.tex}
+\input{results/vn_provinces.tex}
+
+% VIETNAM
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{baseline/vietnam/20211216111951.baseline.vietnam.forecasts.png}
+    \caption{Predictions made by the baseline model after having trained with data for Vietnam. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-vietnam-baseline}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb1/vietnam/20211216231719.fbmobility1.vietnam.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset after having trained with data for Vietnam. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-vietnam-fb1}
+\end{figure}
+
+% US
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{baseline/unitedstates/20211216125000.baseline.unitedstates.forecasts.png}
+    \caption{Predictions made by the baseline model after having trained with data for the United States. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-usa-baseline}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb1/unitedstates/20211216233634.fbmobility1.unitedstates.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset after having trained with data for the United States. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-usa-fb1}
+\end{figure}
+
+% LOS ANGELES
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{baseline/losangeles_ca/20211216124108.baseline.losangeles_ca.forecasts.png}
+    \caption{Predictions made by the baseline model after having trained with data for Los Angeles, California. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-losangeles-baseline}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb1/losangeles_ca/20211216180602.fbmobility1.losangeles_ca.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset after having trained with data for Los Angeles, California. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-losangeles-fb1}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb2/losangeles_ca/20211216142727.fbmobility2.losangeles_ca.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset and Social Proximity to Cases Index after having trained with data for Los Angeles, California. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-losangeles-fb2}
+\end{figure}
+
+% HARRIS
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{baseline/harris_tx/20211216154445.baseline.harris_tx.forecasts.png}
+    \caption{Predictions made by the baseline model after having trained with data for Harris, Texas. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-harris-baseline}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb1/harris_tx/20211216231719.fbmobility1.harris_tx.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset after having trained with data for Harris, Texas. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-harris-fb1}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb2/harris_tx/20211217204936.fbmobility2.harris_tx.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset and Social Proximity to Cases Index after having trained with data for Harris, Texas. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-harris-fb2}
+\end{figure}
+
+% COOK
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{baseline/cook_il/20211215163025.baseline.cook_il.forecasts.png}
+    \caption{Predictions made by the baseline model after having trained with data for Cook, Illinois. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-cook-baseline}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb1/cook_il/20211216131821.fbmobility1.cook_il.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset after having trained with data for Cook, Illinois. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-cook-fb1}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb2/cook_il/20211216142727.fbmobility2.cook_il.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset and Social Proximity to Cases Index after having trained with data for Cook, Illinois. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-cook-fb2}
+\end{figure}
+
+% MARICOPA
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb1/cook_il/20211216131821.fbmobility1.cook_il.forecasts.png}
+    \caption{Predictions made by the baseline model after having trained with data for Maricopa, Arizona. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-maricopa-baseline}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb1/maricopa_az/20211216131821.fbmobility1.maricopa_az.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset after having trained with data for Maricopa, Arizona. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-maricopa-fb1}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.25]{fb2/maricopa_az/20211216193717.fbmobility2.maricopa_az.forecasts.png}
+    \caption{Predictions made by the second version of the model that uses Facebook's Movement Range Maps dataset and Social Proximity to Cases Index after having trained with data for Maricopa, Arizona. The black vertical dashed line marks the last day in the training period.}
+    \label{fig:predictions-maricopa-fb2}
+\end{figure}

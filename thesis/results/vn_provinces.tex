@@ -1,0 +1,346 @@
+\section{Model predictions errors for provinces in Vietnam}
+
+% ERRORS
+
+\begin{landscape}
+\begin{table}[!htb]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c |}
+        \multirow{2}{*}{Days}
+            & \multirow{2}{*}{Loc.}
+            & \multicolumn{3}{c |}{Baseline}
+            & \multicolumn{3}{c |}{2nd. Ver}
+            & \multicolumn{3}{c |}{3rd. Ver} \\ \cline{3-11}
+            & & MAE & MAPE & RMSE & MAE & MAPE & RMSE & MAE & MAPE & RMSE \\
+        \hline\hline
+
+        \multirow{4}{*}{7}
+            & Binh Duong & 95.426 & 5.812 & 98.695 & 100.100 & 6.106 & 102.736 & 121.271 & 7.385 & 125.535
+            \\ \cline{2-11}
+            & Dong Nai & 70.096 & 16.939 & 70.288 & 94.131 & 22.727 & 94.283 & 77.339 & 18.677 & 77.493
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 969.400 & 35.439 & 991.778 & 976.721 & 35.690 & 999.832 & 1015.894 & 37.060 & 1042.086
+            \\ \cline{2-11}
+            Long An & 94.571 & 33.788 & 95.339 & 8.248 & 2.931 & 8.550 & 61.189 & 21.732 & 63.484
+            \\
+        \hline
+
+        \multirow{4}{*}{14}
+            & Binh Duong & 139.0672 & 7.7951 & 147.8092 & 138.0189 & 7.7640 & 144.7235 & 176.0245 & 9.8686 & 186.9207
+            \\ \cline{2-11}
+            & Dong Nai & 59.0875 & 13.9765 & 60.2699 & 87.7447 & 20.6729 & 88.0707 & 70.5797 & 16.6394 & 71.0031
+            \\ \cline{2-11}
+            & Ho Chi Minh City & 1403.9594 & 38.0840 & 1489.4299 & 1423.4727 & 38.5547 & 1512.5270 & 1515.3132 & 40.8129 & 1619.8903
+            \\ \cline{2-11}
+            & Long An & 115.1363 & 38.3954 & 117.5203 & 11.7748 & 3.8896 & 12.4316 & 92.5123 & 30.4447 & 99.2382
+            \\
+        \hline
+
+        \multirow{4}{*}{21}
+            & Binh Duong & 177.8471 & 9.3348 & 190.7189 & 168.7924 & 8.9095 & 177.9657 & 223.9254 & 11.7591 & 239.7360
+            \\ \cline{2-11}
+            & Dong Nai & 55.6331 & 12.7157 & 56.6846 & 87.7752 & 19.9058 & 87.9954 & 72.1828 & 16.3455 & 72.5173
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 1891.8903 & 40.0521 & 2062.5956 & 1926.3927 & 40.6948 & 2104.0549 & 2095.5822 & 43.8447 & 2309.4990
+            \\ \cline{2-11}
+            & Long An & 134.2352 & 42.1125 & 138.3802 & 14.5074 & 4.5069 & 15.3719 & 124.7995 & 38.4142 & 136.5103
+            \\
+        \hline
+
+        \multirow{4}{*}{28}
+            & Binh Duong & 203.9041 & 10.2325 & 217.2074 & 185.2879 & 9.3726 & 193.7370 & 257.5460 & 12.9248 & 274.2928
+            \\ \cline{2-11}
+            & Dong Nai & 52.6439 & 11.6862 & 53.7440 & 87.1056 & 19.1154 & 87.2877 & 74.5296 & 16.2699 & 74.8837
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 2387.1554 & 41.4543 & 2637.6517 & 2434.1329 & 42.1857 & 2693.0074 & 2701.3710 & 46.1959 & 3022.0845
+            \\ \cline{2-11}
+            & Long An & 151.6080 & 45.0466 & 157.3411 & 16.4044 & 4.8406 & 17.3031 & 157.1360 & 45.5935 & 173.8101
+            \\
+        \hline
+    \end{tabular}
+    \caption{Out-of-sample errors of the model's predictions on the number of deaths for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+\end{table}
+\end{landscape}
+
+\begin{landscape}
+\begin{table}[!htb]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c |}
+        \multirow{2}{*}{Days}
+            & \multirow{2}{*}{Loc.}
+            & \multicolumn{3}{c |}{Baseline}
+            & \multicolumn{3}{c |}{2nd. Ver}
+            & \multicolumn{3}{c |}{3rd. Ver} \\ \cline{3-11}
+            & & MAE & MAPE & RMSE & MAE & MAPE & RMSE & MAE & MAPE & RMSE \\
+        \hline\hline
+
+        \multirow{4}{*}{7}
+            & Binh Duong & 258.2119 & 8.7443 & 299.1941 & 116.0560 & 4.0864 & 164.8983 & 296.0402 & 9.9605 & 330.1320
+            \\ \cline{2-11}
+            & Dong Nai & 130.5326 & 17.3413 & 135.1869 & 209.7295 & 27.7924 & 214.4906 & 39.4423 & 5.2664 & 49.2357
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 139.1515 & 3.5605 & 163.2947 & 376.2788 & 9.6473 & 394.1648 & 705.1671 & 18.1137 & 723.8582
+            \\ \cline{2-11}
+            Long An & 189.8608 & 33.5320 & 200.2788 & 188.4794 & 33.2903 & 198.7727 & 157.5301 & 27.7066 & 168.8694
+            \\
+        \hline
+
+        \multirow{4}{*}{14}
+            & Binh Duong & 508.4853 & 16.6273 & 597.6472 & 205.2174 & 6.7203 & 267.5333 & 545.0516 & 17.8353 & 626.8410
+            \\ \cline{2-11}
+            & Dong Nai & 84.0281 & 11.1224 & 103.3955 & 179.1430 & 23.3228 & 186.3825 & 133.4154 & 16.7778 & 169.0344
+            \\ \cline{2-11}
+            & Ho Chi Minh City & 379.4155 & 9.8038 & 466.3772 & 600.2254 & 15.4984 & 651.8184 & 989.2498 & 25.5536 & 1040.3541
+            \\ \cline{2-11}
+            & Long An & 199.7853 & 36.2316 & 211.3498 & 197.5658 & 35.8021 & 209.1705 & 163.2289 & 29.2308 & 176.9538
+            \\
+        \hline
+
+        \multirow{4}{*}{21}
+            & Binh Duong & 514.1638 & 25.4390 & 596.1065 & 500.7646 & 32.8288 & 695.2793 & 518.7673 & 24.5888 & 594.6276
+            \\ \cline{2-11}
+            & Dong Nai & 63.1989 & 8.3735 & 85.4722 & 173.2036 & 22.8465 & 178.9359 & 174.4589 & 22.6707 & 202.8754
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 742.7748 & 17.9050 & 960.5954 & 902.4027 & 22.0272 & 1040.7169 & 1338.5833 & 32.9021 & 1468.1219
+            \\ \cline{2-11}
+            & Long An & 153.1748 & 30.2241 & 176.0735 & 150.5022 & 29.5726 & 173.9317 & 112.8085 & 20.6556 & 144.7524
+            \\
+        \hline
+
+        \multirow{4}{*}{28}
+            & Binh Duong & 650.8688 & 59.5256 & 741.1507 & 787.8287 & 87.1337 & 1021.4674 & 623.0438 & 54.0737 & 696.4590
+            \\ \cline{2-11}
+            & Dong Nai & 51.9879 & 7.0332 & 74.7579 & 177.2523 & 24.7729 & 181.6876 & 179.3793 & 24.7976 & 200.9032
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 1297.5978 & 27.1664 & 1713.5831 & 1388.4263 & 29.7252 & 1697.8438 & 1863.6020 & 40.6537 & 2149.0998
+            \\ \cline{2-11}
+            & Long An & 118.4541 & 24.1972 & 152.7526 & 116.8041 & 23.8930 & 150.9183 & 98.1855 & 21.6374 & 128.6117
+            \\
+        \hline
+    \end{tabular}
+    \caption{Out-of-sample errors of the model's predictions on the number of new cases for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+\end{table}
+\end{landscape}
+
+\begin{landscape}
+\begin{table}[!htb]
+    \centering
+    \begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c |}
+        \multirow{2}{*}{Days}
+            & \multirow{2}{*}{Loc.}
+            & \multicolumn{3}{c |}{Baseline}
+            & \multicolumn{3}{c |}{2nd. Ver}
+            & \multicolumn{3}{c |}{3rd. Ver} \\ \cline{3-11}
+            & & MAE & MAPE & RMSE & MAE & MAPE & RMSE & MAE & MAPE & RMSE \\
+        \hline\hline
+
+        \multirow{4}{*}{7}
+            & Binh Duong & 543.1233 & 0.3000 & 669.4478 & 1080.8462 & 0.6054 & 1092.8885 & 2716.1596 & 1.5392 & 2807.7587
+            \\ \cline{2-11}
+            & Dong Nai & 925.7807 & 2.4778 & 968.7379 & 1151.5644 & 3.0708 & 1239.1871 & 171.2800 & 0.4732 & 191.7657
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 2880.5324 & 2.4317 & 2897.9822 & 1146.1352 & 0.9979 & 1337.8669 & 1530.0837 & 1.2306 & 1929.6367
+            \\ \cline{2-11}
+            Long An & 1838.8355 & 8.6073 & 1885.6186 & 558.1752 & 2.5413 & 694.9310 & 358.2303 & 1.7329 & 408.2400
+            \\
+        \hline
+
+        \multirow{4}{*}{14}
+            & Binh Duong & 2672.0525 & 1.3409 & 3614.2442 & 834.9830 & 0.4499 & 894.1951 & 2511.5215 & 1.3374 & 2752.0835
+            \\ \cline{2-11}
+            & Dong Nai & 1216.7728 & 3.0218 & 1267.3553 & 1809.5776 & 4.4414 & 1961.3633 & 538.5267 & 1.2843 & 749.3367
+            \\ \cline{2-11}
+            & Ho Chi Minh City & 2038.9191 & 1.6231 & 2269.5909 & 2365.5065 & 1.6931 & 2975.2921 & 5096.2459 & 3.5286 & 6552.3858
+            \\ \cline{2-11}
+            & Long An & 2689.6447 & 11.3156 & 2851.3550 & 1400.0491 & 5.6990 & 1684.3449 & 791.8555 & 3.2784 & 942.7788
+            \\
+        \hline
+
+        \multirow{4}{*}{21}
+            & Binh Duong & 3647.5092 & 1.7643 & 4430.8069 & 1576.2842 & 0.7698 & 2335.0737 & 2776.5196 & 1.4062 & 3008.1957
+            \\ \cline{2-11}
+            & Dong Nai & 1278.6272 & 2.9938 & 1314.0017 & 2364.3154 & 5.3784 & 2573.6129 & 1282.4375 & 2.7788 & 1737.3105
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 3863.1595 & 2.4892 & 5067.5082 & 5495.6246 & 3.3477 & 7444.9754 & 10170.3842 & 6.1994 & 13131.4229
+            \\ \cline{2-11}
+            & Long An & 3228.1812 & 12.6854 & 3406.4081 & 1927.4958 & 7.3604 & 2204.7032 & 1084.3911 & 4.1801 & 1233.6200
+            \\
+        \hline
+
+        \multirow{4}{*}{28}
+            & Binh Duong & 3212.0306 & 1.5379 & 3992.4347 & 4506.5914 & 2.0749 & 7143.9024 & 2646.4620 & 1.3081 & 2953.9215
+            \\ \cline{2-11}
+            & Dong Nai & 1307.4938 & 2.9092 & 1334.5112 & 2948.0219 & 6.2682 & 3243.3850 & 2048.2944 & 4.1497 & 2650.4318
+            \\ \cline{2-11}
+            & Ho Chi Minh city & 8875.5414 & 4.7001 & 13108.5890 & 11039.3269 & 5.7969 & 15550.1657 & 17695.8499 & 9.4417 & 23398.7145
+            \\ \cline{2-11}
+            & Long An & 3549.7760 & 13.2982 & 3714.5773 & 2237.3856 & 8.1750 & 2480.5657 & 1193.0838 & 4.4099 & 1312.1843
+            \\
+        \hline
+    \end{tabular}
+    \caption{Out-of-sample errors of the model's predictions on the number of cumulative cases for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+\end{table}
+\end{landscape}
+
+\subsection{Reproduction number and fatality rate}
+
+\begin{figure}[!htb]
+    \centering
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{baseline/binhduong/20211216111951.baseline.binhduong.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{baseline/binhduong/20211216111951.baseline.binhduong.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{Baseline model}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb1/binhduong/20211216173307.fbmobility1.binhduong.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb1/binhduong/20211216173307.fbmobility1.binhduong.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{2nd. version}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb2/binhduong/20211216172741.fbmobility2.binhduong.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb2/binhduong/20211216172741.fbmobility2.binhduong.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{3rd. version}
+    \end{subfigure}
+
+    \caption{The effective reproduction number and the fatality rate for Binh Duong learned by different versions of the model}
+    \label{fig:R0-and-fatality-binhduong}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{baseline/dongnai/20211216211601.baseline.dongnai.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{baseline/dongnai/20211216211601.baseline.dongnai.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{Baseline model}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb1/dongnai/20211216131821.fbmobility1.dongnai.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb1/dongnai/20211216131821.fbmobility1.dongnai.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{2nd. version}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb2/dongnai/20211217220549.fbmobility2.dongnai.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb2/dongnai/20211217220549.fbmobility2.dongnai.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{3rd. version}
+    \end{subfigure}
+
+    \caption{The effective reproduction number and the fatality rate for Dong Nai learned by different versions of the model}
+    \label{fig:R0-and-fatality-dongnai}
+\end{figure}
+
+
+\begin{figure}[!htb]
+    \centering
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{baseline/hcm/20211216154445.baseline.hcm.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{baseline/hcm/20211216154445.baseline.hcm.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{Baseline model}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb1/hcm/20211216231719.fbmobility1.hcm.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb1/hcm/20211216231719.fbmobility1.hcm.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{2nd. version}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb2/hcm/20211216183635.fbmobility2.hcm.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb2/hcm/20211216183635.fbmobility2.hcm.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{3rd. version}
+    \end{subfigure}
+
+    \caption{The effective reproduction number and the fatality rate for Ho Chi Minh city learned by different versions of the model}
+    \label{fig:R0-and-fatality-hochiminh}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{baseline/longan/20211216111951.baseline.longan.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{baseline/longan/20211216111951.baseline.longan.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{Baseline model}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb1/longan/20211216131821.fbmobility1.longan.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb1/longan/20211216131821.fbmobility1.longan.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{2nd. version}
+    \end{subfigure}
+
+    \begin{subfigure}[b]{\linewidth}
+        \centering
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb2/longan/20211216193717.fbmobility2.longan.R_effective.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{0.4\linewidth}
+            \includegraphics[width=\linewidth]{fb2/longan/20211216193717.fbmobility2.longan.fatality_rate.png}
+        \end{subfigure}
+        \subcaption{3rd. version}
+    \end{subfigure}
+
+    \caption{The effective reproduction number and the fatality rate for Long An learned by different versions of the model}
+    \label{fig:R0-and-fatality-longan}
+\end{figure}
