@@ -1,5 +1,35 @@
 \section{Model predictions errors for provinces in Vietnam}
 
+Finally, we evaluated the performance of the different versions of the model when applied to data for different provinces in Vietnam.
+Comparable to the previous results obtained when experimenting with country-level data and \gls{US} counties data, all versions were capable of predicting future cases for all compartments with relatively high accuracy at most locations except for Ho Chi Minh city.
+With Vietnam provinces data, it was found that all the versions performed best for up to 14 days before the accuracy started to fall off.
+Moreover, the results also suggested that the covariates that we had chosen did not have a positive effect on the long-term forecasting ability of the model.
+
+Regarding predictions errors for the number of deaths in \autoref{tab:errors-vn-provinces-deaths}, across all metrics for the 7-day forecast horizon, the baseline model achieved the lowest predictions errors for three provinces Binh Duong, Dong Nai, and Ho Chi Minh city while the second version performed best on data for Long An.
+On all the considered error metrics, for the 14-day, 21-day, and 28-day forecast horizons, the baseline model performed best on data for Dong Nai and Ho Chi Minh city whereas the second version made the best predictions for Binh Duong and Long An.
+When predicting the number of deaths for Ho Chi Minh city, all three versions did not make good predictions where the \gls{MAPE} value was lowest at $35$\% for the 7-day forecast and highest at $46$\% for the 28-day forecast.
+Furthermore, the baseline model and the third version also made bad predictions for the number of deaths for Long An where the lowest \gls{MAPE} was $21$\% for the 7-day forecast and the highest \gls{MAPE} was $45$\% for the 28-day forecast.
+
+Looking at \autoref{tab:errors-vn-provinces-new-cases}, it can be seen that across all metrics for the 7-day forecast horizon, the baseline model had the lowest predictions errors for Ho Chi Minh city, the second version had the lowest predictions errors for Binh Duong, and the third version performed best for Dong Nai and Long An.
+Moving on to the 14-day forecast horizon, across all metrics, the baseline model now achieved the lowest predictions errors for Dong Nai and Ho Chi Minh city, the second version had the best performance for Binh Duong, and the third version had the best performance for Long An.
+Next with the 21-day forecast horizon, the baseline model continued to have the best performance across all metrics for Dong Nai and Ho Chi Minh city.
+While the second version had the lowest \gls{MAE} for Binh Duong city, the predictions with the lowest \gls{MAPE} and lowest \gls{RMSE} were made by the third version.
+In addition, the third version also had the lowest predictions errors for Long An across all metrics.
+With the 28-day forecast horizon, the baseline model had the lowest predictions errors for Dong Nai across all metrics, however, for Ho Chi Minh city, the model only achieved the lowest \gls{MAE} and \gls{MAPE} while the second version had the lowest \gls{RMSE}.
+Finally, the third version performed best for Binh Duong and Long An across all metrics.
+Except for the baseline model's predictions for Dong Nai, all other predictions for the number of new cases for provinces in Vietnam had relatively high errors, especially with larger forecast horizons.
+Here predictions' accuracy deteriorated when predicting with a horizon larger than 14 days where the \gls{MAPE} value was higher than $20$\% across all locations.
+
+On the predictions for the number of cumulative cases, \autoref{tab:errors-vn-provinces-total-cases} shows that for Binh Duong, the baseline model had the lowest predictions errors across all metrics for the 7-day horizon, the second version had the lowest predictions errors across all metrics for the 14-day and 21-day horizon, and the third version had the lowest predictions errors across all metrics for the 28-day horizon.
+For Dong Nai, the third version performed best across all metrics for the 7-day and 14-day horizon, however, with the 21-day horizon, the third version only had the lowest \gls{MAPE} while the lowest \gls{MAE} and lowest \gls{RMSE} were held by the baseline model.
+In addition, the baseline model also had the best performance across all metrics for Dong Nai with the 28-day horizon.
+For Ho Chi Minh city, the third version made the best predictions across all metrics for the 7-day horizon, while the baseline model was best across all metrics for the 14-day, 21-day, and 28-day horizons.
+Lastly, for Long An, the third version had the best performance across all metrics and horizons.
+
+Overall, all three versions had a good out-of-sample performance for the number of deaths and the number of cumulative when extrapolated from the training period.
+Nonetheless, the model predictions errors for the number of new cases were still high, and in the case of Ho Chi Minh city, as shown in \autoref{fig:predictions-hcm-baseline}, \autoref{fig:predictions-hcm-fb1}, and \autoref{fig:predictions-hcm-fb2}, all versions completely failed to capture the trend of the new cases.
+Similar to the experiments with \gls{US} counties, it was likely that the model's performance was dependent on the characteristics of the locations that were modeled, and the encoded covariates provided little to no help in improving the model out-of-sample performance.
+
 % ERRORS
 
 \begin{landscape}
@@ -38,6 +68,7 @@
             & Long An & 151.608 & 45.047 & 157.341 & \textbf{16.404} & \textbf{4.841} & \textbf{17.303} & 157.136 & 45.593 & 173.810 \\ \hline
     \end{tabular}
     \caption{Out-of-sample errors of the model's predictions on the number of deaths for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \label{tab:errors-vn-provinces-deaths}
 \end{table}
 \end{landscape}
 
@@ -78,6 +109,7 @@
             & Long An & 118.454 & 24.197 & 152.753 & 116.804 & 23.893 & 150.918 & \textbf{98.185} & \textbf{21.637} & \textbf{128.612} \\ \hline
     \end{tabular}
     \caption{Out-of-sample errors of the model's predictions on the number of new cases for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \label{tab:errors-vn-provinces-new-cases}
 \end{table}
 \end{landscape}
 
@@ -117,10 +149,19 @@
             & Long An & 3549.776 & 13.298 & 3714.577 & 2237.386 & 8.175 & 2480.566 & \textbf{1193.084} & \textbf{4.410} & \textbf{1312.184} \\ \hline
     \end{tabular}
     \caption{Out-of-sample errors of the model's predictions on the number of cumulative cases for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \label{tab:errors-vn-provinces-total-cases}
 \end{table}
 \end{landscape}
 
 \subsection{Reproduction number and fatality rate}
+
+As can be seen in \autoref{fig:R0-and-fatality-binhduong}, for Binh Duong, all three models predicted a similar trend for the fatality rate that started at a maximum value of around $0.035$ at the 0th time step.
+The fatality was then predicted to decrease gradually as time went on and crossed below the $1$ threshold at around the 40th time step.
+With the effective reproduction number, at the 0th time step, the baseline model predicted a maximum value of $2.5$, the second version predicted a maximum value of $2.0$, and the third version predicted a maximum value of $4.0$.
+After the initial time steps, all versions predicted a sharp decline in the effective reproduction number where the value dropped below $1$ at around the 10th time step.
+From the baseline model, we can see that after the effective reproduction number dropped below $1$, it plateaued for 10 time steps before declining once again and stabilizing.
+In the case of the second version and the third version, we see a slight increase in the effective reproduction number after it dropped below $1$.
+This increase in the effective reproduction number lasted for around 10 time steps before it started to decrease and stabilize.
 
 \begin{figure}[!htb]
     \centering
@@ -162,6 +203,14 @@
     \label{fig:R0-and-fatality-binhduong}
 \end{figure}
 
+Looking at \autoref{fig:R0-and-fatality-dongnai}, it can be seen that all three versions predicted a similar trend for the fatality rate for Dong Nai.
+In all versions, the fatality rate started at its maximum at the 0th time step and gradually decreased until the end of the simulation.
+With the baseline model and the third version, the maximum fatality rate was predicted to be around $3$, while the second version predicted a higher fatality rate of $3.5$.
+For the effective reproduction number, all three models also showed similar trends with slight differences in the first 20 time steps.
+With the baseline model and the second version, the effective reproduction number started at its maximum value of $4.5$ and dropped drastically to below $1$ at around the 5th time step.
+After that, the effective reproduction number increased for about 5 time steps to a value slightly above one before starting to decrease and stabilize.
+With the third version, the effective reproduction number at time step 0 was the same as in the case with the other two versions, however, the value sharply dropped to below 1 at around the 10th time step and started to stabilize without experiencing an increase.
+
 \begin{figure}[!htb]
     \centering
 
@@ -202,6 +251,10 @@
     \label{fig:R0-and-fatality-dongnai}
 \end{figure}
 
+For Ho Chi Minh city, \autoref{fig:R0-and-fatality-hochiminh} showed that all versions predicted the same trend for both the fatality rate and the effective reproduction number.
+The predicted effective reproduction number from all three versions fluctuated between $1.25$ and $1.5$ in the first 25 time steps before decreasing exponentially and stabilizing at around $0.25$ until the end of the simulation.
+When predicting the fatality rate, all three versions showed an increasing trend that started from around $0.005$ at the 0th time step and increased to around $0.04$.
+With the third version, the maximum predicted fatality rate was just below $0.04$ while the other two versions predicted a higher value of around $4.5$.
 
 \begin{figure}[!htb]
     \centering
@@ -242,6 +295,18 @@
     \caption{The effective reproduction number and the fatality rate for Ho Chi Minh city learned by different versions of the model}
     \label{fig:R0-and-fatality-hochiminh}
 \end{figure}
+
+Finally, for Long An, \autoref{fig:R0-and-fatality-longan} showed that the baseline model and the second version learned the same decreasing trend for the fatality rate while the third version learned an increasing trend.
+The fatality rate predicted by the baseline model started at its highest of around $0.032$ at the 0th time step and gradually decreased to its minimum at around $0.026$.
+With the second version, the fatality rate started at a higher maximum of $0.04$ at the 0th time step and gradually decreased to a lower minimum that was slightly above $0.01$
+In contrast, the third version predicted a minimum fatality rate of around $0.01$ at the 0th time step that gradually increased to a maximum of $0.04$.
+Because of these differences, the resulting dynamics for the deaths compartment from these versions were also highly different from each other.
+Looking at \autoref{fig:predictions-longan-baseline}, \autoref{fig:predictions-binhduong-fb1}, and \autoref{fig:predictions-longan-fb2}, we can see that the second version had a much better fit to the training data and can extrapolate with high accuracy, while both the baseline model and the third version fitted poorly to training data and overestimated the number of deaths when extrapolated into the future.
+For the effective reproduction number, all versions predicted a low initial value that surged to a maximum after 5 time steps.
+With the baseline model, a maximum effective reproduction number of around $2.5$ was predicted, and once the max value was reached, the effective reproduction decreased exponentially and crossed the $1$ threshold at around the 20th time steps.
+On the other hand, both the second version and the third version predicted a maximum effective reproduction number of around $4$ where the value predicted by the second version was slightly lower than $4$ and the value predicted by the third version was slightly higher than $4$.
+Once the maximum was reached, the predicted effective reproduction number in both versions dropped significantly and crossed the $1$ threshold at around the 15th time step.
+Finally, the predicted effective reproduction number raised slightly and reached the $1$ threshold at around the 20th time step before finally decreasing for the rest of the simulated period.
 
 \begin{figure}[!htb]
     \centering

@@ -151,8 +151,8 @@ In addition, it was observed from the errors tables that the model's performance
 
 \subsection{Reproduction number and fatality rate}
 
-Considering \autoref{fig:R0-and-fatality-cook}, all three versions were able to learn the same trend for the effective reproduction number where it decreased sharply for the first 15 time steps and then sharply increased for a short period of 10 time steps before gradually decreased until the end of the simulation.
-At the first few time steps, both the baseline model and the third version predicted a very low value for the effective reproduction number before rapidly increased to a maximum value.
+Considering \autoref{fig:R0-and-fatality-cook}, all three versions were able to learn the same trend for the effective reproduction number where it decreased sharply to below $1$ for the first 15 time steps and then sharply increased for a short period of 10 time steps before gradually decreased until the end of the simulation.
+At the first few time steps, both the baseline model and the third version predicted a very low value for the effective reproduction number before rapidly increasing to a maximum value.
 The reason for this behavior was because in the dataset for Cook (Illinois) the number of new cases at the beginning of the chosen period was on the decrease for a few days before it increased again.
 Looking at \autoref{fig:predictions-cook-baseline} and \autoref{fig:predictions-cook-fb2}, it can be seen that both the baseline model and the third version closely follow the declining number of new cases for the first few days, resulting in the low effective reproduction number in the beginning.
 On the other hand, the second version did not have a good fit for this period, as illustrated in \autoref{fig:predictions-cook-fb1}, hence the effective reproduction number given by the second version was different from the other two versions.
@@ -201,12 +201,12 @@ For the period after the first $20$ time steps, the fatality rate predicted by t
     \label{fig:R0-and-fatality-cook}
 \end{figure}
 
-For the county Harris (Texas), all three model predicted a similar trend in both the effective reproduction number and the fatality rate.
-For the first few time steps, all three version predicted a low effective reproduction number because of similar reasons to the case with the dataset for Cook (Illinois), which were illustrated in \autoref{fig:predictions-harris-baseline}, \autoref{fig:predictions-harris-fb1}, and \autoref{fig:predictions-harris-fb2}.
-Both the baseline model the the third version predicted the maximum reproduction number of around $2.5$ while the second version predicted a much higher value of $4.5$.
-After reaching the maximum effective reproduction number, all versions predicted a dropped in value followed by a sharp increase before the effective reproduction number gradually decreased for the rest of the simulated period.
+For the county Harris (Texas), according to \autoref{fig:R0-and-fatality-harris}, all three versions predicted a similar trend in both the effective reproduction number and the fatality rate.
+For the first few time steps, all three versions predicted a low effective reproduction number because of similar reasons to the case with the dataset for Cook (Illinois), which were illustrated in \autoref{fig:predictions-harris-baseline}, \autoref{fig:predictions-harris-fb1}, and \autoref{fig:predictions-harris-fb2}.
+Both the baseline model and the third version predicted the maximum reproduction number of around $2.5$ while the second version predicted a much higher value of $4.5$.
+After reaching the maximum effective reproduction number, all versions predicted a dropped in value to below $1$ at around the 15th time step followed by a sharp increase to above $1$ at the 25th time step before the effective reproduction number gradually decreased for the rest of the simulated period.
 This trend of the effective reproduction number was similarly observed when trained with data for Cook (Illinois).
-When predicting the fatality rate, all three models showed similar result with the initial fatality rate at the 0th time step being the highest at around $0.045$, and the fatality rate dropped exponentially after the initial time step.
+When predicting the fatality rate, all three versions showed similar results with the initial fatality rate at the 0th time step being the highest at around $0.045$, and the fatality rate dropped exponentially after the initial time step.
 
 \begin{figure}[!htb]
     \centering
@@ -248,6 +248,13 @@ When predicting the fatality rate, all three models showed similar result with t
     \label{fig:R0-and-fatality-harris}
 \end{figure}
 
+As illustrated in \autoref{fig:R0-and-fatality-losangeles}, after being trained with data for Los Angeles (California), the baseline model predicted the max effective reproduction number to be around $1.5$ whereas both the second version and the third version predicted a max value of around $1.25$.
+Because of the initial decrease in the number of cases in the data for Los Angeles (California), the baseline model predicted a very low effective reproduction number for the first few time steps before predicting a sharp rise.
+This behavior was also observed with the second version, although the initial predicted values were not as low as in the case with the baseline model.
+However, in the third version, this low initial effective reproduction number was not predicted, and as a result, the third version's predictions for the number of new cases for Los Angeles (California) in the first few time steps, as shown in \autoref{fig:predictions-losangeles-fb2}, did not decrease as sharply as in \autoref{fig:predictions-losangeles-baseline} and \autoref{fig:predictions-losangeles-fb1}.
+After the initial max predicted value, all three versions showed a similar trend for the effective reproduction number that gradually decreased until the end of the simulation and passed the $1$ boundary at around the 20th time step.
+Due to the low initial predicted effective reproduction number, the max fatality rate of $0.04$ predicted by the baseline model was much higher than the value predicted by the other two versions, which was around $0.025$.
+Here, the predicted fatality rate in all three versions also followed an exponentially decreasing trend.
 
 \begin{figure}[!htb]
     \centering
@@ -289,6 +296,11 @@ When predicting the fatality rate, all three models showed similar result with t
     \label{fig:R0-and-fatality-losangeles}
 \end{figure}
 
+For Maricopa (Arizona), all the versions predicted similar trends and values for both the effective reproduction number and the fatality rate.
+The predicted effective production number was at its maximum at the 0th time step with a value of around $1.25$ which gradually drop off as time went on.
+According to \autoref{fig:R0-and-fatality-maricopa}, the predicted effective reproduction number of all three versions crossed below $1$ at around the 10th time steps.
+For the fatality rate, the maximum value of $0.05$ was predicted for the first few time steps before it exponentially decreased and stabilized until the end of the simulation.
+
 \begin{figure}[!htb]
     \centering
 
@@ -326,5 +338,5 @@ When predicting the fatality rate, all three models showed similar result with t
     \end{subfigure}
 
     \caption{The effective reproduction number and the fatality rate for Maricopa (Arizona) learned by different versions of the model}
-    \label{fig:R0-and-fatality-marico}
+    \label{fig:R0-and-fatality-maricopa}
 \end{figure}
