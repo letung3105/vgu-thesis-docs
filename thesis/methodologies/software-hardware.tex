@@ -11,6 +11,6 @@ The provided system ran on the Ubuntu 18.04 operating system and included a 2 co
 The second hardware system that was used was a laptop ran on the Manjaro operating system with Linux kernel version 5.10.70-1-MANJARO and included a 2 cores Intel(R) Core(TM) i5-4260U CPU with each core running at 1.40GHz, and 4Gb of memory.
 While the models were expected to run on any operating system that was supported by Julia, it was not tested on any other operating systems besides Linux.
 Thus the model might not work as expected when running on a different operating system.
-Although the model had been tested and shown that it could run on a resource-limited system with only 4Gb memory, using a system with higher memory is recommended for the best user's experience.
-Because the Julia programming language utilizes \gls{JIT} compilation every time a line of code is run, the initial startup of the package can consume lots of hardware resources and crashes the program if there is not enough memory for the \gls{JIT} compilation process.
+Although the model had been tested and shown that it could run on a resource-limited system with only 4Gb memory, using a system with higher memory is recommended if the script is running along with other processes.
+Because the Julia programming language utilizes \gls{JIT} compilation on the first time a block of code is run to create optimized native code, the initial startup of the package can consume lots of hardware resources and crashes the program if there is not enough memory for the \gls{JIT} compilation process.
 After the initial startup process is completed, the training process and evaluation process do not require as much hardware resources.

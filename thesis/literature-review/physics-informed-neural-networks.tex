@@ -7,7 +7,7 @@ Nonetheless, the application of deep learning in many domains of science has not
 The cost of data collection for analyzing complex physical, biological, or engineering systems is prohibitive.
 Without big data, state-of-the-art deep learning techniques lack robustness and are not guaranteed to converge.
 Specifically, in the case of Covid-19 or any other disease, an accurate model, that can fairly estimate the trajectories of the disease at an early stage when data is scarce, is highly desirable.
-\citeauthor{raissiPhysicsinformedNeuralNetworks2019} \cite{raissiPhysicsinformedNeuralNetworks2019} observed that prior knowledge about dynamical systems, which is captured by mechanistic models, had not been utilized for training \glspl{ANN}.
+Prior knowledge about dynamical systems, which is captured by mechanistic models, had not been utilized for training \glspl{ANN} \cite{raissiPhysicsinformedNeuralNetworks2019}.
 By utilizing this information, the solutions space that an \gls{ANN} can take can be limited and the data seen by models is enriched to help them converge faster.
 \glspl{PINN} work by using the knowledge given by mechanistic models in the form of \glspl{ODE} or \glspl{PDE} as a regularization term for the loss function \cite{raissiPhysicsinformedNeuralNetworks2019, lagarisArtificialNeuralNetworks1998}.
 With physical constraint incorporated within the loss function, the \glspl{ANN} is guided to learn the parameters that give rise to a solution that obeys physical laws.
@@ -40,7 +40,7 @@ At this point, the loss function turns into
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.3]{pinn-schematic.png}
-    \caption{The schematic of PINNs for solving PDEs. Figure is taken from \citeauthor{guoSolvingPartialDifferential2020} \cite{guoSolvingPartialDifferential2020}}
+    \caption{The schematic of PINNs for solving PDEs. Figure is taken from \cite{guoSolvingPartialDifferential2020}}
     \label{fig:pinn-schematic}
 \end{figure}
 
@@ -77,5 +77,5 @@ The loss value $MSE_u$ enforces the initial and boundary conditions on the \gls{
 
 The \gls{ANN} under this framework can be training using well-known techniques in deep learning.
 These techniques include automatic differentiation, back-propagation, and gradient-based optimization.
-In the research, \citeauthor{raissiPhysicsinformedNeuralNetworks2019} \cite{raissiPhysicsinformedNeuralNetworks2019} showed empirical evidence that the \gls{ANN} will converge to a global minimum under the condition that the differential equations are well-posed and their solution is unique.
+Empirical evidence showed that the \gls{ANN} will converge to a global minimum under the condition that the differential equations are well-posed and their solution is unique \cite{raissiPhysicsinformedNeuralNetworks2019}.
 They also showed that the model achieved high prediction accuracy with out-of-sampled data when given a sufficiently expressive \gls{ANN} and a sufficient number of collocation points $N_f$.

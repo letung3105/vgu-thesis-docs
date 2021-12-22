@@ -2,7 +2,7 @@
 
 Extracting the governing equations from data has been a great challenge in the fields of science and engineering.
 While recent rapid advances in machine learning and data science have enabled the ability to analyze and understand complex static data, methods for capturing physical models of dynamical systems from data have slowly progressed.
-To ease this problem, \citeauthor{bruntonDiscoveringGoverningEquations2016} \cite{bruntonDiscoveringGoverningEquations2016} proposed the \gls{SINDy} method for discovering the underlying dynamics of systems using sparse regression and compressed sensing.
+To ease this problem, the \gls{SINDy} method was proposed for discovering the underlying dynamics of systems using sparse regression and compressed sensing \cite{bruntonDiscoveringGoverningEquations2016}.
 Given the dynamical systems of the form
 \begin{equation*}
     \frac{d}{dt} x(t) = f(x(t)),
@@ -14,7 +14,7 @@ Under that observation, methods in compressed sensing and sparse regression can 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=1.4]{sindy-schematic.png}
-    \caption{Schematic of the SINDy algorithm, demonstrated on the Lorenz equations. The few entries in the vectors of $\Xi$, solved for by sparse regression, denote the relevant terms in the right-hand side of the dynamics. Parameter values are $\sigma = 10$, $\beta = 8/3$, $\rho = 28$, $(x_0 , y_0 , z_0)^T = (-8,7,27)^T$. The trajectory on the Lorenz attractor is colored by the adaptive time step required, with red indicating a smaller time step. Figure is taken from \citeauthor{bruntonDiscoveringGoverningEquations2016} \cite{bruntonDiscoveringGoverningEquations2016}}
+    \caption{Schematic of the SINDy algorithm, demonstrated on the Lorenz equations. The few entries in the vectors of $\Xi$, solved for by sparse regression, denote the relevant terms in the right-hand side of the dynamics. Parameter values are $\sigma = 10$, $\beta = 8/3$, $\rho = 28$, $(x_0 , y_0 , z_0)^T = (-8,7,27)^T$. The trajectory on the Lorenz attractor is colored by the adaptive time step required, with red indicating a smaller time step. Figure is taken from \cite{bruntonDiscoveringGoverningEquations2016}}
     \label{fig:sindy-schematic}
 \end{figure}
 
