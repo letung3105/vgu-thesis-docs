@@ -119,29 +119,29 @@ Hence, based on these results, mobility data did not have a positive effect on t
 Looking at \autoref{fig:R0-and-fatality-vietnam}, both versions of the model learned the same decreasing trend in the effective reproduction number and the fatality rate in Vietnam.
 The reproduction number reached as high as $4.5$ with the baseline model and as high as $3.5$ with the second version at the start of the simulated period.
 Both versions learned that the effective reproduction number went below $1$ at around the 20th time step.
-The baseline model predicted a slightly lower fatality rate compared to the second version. At the beginning of the training period, the baseline model predicted a fatality of about $0.008$, and the fatality rate decreased exponentially until the end of the simulation.
+Both versions predicted a very low fatality rate that followed a decreasing trend and was highest at $0.008$
 
 \begin{figure}[!htb]
     \centering
 
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/vietnam/20211216111951.baseline.vietnam.R_effective.png}
+        \begin{subfigure}[b]{0.45\linewidth}
+            \includegraphics[width=\linewidth]{baseline/vietnam/20211216111951.baseline.vietnam.R_effective.pdf}
         \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/vietnam/20211216111951.baseline.vietnam.fatality_rate.png}
+        \begin{subfigure}[b]{0.45\linewidth}
+            \includegraphics[width=\linewidth]{baseline/vietnam/20211216111951.baseline.vietnam.fatality_rate.pdf}
         \end{subfigure}
         \subcaption{Baseline model}
     \end{subfigure}
 
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/vietnam/20211216231719.fbmobility1.vietnam.R_effective.png}
+        \begin{subfigure}[b]{0.45\linewidth}
+            \includegraphics[width=\linewidth]{fb1/vietnam/20211216231719.fbmobility1.vietnam.R_effective.pdf}
         \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/vietnam/20211216231719.fbmobility1.vietnam.fatality_rate.png}
+        \begin{subfigure}[b]{0.45\linewidth}
+            \includegraphics[width=\linewidth]{fb1/vietnam/20211216231719.fbmobility1.vietnam.fatality_rate.pdf}
         \end{subfigure}
         \subcaption{2nd. version}
     \end{subfigure}
@@ -161,22 +161,22 @@ On the other hand, the second version predicted a higher effective reproduction 
 
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/unitedstates/20211216125000.baseline.unitedstates.R_effective.png}
+        \begin{subfigure}[b]{0.45\linewidth}
+            \includegraphics[width=\linewidth]{baseline/unitedstates/20211216125000.baseline.unitedstates.R_effective.pdf}
         \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/unitedstates/20211216125000.baseline.unitedstates.fatality_rate.png}
+        \begin{subfigure}[b]{0.45\linewidth}
+            \includegraphics[width=\linewidth]{baseline/unitedstates/20211216125000.baseline.unitedstates.fatality_rate.pdf}
         \end{subfigure}
         \subcaption{Baseline model}
     \end{subfigure}
 
     \begin{subfigure}[b]{\linewidth}
         \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/unitedstates/20211216233634.fbmobility1.unitedstates.R_effective.png}
+        \begin{subfigure}[b]{0.45\linewidth}
+            \includegraphics[width=\linewidth]{fb1/unitedstates/20211216233634.fbmobility1.unitedstates.R_effective.pdf}
         \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/unitedstates/20211216233634.fbmobility1.unitedstates.fatality_rate.png}
+        \begin{subfigure}[b]{0.45\linewidth}
+            \includegraphics[width=\linewidth]{fb1/unitedstates/20211216233634.fbmobility1.unitedstates.fatality_rate.pdf}
         \end{subfigure}
         \subcaption{2nd. version}
     \end{subfigure}
