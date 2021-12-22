@@ -17,6 +17,11 @@ Furthermore, in can be seen that the predictions made for locations where high f
 This result indicated the model's shortcomings in learning and generalizing from noisy data.
 
 Considering the benefits of encoding mobility data and social network data into the model, our results demonstrated that there was no improvement in the model accuracy for both short-term and long-term forecasts when these covariates were encoded.
-This finding contrasted existing findings on mobility data and \gls{SPC} index being important predictors for the future number of cases \cite{changMobilityNetworkModels2021,kuchlerGeographicSpreadCOVID192020}.
+This finding contrasted existing findings on mobility data and \gls{SPC} index being important predictors for the future number of cases \cite{changMobilityNetworkModels2021,kuchlerGeographicSpreadCOVID192020,arikInterpretableSequenceLearning,liSubstantialUndocumentedInfection2020}.
+We hypothesized several reasons to explain this discrepancy.
+Firstly, only a short time span of 48 days were used to train the model which may prevent the embed \gls{ANN} from generalizing beyond the training data.
+Secondly, the mobility data that we used was not as granular and complex as those used in existing researches because we only considered datasets that were available for Vietnam.
+Thirdly, even though the \gls{SPC} had been shown to have high correlation with the early number of cases, it became a less important predictor when the disease prolonged and when heavy government restrictions on mobility were in place.
+Finally, the underlying \gls{SEIR} model was too simple and could have introduced strong model bias that hindered the ability to learn the true interactions between the covariates and the spread of the disease.
 
 \section{Model's convergence and generalizability}
