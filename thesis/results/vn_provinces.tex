@@ -27,7 +27,7 @@ For Ho Chi Minh city, the third version made the best predictions across all met
 Lastly, for Long An, the third version had the best performance across all metrics and horizons.
 
 Overall, all three versions had a good out-of-sample performance for the number of deaths and the number of cumulative when extrapolated from the training period.
-Nonetheless, the model predictions errors for the number of new cases were still high, and in the case of Ho Chi Minh city, as shown in \autoref{fig:pred-vn-provinces}, all versions completely failed to capture the trend of the new cases.
+Nonetheless, the model predictions errors for the number of new cases were still high, and in the case of Ho Chi Minh city, as shown in \autoref{fig:pred-vn-provinces2}, all versions completely failed to capture the trend of the new cases.
 Similar to the experiments with \gls{US} counties, it was likely that the model's performance was dependent on the characteristics of the locations that were modeled, and the encoded covariates provided little to no help in improving the model out-of-sample performance.
 
 % ERRORS
@@ -166,7 +166,7 @@ This increase in the effective reproduction number lasted for around 10 time ste
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_binhduong.pdf}
-    \caption{The effective reproduction number and the fatality rate for Binh Duong learned by different versions of the model}
+    \caption{The effective reproduction number (left) and the fatality rate (right) for Binh Duong learned by different versions of the model}
     \label{fig:R0-and-fatality-binhduong}
 \end{figure}
 
@@ -181,7 +181,7 @@ With the third version, the effective reproduction number at time step 0 was the
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_dongnai.pdf}
-    \caption{The effective reproduction number and the fatality rate for Dong Nai learned by different versions of the model}
+    \caption{The effective reproduction number (left) and the fatality rate (right) for Dong Nai learned by different versions of the model}
     \label{fig:R0-and-fatality-dongnai}
 \end{figure}
 
@@ -193,7 +193,7 @@ With the third version, the maximum predicted fatality rate was just below $0.04
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_hcm.pdf}
-    \caption{The effective reproduction number and the fatality rate for Ho Chi Minh city learned by different versions of the model}
+    \caption{The effective reproduction number (left) and the fatality rate (right) for Ho Chi Minh city learned by different versions of the model}
     \label{fig:R0-and-fatality-hochiminh}
 \end{figure}
 
@@ -202,7 +202,7 @@ The baseline model predicted a stagnated fatality rate that was around $0.03$ an
 With the second version, the fatality rate started at a higher maximum of $0.04$ at the 0th time step and gradually decreased to a lower minimum that was slightly above $0.01$
 In contrast, the third version predicted a minimum fatality rate of around $0.01$ at the 0th time step that gradually increased to a maximum of $0.04$.
 Because of these differences, the resulting dynamics for the deaths compartment from these versions were also highly different from each other.
-Looking at \autoref{fig:fit-vn-provinces} and \autoref{fig:pred-vn-provinces}, we can see that the second version had a much better fit to the training data and can extrapolate with high accuracy, while both the baseline model and the third version fitted poorly to training data and overestimated the number of deaths when extrapolated into the future.
+Looking at \autoref{fig:fit-vn-provinces1} and \autoref{fig:pred-vn-provinces1}, we can see that the second version had a much better fit to the training data and can extrapolate with high accuracy, while both the baseline model and the third version fitted poorly to training data and overestimated the number of deaths when extrapolated into the future.
 For the effective reproduction number, all versions predicted a low initial value that surged to a maximum after 5 time steps.
 With the baseline model, a maximum effective reproduction number of around $2.5$ was predicted, and once the max value was reached, the effective reproduction decreased exponentially and crossed the $1$ threshold at around the 20th time steps.
 On the other hand, both the second version and the third version predicted a maximum effective reproduction number of around $4$ where the value predicted by the second version was slightly lower than $4$ and the value predicted by the third version was slightly higher than $4$.
@@ -212,6 +212,6 @@ Finally, the predicted effective reproduction number raised slightly and reached
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_longan.pdf}
-    \caption{The effective reproduction number and the fatality rate for Long An learned by different versions of the model}
+    \caption{The effective reproduction number (left) and the fatality rate (right) for Long An learned by different versions of the model}
     \label{fig:R0-and-fatality-longan}
 \end{figure}

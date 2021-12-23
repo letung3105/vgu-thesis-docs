@@ -1,7 +1,7 @@
 \chapter{Discussion}
 \label{chap:discussion}
 
-Regarding \autoref{fig:fit-country-level}, \autoref{fig:fit-us-counties}, \autoref{fig:fit-vn-provinces}, and the data presented in \autoref{chap:results}, it is observed that the model could fit closely to data for the training period and provided useful insight into the evolution of the disease, which could not be done by a basic \gls{SEIR} model \cite{dandekarMachineLearningAidedGlobal2020a}.
+Regarding \autoref{fig:fit-country-level}, \autoref{fig:fit-us-counties1}, \autoref{fig:fit-us-counties1}, \autoref{fig:fit-vn-provinces1}, \autoref{fig:fit-vn-provinces2}, and the data presented in \autoref{chap:results}, it is observed that the model could fit closely to data for the training period and provided useful insight into the evolution of the disease, which could not be done by a basic \gls{SEIR} model \cite{dandekarMachineLearningAidedGlobal2020a}.
 However, the model could not fit well to data where high fluctuations were presented, which can be seen in the model's fit for Harris (Texas), Dong Nai, Long An, and Binh Duong.
 Even though we had tried to eliminate high frequency changes in the data by using a 7-day moving average, high variations in the number of new cases from day to day still existed due to various reasons such as how the data was collected, the present of asymptomatic cases, underreporting, the number of tests that was performed, etc.
 Moreover, while we did not study the effects that the covariates had on the model's parameters in the second and third versions, an in-depth analysis could be done to gain additional insights into which factors played an important role in slowing down to spread of the virus.
@@ -10,7 +10,7 @@ When extrapolated beyond the training period, the model had low errors on the ou
 In instances where the model could forecasts the trend of the disease, it was observed that the model had the highest accuracy when making short-term forecasts, and the predictions accuracy deteriorated as the forecast horizon expanded.
 This was expected as many real-world phenomenons could invalidate the assumptions made by the model during training, and the further we extrapolated from the training period, the more the errors resulted from these assumptions accumulated.
 Two cases where the model completely failed to forecast the trend of the disease were with data for Ho Chi Minh city and Vietnam.
-In these two instances, we can see that the data used for training the model, illustrated by \autoref{fig:fit-country-level} and \autoref{fig:fit-vn-provinces}, indicated a monotonically decreasing trend in the spread of the disease before the sharp increase was presented in the testing data.
+In these two instances, we can see that the data used for training the model, illustrated by \autoref{fig:fit-country-level} and \autoref{fig:fit-vn-provinces2}, indicated a monotonically decreasing trend in the spread of the disease before the sharp increase was presented in the testing data.
 Because this sudden change in the disease dynamics was not exhibited in the training data for both cases, the model failed to make an accurate forecast of when such changes would happen.
 This result is aligned with existing studies \cite{arikInterpretableSequenceLearning}.
 Furthermore, in can be seen that the predictions made for locations where high fluctuations were presented were not as good as the predictions made for locations where the numbers followed smoother curves.
