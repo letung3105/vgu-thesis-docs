@@ -12,7 +12,7 @@ This was expected as many real-world phenomenons could invalidate the assumption
 Two cases where the model completely failed to forecast the trend of the disease were with data for Ho Chi Minh city and Vietnam.
 In these two instances, we can see that the data used for training the model, illustrated by \autoref{fig:fit-country-level} and \autoref{fig:fit-vn-provinces}, indicated a monotonically decreasing trend in the spread of the disease before the sharp increase was presented in the testing data.
 Because this sudden change in the disease dynamics was not exhibited in the training data for both cases, the model failed to make an accurate forecast of when such changes would happen.
-This result is also aligned with existing studies \cite{arikInterpretableSequenceLearning}.
+This result is aligned with existing studies \cite{arikInterpretableSequenceLearning}.
 Furthermore, in can be seen that the predictions made for locations where high fluctuations were presented were not as good as the predictions made for locations where the numbers followed smoother curves.
 This result indicated the model's shortcomings in learning and generalizing from noisy data.
 
@@ -22,6 +22,26 @@ We hypothesized several reasons to explain this discrepancy.
 Firstly, only a short time span of 48 days were used to train the model which may prevent the embed \gls{ANN} from generalizing beyond the training data.
 Secondly, the mobility data that we used was not as granular and complex as those used in existing researches because we only considered datasets that were available for Vietnam.
 Thirdly, even though the \gls{SPC} had been shown to have high correlation with the early number of cases, it became a less important predictor when the disease prolonged and when heavy government restrictions on mobility were in place.
-Finally, the underlying \gls{SEIR} model was too simple and could have introduced strong model bias that hindered the ability to learn the true interactions between the covariates and the spread of the disease.
+Finally, the underlying \gls{SEIR} model could be too simple and introduced strong model bias that hindered the ability to learn the true interactions between the covariates and the spread of the disease.
 
 \section{Model's convergence and generalizability}
+
+Although the model could converge on a good minima, this property was not guaranteed, and the model would occasionally get stuck in a bad local minima.
+This was a known problem with fitting \gls{UDE} \cite{rackauckasUniversalDifferentialEquations2020}, and fitting to time series data in general.
+To mitigate the issue, we implemented various techniques that helped to reduce the chance of a bad local minima including iteratively growing the fit and placing more weight to errors for earlier data points, as suggested by the library authors.
+However, these techniques did not guarantee to completely eliminate the problems.
+
+Another property that could prevent the model from converging was with the \textit{stiffness} of the \gls{ODE} \cite{kimStiffNeuralOrdinary2021}.
+Stiff \glspl{ODE} are \glspl{ODE} that can not be solved by explicit methods.
+This property prevented us from calculating the gradients by solving an augmented \gls{ODE} backward in time as proposed in the \gls{NeuralODE} paper \cite{chenNeuralOrdinaryDifferential2019}.
+Additionally, even when the gradients could be calculated, various problems with the model's stability and the miscalculation of the gradients might still exist, which additionally needed to be addressed.
+Because there was not a clear definition for stiff \glspl{ODE} and there was no method for determining whether a system was stiff, we circumvented this by relying on various suggestions from the existing research when implementing our model \cite{kimStiffNeuralOrdinary2021}.
+Firstly, the \textit{mish} activation function \cite{misraMishSelfRegularized2020} was used to avoid known problems with saturating activations, e.g, \textit{tanh} and \textit{sigmoid}.
+Secondly, we used the \textit{InterpolatingAdjoint} method implemented in the \textit{DiffEqFlux.jl} package for calculating the gradients instead of relying the the \textit{BacksolveAdjoint} method which computed the gradients by solving an augmented \gls{ODE} backward in time.
+Thirdly, we scaled the model's output with min-max scaling when calculating the loss value, which was shown to help to reduce instability in the gradients calculation.
+
+Because we trained the model separately on data for each of the considered locations, each location would have a separated set of \gls{ANN} weights and system parameters.
+This meant that the model could only forecast cases for the location that it had been trained on.
+We did not perform extensive testing on the model's performance on data outside of the location that it had been trained on, however, we believed that with the current training method, the model was not capable of predicting for different locations once it had been trained with only one location.
+
+\section{Limitations}

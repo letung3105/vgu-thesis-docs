@@ -163,40 +163,7 @@ For the period after the first $20$ time steps, the fatality rate predicted by t
 
 \begin{figure}[!htb]
     \centering
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/cook_il/20211215163025.baseline.cook_il.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/cook_il/20211215163025.baseline.cook_il.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{Baseline model}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/cook_il/20211216131821.fbmobility1.cook_il.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/cook_il/20211216131821.fbmobility1.cook_il.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{2nd. version}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb2/cook_il/20211216142727.fbmobility2.cook_il.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb2/cook_il/20211216142727.fbmobility2.cook_il.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{3rd. version}
-    \end{subfigure}
-
+    \includegraphics[width=\linewidth]{Re_and_fatality_cook_il.pdf}
     \caption{The effective reproduction number and the fatality rate for Cook (Illinois), learned by different versions of the model}
     \label{fig:R0-and-fatality-cook}
 \end{figure}
@@ -210,40 +177,7 @@ When predicting the fatality rate, all three versions showed similar results wit
 
 \begin{figure}[!htb]
     \centering
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/harris_tx/20211216154445.baseline.harris_tx.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/harris_tx/20211216154445.baseline.harris_tx.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{Baseline model}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/harris_tx/20211216231719.fbmobility1.harris_tx.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/harris_tx/20211216231719.fbmobility1.harris_tx.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{2nd. version}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb2/harris_tx/20211217204936.fbmobility2.harris_tx.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb2/harris_tx/20211217204936.fbmobility2.harris_tx.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{3rd. version}
-    \end{subfigure}
-
+    \includegraphics[width=\linewidth]{Re_and_fatality_harris_tx.pdf}
     \caption{The effective reproduction number and the fatality rate for Harris (Texas) learned by different versions of the model}
     \label{fig:R0-and-fatality-harris}
 \end{figure}
@@ -258,40 +192,7 @@ Here, the predicted fatality rate in all three versions also followed an exponen
 
 \begin{figure}[!htb]
     \centering
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/losangeles_ca/20211216124108.baseline.losangeles_ca.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/losangeles_ca/20211216124108.baseline.losangeles_ca.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{Baseline model}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/losangeles_ca/20211216180602.fbmobility1.losangeles_ca.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/losangeles_ca/20211216180602.fbmobility1.losangeles_ca.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{2nd. version}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb2/losangeles_ca/20211216142727.fbmobility2.losangeles_ca.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb2/losangeles_ca/20211216142727.fbmobility2.losangeles_ca.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{3rd. version}
-    \end{subfigure}
-
+    \includegraphics[width=\linewidth]{Re_and_fatality_losangeles_ca.pdf}
     \caption{The effective reproduction number and the fatality rate for Los Angeles (California) learned by different versions of the model}
     \label{fig:R0-and-fatality-losangeles}
 \end{figure}
@@ -303,40 +204,7 @@ For the fatality rate, the maximum value of $0.05$ was predicted for the first f
 
 \begin{figure}[!htb]
     \centering
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/maricopa_az/20211216154445.baseline.maricopa_az.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{baseline/maricopa_az/20211216154445.baseline.maricopa_az.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{Baseline model}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/maricopa_az/20211216131821.fbmobility1.maricopa_az.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb1/maricopa_az/20211216131821.fbmobility1.maricopa_az.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{2nd. version}
-    \end{subfigure}
-
-    \begin{subfigure}[b]{\linewidth}
-        \centering
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb2/maricopa_az/20211216193717.fbmobility2.maricopa_az.R_effective.pdf}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.4\linewidth}
-            \includegraphics[width=\linewidth]{fb2/maricopa_az/20211216193717.fbmobility2.maricopa_az.fatality_rate.pdf}
-        \end{subfigure}
-        \subcaption{3rd. version}
-    \end{subfigure}
-
+    \includegraphics[width=\linewidth]{Re_and_fatality_maricopa_az.pdf}
     \caption{The effective reproduction number and the fatality rate for Maricopa (Arizona) learned by different versions of the model}
     \label{fig:R0-and-fatality-maricopa}
 \end{figure}
