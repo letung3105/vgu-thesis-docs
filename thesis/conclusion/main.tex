@@ -1,2 +1,17 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
+
+In this thesis, we implemented an infectious disease model that was enhanced by incorporating an \gls{ANN} into the \gls{SEIR} model to eliminate the compartmental model basic assumptions about the contact rate and the fatality being static.
+We further tried to improve the forecast performance of the model by using mobility data and social network data as input features to the embed \gls{ANN}.
+The model utilized the \gls{UDE} approach \cite{rackauckasUniversalDifferentialEquations2020} to learn from real-world data and made predictions backed by domain specific knowledge.
+We showed that the model could capture the trend for the evolution of the disease in many of the tested locations and provide epidemiological significant insights about the disease.
+Our experiments with encoding mobility data and social network data as covariates into the model revealed that these data points could not improve the forecast performance of the model.
+However, these results were not conclusive since we had a small sample size and the existing issues with training the model on real-world data might restrict our ability to observe the improvements brought by these covariates.
+
+Even though the \gls{UDE} method had shown promising results on simulated data, our application of the approach on real-world Covid-19 data revealed many difficulties.
+These issues were circumvented with different techniques suggested by existing researches on these issues \cite{kimStiffNeuralOrdinary2021,rackauckasUniversalDifferentialEquations2020}.
+Having said that, not all issues were alleviated and many additional enhancements can be made to improve the model performance.
+Firstly, a model with additional compartments can be used to clearly represents the characteristics of Covid-19 such as asymptomatic infection, vaccinations, etc.
+Secondly, additional time-varying covariates can be considered to inform the model, especially in cases when the disease dynamics change rapidly.
+Thirdly, new improvements to training \glspl{UDE} should be considered to make better guarantee on model convergence.
+Finally, using the model in combination with recent advancements in methods for identifying unknown dynamical systems, such as \gls{SINDy} \cite{bruntonDiscoveringGoverningEquations2016}, can help to extract the underlying governing equation from the embed \gls{ANN} and provide a fully interpretable model.

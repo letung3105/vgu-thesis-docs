@@ -43,5 +43,36 @@ Thirdly, we scaled the model's output with min-max scaling when calculating the 
 Because we trained the model separately on data for each of the considered locations, each location would have a separated set of \gls{ANN} weights and system parameters.
 This meant that the model could only forecast cases for the location that it had been trained on.
 We did not perform extensive testing on the model's performance on data outside of the location that it had been trained on, however, we believed that with the current training method, the model was not capable of predicting for different locations once it had been trained with only one location.
+Furthermore, because we are modeling real-world scenarios that are subjected to changes, the model's performance may change dramatically as the forecasting time span moves further away from the training time span.
 
 \section{Limitations}
+
+\paragraph{Issues with ground truth data}
+Like all data-driven methods, the quality of our model depended the quality of the collected data.
+It had been noted that the method for collecting Covid-19 data varied across different locations, and the collected data might suffer detection and measurement biases.
+Thus the performance of the model could change drastically based on the location that was modeled
+
+\paragraph{Inability to capture to rapid trend changes}
+As shown in the result, our model failed to capture the disease dynamics when the number of cases became very flat or very sharp.
+In some cases, such trends occurred due to modifications to the number of cases in the report, in other cases, they might be caused by other covariates that we did not consider.
+
+\paragraph{Bad local minima}
+While we implemented different techniques for lowering the chance of getting into a bad local minima, the problem still existed.
+One method that we tried was to use a different loss function \cite{vortmeyer-kleyTrajectorybasedLossFunction2021}, but the obtained results were unsatisfactory.
+
+\paragraph{Compartmental model bias}
+Like all compartmental models, our make many assumptions such that real-world scenarios can be approximated with feasible computational power.
+Hence, many aspects of the disease were simplified, one of which was the disease transmission process.
+Moreover, because we wanted to limit the complexity in the model training process, we did not consider additional compartments that better reflected our current knowledge about Covid-19 such as asymptomatic infections, reinfections, vaccinations, and quarantine control measures.
+
+\paragraph{Covariates bias}
+Our two versions of model was informed using the datasets from Facebook which may introduced biases.
+We chosen these datasets because of the large number of Facebook users in Vietnam, however, these datasets might not be representative of the whole population and introduced certain biases into the model predictions.
+
+\paragraph{The changing dynamics of Covid-19}
+The dynamics of the disease constantly changes due to a multitude of factors, and our knowledge of this dynamics will improve over time.
+Thus the results produced by our model are not final, and changes to the model to incorporate new findings are needed to improve its robustness.
+
+\paragraph{Neural network interpretability}
+Even though the model produced domain specific encoding that can be understand by experts, the \gls{ANN} was still a black-box algorithm that was not interpretable.
+This property may be undesirable if we want to apply the model in situations where full transparency is required.

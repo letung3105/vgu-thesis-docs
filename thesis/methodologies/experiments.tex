@@ -122,3 +122,4 @@ Therefore, in the experiments, a 7-day moving average transform was applied to t
 The elimination of weekly seasonality in the data allowed the model to better capture the overall trends and helped to avoid confusing the model with highly fluctuating values.
 Moreover, after being transformed with a 7-day moving average, values from the Movement Range Maps dataset and the \gls{SPC} index were scaled to have values ranging from 0 to 1 within the training time span.
 This ensured all the input features to the \glspl{ANN} had the same scale during training which would help improve the performance of the model.
+Because issues with bad local minima could occur when learning from time series data, we trained the model at each location for 5 times and selected the set of weights that produced the minimum training loss among the samples.
