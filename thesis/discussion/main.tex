@@ -3,33 +3,32 @@
 
 Regarding \autoref{fig:fit-country-level}, \autoref{fig:fit-us-counties1}, \autoref{fig:fit-us-counties1}, \autoref{fig:fit-vn-provinces1}, \autoref{fig:fit-vn-provinces2}, and the data presented in \autoref{chap:results}, it is observed that the model could fit closely to data for the training period and provided useful insight into the evolution of the disease, which could not be done by a basic \gls{SEIR} model \cite{dandekarMachineLearningAidedGlobal2020a}.
 However, the model could not fit well to data where high fluctuations were presented, which can be seen in the model's fit for Harris (Texas), Dong Nai, Long An, and Binh Duong.
-Even though we had tried to eliminate high frequency changes in the data by using a 7-day moving average, high variations in the number of new cases from day to day still existed due to various reasons such as how the data was collected, the present of asymptomatic cases, underreporting, the number of tests that was performed, etc.
+Even though we had tried to eliminate high-frequency changes in the data by using a 7-day moving average, high variations in the number of new cases from day to day still existed due to various reasons such as how the data was collected, the presence of asymptomatic cases, underreporting, the number of tests that were performed, etc.
 Moreover, while we did not study the effects that the covariates had on the model's parameters in the second and third versions, an in-depth analysis could be done to gain additional insights into which factors played an important role in slowing down to spread of the virus.
 
 When extrapolated beyond the training period, the model had low errors on the out-of-sample data for most of the considered locations and showed that it can capture the evolution of the disease.
-In instances where the model could forecasts the trend of the disease, it was observed that the model had the highest accuracy when making short-term forecasts, and the predictions accuracy deteriorated as the forecast horizon expanded.
+In instances where the model could forecast the trend of the disease, it was observed that the model had the highest accuracy when making short-term forecasts, and the accuracy deteriorated as the forecast horizon expanded.
 This was expected as many real-world phenomenons could invalidate the assumptions made by the model during training, and the further we extrapolated from the training period, the more the errors resulted from these assumptions accumulated.
 Two cases where the model completely failed to forecast the trend of the disease were with data for Ho Chi Minh city and Vietnam.
 In these two instances, we can see that the data used for training the model, illustrated by \autoref{fig:fit-country-level} and \autoref{fig:fit-vn-provinces2}, indicated a monotonically decreasing trend in the spread of the disease before the sharp increase was presented in the testing data.
 Because this sudden change in the disease dynamics was not exhibited in the training data for both cases, the model failed to make an accurate forecast of when such changes would happen.
 This result is aligned with existing studies \cite{arikInterpretableSequenceLearning}.
-Furthermore, in can be seen that the predictions made for locations where high fluctuations were presented were not as good as the predictions made for locations where the numbers followed smoother curves.
+Furthermore, it can be seen that the predictions made for locations where high fluctuations were presented were not as good as the predictions made for locations where the numbers followed smoother curves.
 This result indicated the model's shortcomings in learning and generalizing from noisy data.
 
 Considering the benefits of encoding mobility data and social network data into the model, our results demonstrated that there was no improvement in the model accuracy for both short-term and long-term forecasts when these covariates were encoded.
 This finding contrasted existing findings on mobility data and \gls{SPC} index being important predictors for the future number of cases \cite{changMobilityNetworkModels2021,kuchlerGeographicSpreadCOVID192020,arikInterpretableSequenceLearning,liSubstantialUndocumentedInfection2020}.
 We hypothesized several reasons to explain this discrepancy.
-Firstly, only a short time span of 48 days were used to train the model which may prevent the embed \gls{ANN} from generalizing beyond the training data.
-Secondly, the mobility data that we used was not as granular and complex as those used in existing researches because we only considered datasets that were available for Vietnam.
-Thirdly, even though the \gls{SPC} had been shown to have high correlation with the early number of cases, it became a less important predictor when the disease prolonged and when heavy government restrictions on mobility were in place.
-Finally, the underlying \gls{SEIR} model could be too simple and introduced strong model bias that hindered the ability to learn the true interactions between the covariates and the spread of the disease.
+Firstly, the mobility data that we used was not as granular and complex as those used in existing researches because we only considered datasets that were available for Vietnam.
+Secondly, even though the \gls{SPC} had been shown to have a high correlation with the early number of cases, it became a less important predictor when the disease was prolonged and when heavy government restrictions on mobility were in place.
+Thirdly, the underlying \gls{SEIR} model could be too simple and introduce strong model bias that hindered the ability to learn the true interactions between the covariates and the spread of the disease.
 
 \section{Model's convergence and generalizability}
 
-Although the model could converge on a good minima, this property was not guaranteed, and the model would occasionally get stuck in a bad local minima.
+Although the model could converge on a good minimum, this property was not guaranteed, and the model would occasionally get stuck in bad local minima.
 This was a known problem with fitting \gls{UDE} \cite{rackauckasUniversalDifferentialEquations2020}, and fitting to time series data in general.
-To mitigate the issue, we implemented various techniques that helped to reduce the chance of a bad local minima including iteratively growing the fit and placing more weight to errors for earlier data points, as suggested by the library authors.
-However, these techniques did not guarantee to completely eliminate the problems.
+To mitigate the issue, we implemented various techniques that helped to reduce the chance of encountering bad local minima including iteratively growing the fit and placing more weight on errors for earlier data points, as suggested by the library authors.
+However, these techniques did not guarantee to eliminate the problems.
 
 Another property that could prevent the model from converging was with the \textit{stiffness} of the \gls{ODE} \cite{kimStiffNeuralOrdinary2021}.
 Stiff \glspl{ODE} are \glspl{ODE} that can not be solved by explicit methods.
@@ -38,7 +37,7 @@ Additionally, even when the gradients could be calculated, various problems with
 Because there was not a clear definition for stiff \glspl{ODE} and there was no method for determining whether a system was stiff, we circumvented this by relying on various suggestions from the existing research when implementing our model \cite{kimStiffNeuralOrdinary2021}.
 Firstly, the \textit{mish} activation function \cite{misraMishSelfRegularized2020} was used to avoid known problems with saturating activations, e.g, \textit{tanh} and \textit{sigmoid}.
 Secondly, we used the \textit{InterpolatingAdjoint} method implemented in the \textit{DiffEqFlux.jl} package for calculating the gradients instead of relying the the \textit{BacksolveAdjoint} method which computed the gradients by solving an augmented \gls{ODE} backward in time.
-Thirdly, we scaled the model's output with min-max scaling when calculating the loss value, which was shown to help to reduce instability in the gradients calculation.
+Thirdly, we scaled the model's output with min-max scaling when calculating the loss value, which was shown to help to reduce instability when calculating the gradients.
 
 Because we trained the model separately on data for each of the considered locations, each location would have a separated set of \gls{ANN} weights and system parameters.
 This meant that the model could only forecast cases for the location that it had been trained on.
@@ -48,31 +47,31 @@ Furthermore, because we are modeling real-world scenarios that are subjected to 
 \section{Limitations}
 
 \paragraph{Issues with ground truth data}
-Like all data-driven methods, the quality of our model depended the quality of the collected data.
+Like all data-driven methods, the quality of our model depended on the quality of the collected data.
 It had been noted that the method for collecting Covid-19 data varied across different locations, and the collected data might suffer detection and measurement biases.
-Thus the performance of the model could change drastically based on the location that was modeled
+Thus the performance of the model could change drastically based on the location.
 
-\paragraph{Inability to capture to rapid trend changes}
+\paragraph{Inability to capture rapid trend changes}
 As shown in the result, our model failed to capture the disease dynamics when the number of cases became very flat or very sharp.
 In some cases, such trends occurred due to modifications to the number of cases in the report, in other cases, they might be caused by other covariates that we did not consider.
 
 \paragraph{Bad local minima}
-While we implemented different techniques for lowering the chance of getting into a bad local minima, the problem still existed.
+While we implemented different techniques for lowering the chance of getting into bad local minima, the problem still existed.
 One method that we tried was to use a different loss function \cite{vortmeyer-kleyTrajectorybasedLossFunction2021}, but the obtained results were unsatisfactory.
 
 \paragraph{Compartmental model bias}
-Like all compartmental models, our make many assumptions such that real-world scenarios can be approximated with feasible computational power.
+Like all compartmental models, our model made many assumptions such that real-world scenarios can be approximated with feasible computational power.
 Hence, many aspects of the disease were simplified, one of which was the disease transmission process.
 Moreover, because we wanted to limit the complexity in the model training process, we did not consider additional compartments that better reflected our current knowledge about Covid-19 such as asymptomatic infections, reinfections, vaccinations, and quarantine control measures.
 
 \paragraph{Covariates bias}
-Our two versions of model was informed using the datasets from Facebook which may introduced biases.
-We chosen these datasets because of the large number of Facebook users in Vietnam, however, these datasets might not be representative of the whole population and introduced certain biases into the model predictions.
+Our two versions of the model were informed using the datasets from Facebook which may introduce biases.
+We chose these datasets because of the large number of Facebook users in Vietnam, however, these datasets might not be representative of the whole population and introduced certain biases into the model predictions.
 
 \paragraph{The changing dynamics of Covid-19}
-The dynamics of the disease constantly changes due to a multitude of factors, and our knowledge of this dynamics will improve over time.
+The dynamics of the disease constantly changes due to a multitude of factors, and our knowledge of these dynamics will improve over time.
 Thus the results produced by our model are not final, and changes to the model to incorporate new findings are needed to improve its robustness.
 
 \paragraph{Neural network interpretability}
-Even though the model produced domain specific encoding that can be understand by experts, the \gls{ANN} was still a black-box algorithm that was not interpretable.
+Even though the model produced domain-specific encoding that can be understood by experts, the \gls{ANN} was still a black-box algorithm that was not interpretable.
 This property may be undesirable if we want to apply the model in situations where full transparency is required.
