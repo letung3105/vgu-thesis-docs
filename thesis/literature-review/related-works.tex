@@ -72,8 +72,8 @@ In addition, there is a worldwide effort in generating more datasets to help wit
 \subsubsection{Statistical models}
 
 One technique that was widely used to forecast the number of Covid-19 infections based on data was the \gls{ARIMA} model \cite{box2015time}.
-The \gls{ARIMA} model is one of the most used time-series models because the model takes changing trends, periodic changes, and random noises in the time-series into account.
-Moreover, the model is suitable for many types of data and can capture the temporal dependency structure of a time-series.
+The \gls{ARIMA} model is one of the most used time series models because the model takes changing trends, periodic changes, and random noises in the time series into account.
+Moreover, the model is suitable for many types of data and can capture the temporal dependency structure of a time series.
 The \gls{ARIMA} model had shown to have high accuracy when applied to data for Italy, Spain, France \cite{ceylanEstimationCOVID19Prevalence2020}, and in 15 different countries \cite{singhPredictionCOVID19Pandemic2020}.
 In addition, the \gls{ARIMA} model had been used in combination with other machine learning approaches to further improve its accuracy \cite{ribeiroShorttermForecastingCOVID192020}.
 Although the \gls{ARIMA} model is widely used and has shown that it can make reasonably good forecasts on the number of new infections, this type of model does not give much more information about the disease itself.
@@ -81,13 +81,13 @@ Therefore, it is unsuitable for modeling tasks more than just the number of futu
 
 \subsubsection{Deep-learning models}
 
-With an abundance of data, it has been shown that data-driven time-series forecasting techniques using deep learning can have high predictive performance.
+With an abundance of data, it has been shown that data-driven time series forecasting techniques using deep learning can have high predictive performance.
 Hence, researchers have been experimenting with different architectures of \glspl{ANN} for predicting the number of cases.
 \gls{LSTM}, the commonly utilized network for time series forecast, had been used to predict future transmission in Canada, where the complex disease dynamics had been successful learned \cite{chimmulaTimeSeriesForecasting2020}.
 Additionally, the \gls{Bi-LSTM} architecture had been shown to achieve the best overall predictive performance for Covid-19 when compared against the \gls{ARIMA} statistical model, \gls{LSTM}, and \gls{GRU} \cite{shahidPredictionsCOVID19Deep2020}.
 While achieving high accuracy in predicting future cases, many of these models are black-box algorithms that are not interpretable, rendering it hard to quantify the causal effect of external factors on the progression of the pandemic.
 Moreover, these black-box algorithms might not capture the underlying dynamics of the disease due to under-reporting, asymptomatic infections, or a general lack of data, especially in the early stages of the outbreak.
-As a result, a new interpretable \gls{ANN} architecture was proposed that incorporates multivariate spatial time-series data to forecast the range of increase in COVID-19 infected cases in \gls{US} counties \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}.
+As a result, a new interpretable \gls{ANN} architecture was proposed that incorporates multivariate spatial time series data to forecast the range of increase in COVID-19 infected cases in \gls{US} counties \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}.
 The model can utilize a wide range of heterogeneous features and learn complex interactions between those features, and it demonstrated that an \gls{ANN} could be used to encode the wide variety of external factors and improve the forecasting ability of \gls{ANN}.
 Having an explainable model is extremely important for healthcare and public authorities to derive meaningful analyses that aid in the planning process.
 

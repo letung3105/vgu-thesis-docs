@@ -3,7 +3,7 @@
 The scripts for generating the datasets described in \autoref{sec:methodologies-data}, the models defined in \autoref{sec:methodologies-models-definitions} and the training algorithm defined in \autoref{sec:methodologies-parameters-estimation} were implemented using the Julia programming language \cite{bezanson2012julia}.
 The implementation was written as a Julia package and was tested with Julia version 1.7.0.
 Julia was chosen for the implementation because of the strongly supported packages for solving differential equations and computing the gradients of those equations.
-The two main packages that were utilized are the \textit{DifferentialEquations} package \cite{rackauckas2017differentialequations} for solving the system of \glspl{ODE} defined by \autoref{eq:methodologies-seir-ude-model} and the \text{DiffEqFlux} \cite{rackauckasUniversalDifferentialEquations2020} package for computing the gradients and optimizing the system's parameters.
+The two main packages that were utilized are the \textit{DifferentialEquations} package \cite{rackauckas2017differentialequations} for solving the system of \glspl{ODE} defined by \autoref{eq:methodologies-seir-ude-model} and the \text{DiffEqFlux} \cite{rackauckasUniversalDifferentialEquations2020} package for computing the gradients and estimating the system's parameters.
 
 The experiments were conducted on two different hardware configurations.
 The first that was used for testing the models was the cloud computing instance provided by Google Collab \footnote{\url{https://colab.research.google.com}}.

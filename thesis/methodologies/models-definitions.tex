@@ -6,7 +6,7 @@ The basic \gls{SEIR} model was chosen because of its simplicity and a low number
 Demographic effects were not included in the model because only a short outbreak period was considered, thus these effects were negligible.
 Moreover, additional compartments for individuals that have been vaccinated were not included because the vaccination was only available for a low percentage of the population for the period that was chosen for the model.
 In addition to the existing compartments in the \gls{SEIR} model, three additional compartments $D$, $C$, and $T$ were introduced for the number of total deaths, the number of newly confirmed cases, and the number of total confirmed cases..
-These compartments were introduced so that the model could represent the available observations that were available in the real-world data.
+These compartments were introduced so that the model could represent the available observations as seen from the real-world data.
 Formally, the system of \glspl{ODE} that governs the extended \gls{SEIR} model was defined as
 \begin{equation}
     \begin{aligned}
@@ -26,8 +26,8 @@ Unlike the definition of the \gls{SEIR} model given in \autoref{sec:literature-r
 Thus, the total number of newly infected people per unit time in this formulation turned into $\beta SI / N$ instead of $\beta SI$.
 In other words, the value of $\beta$ here corresponded to $C(N)$ in the generalized \gls{SIR}/\gls{SEIR} model presented in \autoref{sec:literature-review-generalized-sir-model} where $\beta(N) = C(N) / N$.
 This was done because, in the experiments, it was observed that using $\beta$ as the number of people that can be infected by a single infective individual resulted in a better fit to the training data and a better out-of-sample performance of the model.
-Noted that existing literature \cite{arikInterpretableSequenceLearning, bastosModelingForecastingEarly2020,dengDynamicsDevelopmentCOVID192020, heSEIRModelingCOVID192020,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021, ndairouMathematicalModelingCOVID192020,sarkarModelingForecastingCOVID192020, zhaoModelingEpidemicDynamics2020} had also utilized the same formulation for the transition between the $S$ and $E$ compartments.
-Based on \autoref{eq:methodologies-seir-model}, the basic reproduction number could be obtained by using the following equation
+We noted that existing literature had also utilized the same formulation for the transition between the $S$ and $E$ compartments \cite{arikInterpretableSequenceLearning, bastosModelingForecastingEarly2020,dengDynamicsDevelopmentCOVID192020, heSEIRModelingCOVID192020,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021, ndairouMathematicalModelingCOVID192020,sarkarModelingForecastingCOVID192020, zhaoModelingEpidemicDynamics2020}.
+Based on \autoref{eq:methodologies-seir-model}, the basic reproduction number could be obtained by using the following equation \cite{brauerCompartmentalModelsEpidemiology2008}
 \begin{equation*}
     \mathcal{R}_0 = \frac{\beta}{\gamma}.
     \label{eq:methodologies-seir-reproduction-number}
@@ -69,8 +69,8 @@ From \autoref{eq:methodologies-seir-reproduction-number} and \autoref{eq:methodo
     \mathcal{R}_t = \frac{\beta(t)}{\gamma} = \frac{\mathcal{NN}_{\theta_1}(\mathcal{F})}{\gamma}.
 \end{equation*}
 
-In \cite{rackauckasUniversalDifferentialEquations2020}, the authors show that a small \gls{ANN} with a low number of hidden layers and a low number of nodes is sufficient for an \gls{UDE} to represent the complex interactions in different dynamical systems.
-A similar model proposed in \cite{dandekarMachineLearningAidedGlobal2020a} had also used a small \gls{ANN} with 1 hidden layer where the layer had 10 nodes, and it had been shown to achieve a good performance on Covid-19 data with that small \gls{ANN}.
+It had been shown that a small \gls{ANN} with a low number of hidden layers and a low number of nodes is sufficient for an \gls{UDE} to represent the complex interactions in different dynamical systems \cite{rackauckasUniversalDifferentialEquations2020}.
+Additionally, a similar model that used a small \gls{ANN} with 1 hidden layer, where the layer had 10 nodes, had been shown to achieve a good performance on Covid-19 data \cite{dandekarMachineLearningAidedGlobal2020a}.
 As a result, both the \glspl{ANN} embedded in \autoref{eq:methodologies-seir-ude-model} were chosen to be small \glspl{ANN} where $\mathcal{NN}_{\theta_1}$ has 3 hidden layers in which each layer has 8 nodes and $\mathcal{NN}_{\theta_2}$ has 1 hidden layer that has 8 nodes.
 The \textit{mish} function \cite{misraMishSelfRegularized2020} was used as the activation function for all hidden layers, and the output of the \glspl{ANN} were transformed such that
 \begin{equation*}
@@ -96,20 +96,20 @@ The other states of the system were not considered as inputs to the \gls{ANN} in
 Thus they should have zero effect on the transmission rate $\beta(t)$.
 Furthermore, the fractions $S/N$, $E/N$ and $I/N$ were considered as inputs instead of the actual counts to keep the inputs to the \gls{ANN} lying in the range from 0 to 1 which could help improve the model training process.
 Additionally, it was observed that using the fractions helped to create better results and a faster runtime.
-This model did not rely on external data to inform the embedded \gls{ANN} and based its prediction entirely on the states of the system.
+This version did not rely on external data to inform the embedded \gls{ANN} and based its prediction entirely on the states of the system.
 As such, the model was used as the baseline for comparisons in the experiments.
 
 \subsubsection{Informing the model with mobility data}
 
 As noted by the authors of \cite{dandekarMachineLearningAidedGlobal2020a}, informing the basic \gls{UDE} model for Covid-19 with mobility data could improve the forecasting ability of the model.
-Moreover, \cite{changMobilityNetworkModels2021,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021,liSubstantialUndocumentedInfection2020} have showed that mobility is an important predictor for the spread of Covid-19.
+Moreover, many have showed that mobility is an important predictor for the spread of Covid-19 \cite{changMobilityNetworkModels2021,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021,liSubstantialUndocumentedInfection2020}.
 Therefore, the Movement Range Maps dataset from Facebook (see \autoref{sec:methodologies-data-mobility-data}) was used in addition to the past system's states in the second set of covariates that were given as inputs for the \gls{ANN} in \autoref{eq:methodologies-seir-ude-model}.
 In this second version of the model, the set of covariates $\mathcal{F}$ given to the \gls{ANN} at time step $t$ was defined as
 \begin{equation*}
     \mathcal{F}(t) = \left\lbrace \frac{t}{t_\text{max}}, \frac{S(t-1)}{N(t-1)}, \frac{E(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)}, \text{MovementRange}(t) \right\rbrace,
 \end{equation*}
 where $\text{MovementRange}(t)$ was the relative change in movement and the ratio of people who were staying put at the area that was being modeled at time $t$.
-When performing simulations with data for Vietnam and its provinces, $\text{MovementRange}(t)$ was calculated as the mean of the values of all the subregions within the area that was being modeled.
+When performing simulations with data for the \gls{US}, Vietnam and its provinces, $\text{MovementRange}(t)$ was calculated as the mean of the values of all the subregions within the area that was being modeled.
 That was done because the Movement Range Maps dataset was containing data at a much more granular level but only the country-level data and province-level data were the subjects of interests.
 
 \subsubsection{Informing the model with social network connections}
@@ -122,7 +122,7 @@ The \gls{SPC} index is calculated as
 \begin{equation*}
     SPC_{i,t} = \sum_j^C \text{Cases per 10k}_{j,t} \frac{SCI_{i,j}}{\sum_h^C SCI_{i,h}},
 \end{equation*}
-where $SPC_{i,t}$ is the \gls{SPC} index of location $i$ at time $t$, $C$ is the number of locations, and $\text{Cases per 10k}_{j,t}$ if the number of confirmed cases out of 10,000 people at location $j$ at time $t$.
+where $SPC_{i,t}$ is the \gls{SPC} index of location $i$ at time $t$, $C$ is the number of locations, and $\text{Cases per 10k}_{j,t}$ is the number of confirmed cases out of 10,000 people at location $j$ at time $t$.
 In this third version of the model, the set of covariates $\mathcal{F}$ given to the \gls{ANN} at time step $t$ was defined as
 \begin{equation*}
     \mathcal{F}(t) = \left\lbrace \frac{t}{t_\text{max}}, \frac{S(t-1)}{N(t-1)}, \frac{E(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)}, \text{MovementRange}(t), \text{SPC}(t) \right\rbrace,

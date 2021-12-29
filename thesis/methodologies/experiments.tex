@@ -2,19 +2,19 @@
 \label{sec:methodologies-experiments}
 
 Several experiments were conducted to evaluate the performance of the model on out-of-sample data when different sets of covariates were chosen to inform the model.
-For the experiments, the different versions of the model described in \autoref{sec:methodologies-models-definitions} were first trained using the parameters optimization procedure described in \autoref{sec:methodologies-parameters-estimation}.
+For the experiments, the different versions of the model described in \autoref{sec:methodologies-models-definitions} were trained using the parameters optimization procedure described in \autoref{sec:methodologies-parameters-estimation}.
 During the training process, the model was separately trained with data from each considered location.
 After the model training process was done, the performance of each version of the model was evaluated on out-of-sample data for 4 different future horizons: 1-week horizon, 2-week horizon, 3-week horizon, and 4-week horizon.
-The the evaluation results of all versions of the model were compared against each other to set if the covariates can improve the model performance.
+The evaluation results of all versions of the model were then compared against each other to see if the covariates can improve the model performance.
 
-Data at both the country level and the subdivision level was collected for a period of about 3 months (76 days) where the first 48 days of the period were used to train the model and the last 28 days of the period were used to evaluate the model out-of-sample performance.
+Data at both the country level and the subdivision level was collected for a period of about two and a half months (76 days) where the first 48 days of the period were used to train the model and the last 28 days of the period were used to evaluate the model out-of-sample performance.
 The period of 48 days was chosen to train the model because it was found that the model yielded the best predictions when trained with data for 48 days while still kept the training duration relatively low.
-The others training periods that had been against with were 32 days and 60 days.
+The others training periods that had been validated against were 32 days and 60 days.
 With 32 days, the model could fit well to the data from the training period and provided useful insights about the disease but it failed to extrapolate and had the low accuracy when tested on out-of-sample data.
 While with 60 days, it took much longer to finish training the model but the accuracy did not significantly improves comparing to training with 48 days.
-At each location, data was obtained starting from the first date where the total confirmed cases passed 500 cases and the total number of deaths passed 10 cases.
+At each location, data was obtained starting from the first date where the total confirmed cases passed 500 and the total number of deaths passed 10.
 The specific date ranges that were used at each location are given in \autoref{tab:chosen-dataset-dates}.
-In the experiments, The initial conditions varied across different locations depending on the ground truth data.
+In the experiments, the initial conditions varied across different locations depending on the ground truth data.
 \autoref{tab:ude-model-initial-conditions} presents the values that were chosen as the initial conditions across different locations.
 Furthermore, the initial parameters and their upper and lower bounds were initialized using the same method across different versions of the model and across different locations.
 \autoref{tab:ude-model-initial-parameters} lists the values that were chosen as the initial parameters across different locations.
@@ -97,19 +97,19 @@ Furthermore, the initial parameters and their upper and lower bounds were initia
         $\theta_2$ & \textit{glorot\_normal initialization} & \textit{N/A} & \textit{N/A} \\
         \hline
     \end{tabular}
-    \caption{Initial parameters for solving the systems of \glspl{ODE} defined by each model. The values of $\gamma$, $\lambda$, and $\alpha$ were chosen to match existing information about the Covid-19 Delta variant \cite{mahaseDeltaVariantWhat2021} where the mean incubation period was roughly 4 days, and the mean infective period was roughly 14 days.}
+    \caption{Initial parameters for solving the systems of \glspl{ODE} defined by each model and their boundaries. The values of $\gamma$ and $\lambda$ were chosen as fixed values to match existing information about the Covid-19 Delta variant \cite{mahaseDeltaVariantWhat2021} where the mean incubation period was roughly 4 days, and the mean infective period was roughly 14 days. For fixed parameters, the lower bounds and the upper bounds are equal}
     \label{tab:ude-model-initial-parameters}
 \end{table}
 
 At the country level, data for 2 countries Vietnam and the \gls{US} were used to train and evaluate the performance of the model.
 Two versions of the model evaluated in this setting were the baseline model and the model that used Facebook's Movement Range Maps dataset.
 Because the \gls{SPC} index was not defined at the country level, the version that used the \gls{SPC} index was not considered.
-At the country's subdivision level, all three versions of the model were trained on Covid-19 time series data for the top 4 most populous counties in the \gls{US} (Los Angeles - California, Cook County - Illinois, Harris County - Texas, and Maricopa County - Arizona) and the top 4 provinces in Vietnam that had the highest cases count during the outbreak starting from 27th April 2021 (Ho Chi Minh city, Binh Duong, Dong Nai, and Long An).
+At the country's subdivision level, all three versions of the model were trained on Covid-19 time series data for the top 4 most populous counties in the \gls{US} (Los Angeles - California, Cook County - Illinois, Harris County - Texas, and Maricopa County - Arizona) and the top 4 provinces in Vietnam that had the highest cases counts during the outbreak starting from 27th April 2021 (Ho Chi Minh city, Binh Duong, Dong Nai, and Long An).
 
-Once the data was obtained, the model was first trained using ADAM optimizer with learning rate set to $0.05$, and the learning rate was exponentially decayed with the rate of $0.5$ for each $1000$ iterations until the minimum value of $0.00001$ was reached.
+Once the data was obtained, the model was first trained using ADAM optimizer with learning rate set to $0.05$ which was exponentially decayed with the rate of $0.5$ for each $1000$ iterations until the minimum value of $0.00001$ was reached.
 Using iterative growing of fit strategy, the model was first trained on a time span of size 4 which was then increased by 4 after each training session on the previous fitting time span finished.
 At each time span in the first stage, the ADAM optimizer was configured to run for the maximum of $1000$ iterations.
-When the first training stage finished, BFGS optimizer was used for a maximum of $1000$ iterations with the \textit{initial\_stepnorm} parameter set to $0.01$
+When the first training stage finished, BFGS optimizer was used for a maximum of $1000$ iterations with the \textit{initial\_stepnorm} parameter set to $0.01$.
 The hyperparameter $\zeta$ for adjusting the weighting factor for the loss function in \autoref{eq:ude-model-loss} was chosen to be $-0.001$ to place more importance on earlier time steps which minimized the chance of getting into a bad local minima.
 Finally, the hyperparameter $\lambda$ was set to $0.00001$ to help reduce the change of over-fitting.
 
@@ -117,9 +117,9 @@ Noted that while the model might be sensitive to the choice of the initial condi
 The Covid-19 dataset, the Movement Range Maps dataset, and the derived \gls{SPC} index all exhibited weekly seasonality in the data.
 In the Movement Range Maps dataset, the relative change in movement tended to drop to a much lower value while the stay-put ratio increased sharply in the weekend.
 This was expected as the data was based on human mobility where people went to work during the week and stayed rested on the weekend.
-With the Covid-19 cases data the \gls{SPC} index, the value typically dipped in value in the weekend when fewer Covid-19 tests were made.
-Therefore, in the experiments, a 7-day moving average transform was applied to the Covid-19 cases data, the Movement Range Maps dataset, and the \gls{SPC} index to remove the weekly seasonality exhibited in the measurements.
+With the Covid-19 cases data the \gls{SPC} index, the values typically dipped in the weekend when fewer Covid-19 tests were made.
+Therefore, in the experiments, a 7-day moving average transform was applied to these datasets to remove the weekly seasonality exhibited in the measurements.
 The elimination of weekly seasonality in the data allowed the model to better capture the overall trends and helped to avoid confusing the model with highly fluctuating values.
 Moreover, after being transformed with a 7-day moving average, values from the Movement Range Maps dataset and the \gls{SPC} index were scaled to have values ranging from 0 to 1 within the training time span.
-This ensured all the input features to the \glspl{ANN} had the same scale during training which would help improve the performance of the model.
+This ensured all the input features to the \glspl{ANN} had the same scale during training which would help to improve the performance of the model.
 Because issues with bad local minima could occur when learning from time series data, we trained the model at each location for 5 times and selected the set of weights that produced the minimum training loss among the samples.
