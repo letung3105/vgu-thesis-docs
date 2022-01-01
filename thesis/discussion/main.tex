@@ -2,9 +2,9 @@
 \label{chap:discussion}
 
 Regarding \autoref{fig:fit-country-level}, \autoref{fig:fit-us-counties1}, \autoref{fig:fit-us-counties2}, \autoref{fig:fit-vn-provinces1}, \autoref{fig:fit-vn-provinces2}, and the data presented in \autoref{chap:results}, it is observed that the model could fit closely to data for the training period and provided useful insight into the evolution of the disease, which could not be done by a basic \gls{SEIR} model \cite{dandekarMachineLearningAidedGlobal2020a}.
+Moreover, while we did not study the effects that the covariates had on the model's parameters in the second and third versions, an in-depth analysis could be done to gain additional insights into which factors played an important role in slowing down to spread of the virus.
 However, the model could not fit well to data where high fluctuations were presented, which can be seen in the model's fit for Harris (Texas), Dong Nai, Long An, and Binh Duong.
 Even though we had tried to eliminate high-frequency changes in the data by using a 7-day moving average, high variations in the number of new cases from day to day still existed due to various reasons such as how the data was collected, the presence of asymptomatic cases, underreporting, the number of tests that were performed, etc.
-Moreover, while we did not study the effects that the covariates had on the model's parameters in the second and third versions, an in-depth analysis could be done to gain additional insights into which factors played an important role in slowing down to spread of the virus.
 
 When extrapolated beyond the training period, the model had low errors on the out-of-sample data for most of the considered locations and showed that it can capture the evolution of the disease.
 In instances where the model could forecast the trend of the disease, it was observed that the model had the highest accuracy when making short-term forecasts, and the accuracy deteriorated as the forecast horizon expanded.
@@ -28,7 +28,7 @@ Thirdly, the underlying \gls{SEIR} model could be too simple and introduce stron
 Although the model could converge on a good minimum, this property was not guaranteed, and the model would occasionally get stuck in bad local minima.
 This was a known problem with fitting \gls{UDE} \cite{rackauckasUniversalDifferentialEquations2020}, and fitting to time series data in general.
 To mitigate the issue, we implemented various techniques that helped to reduce the chance of encountering bad local minima including iteratively growing the fit and placing more weight on errors for earlier data points, as suggested by the library authors.
-However, these techniques did not guarantee to eliminate the problems.
+However, these techniques did not guarantee to completely eliminate the existing problems.
 
 Another property that could prevent the model from converging was with the \textit{stiffness} of the \gls{ODE} \cite{kimStiffNeuralOrdinary2021}.
 Stiff \glspl{ODE} are \glspl{ODE} that can not be solved by explicit methods.
@@ -42,7 +42,7 @@ Thirdly, we scaled the model's output with min-max scaling when calculating the 
 Because we trained the model separately on data for each of the considered locations, each location would have a separated set of \gls{ANN} weights and system parameters.
 This meant that the model could only forecast cases for the location that it had been trained on.
 We did not perform extensive testing on the model's performance on data outside of the location that it had been trained on, however, we believed that with the current training method, the model was not capable of predicting for different locations once it had been trained with only one location.
-Furthermore, because we are modeling real-world scenarios that are subjected to changes, the model's performance may change dramatically as the forecasting time span moves further away from the training time span.
+Furthermore, because we were modeling real-world scenarios that were subjected to changes, the model's performance might change dramatically as the forecasting time span moves further away from the training time span.
 
 \section{Limitations}
 

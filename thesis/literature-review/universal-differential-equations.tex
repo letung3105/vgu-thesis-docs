@@ -16,9 +16,9 @@ To address these issues, \gls{UDE} was proposed which extended the approach take
 This combination helps create a robust model, where well-proven terms in the mechanistic model can stay unchanged, while the terms with complex unknown interactions can be discovered by the universal approximator.
 
 In general, a \gls{UDE} model will be in the form of \cite{rackauckasUniversalDifferentialEquations2020}
-\begin{equation*}
+\begin{equation}
     u' = f(u, t, U_\theta(u, t)),
-\end{equation*}
+\end{equation}
 where $f$ denotes a known mechanistic model whose missing terms are defined by some universal approximator $U_\theta$.
 The process for training \glspl{UDE} is similar to training typical \glspl{ANN} a loss function $\mathcal{L}(\theta)$, defined for the approximated solution $u_\theta(t)$ with respect to the current choice of parameters $\theta$, is minimized.
 Common choices for a loss function used to train \glspl{ANN} are applicable in this case, such as the \gls{MSE} $\mathcal{L}(\theta) = \sum_{i=1}^{N} (u_\theta(t_i) - d_i)^2$ at discrete data points $\{(t_i, d_i)\}_{i=i}^N$.

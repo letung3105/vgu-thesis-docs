@@ -28,10 +28,10 @@ In other words, the value of $\beta$ here corresponded to $C(N)$ in the generali
 This was done because, in the experiments, it was observed that using $\beta$ as the number of people that can be infected by a single infective individual resulted in a better fit to the training data and a better out-of-sample performance of the model.
 We noted that existing literature had also utilized the same formulation for the transition between the $S$ and $E$ compartments \cite{arikInterpretableSequenceLearning, bastosModelingForecastingEarly2020,dengDynamicsDevelopmentCOVID192020, heSEIRModelingCOVID192020,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021, ndairouMathematicalModelingCOVID192020,sarkarModelingForecastingCOVID192020, zhaoModelingEpidemicDynamics2020}.
 Based on \autoref{eq:methodologies-seir-model}, the basic reproduction number could be obtained by using the following equation \cite{brauerCompartmentalModelsEpidemiology2008}
-\begin{equation*}
+\begin{equation}
     \mathcal{R}_0 = \frac{\beta}{\gamma}.
     \label{eq:methodologies-seir-reproduction-number}
-\end{equation*}
+\end{equation}
 
 Because it had been shown that several factors could have varying effects on the transmission rate $\beta$, and a time-dependent transmission rate $\beta(t)$ was much more representative of Covid-19 \cite{arikInterpretableSequenceLearning, changMobilityNetworkModels2021, dandekarMachineLearningAidedGlobal2020a, ihmecovid-19forecastingteamModelingCOVID19Scenarios2021, liSubstantialUndocumentedInfection2020}, an \gls{ANN} that could encode different covariates was incorporated into the system of equations so that the model could represent a time-dependent contact rate $\beta(t)$.
 Generally, the average contact rate was given by
@@ -40,13 +40,13 @@ Generally, the average contact rate was given by
     \label{eq:methodologies-seir-time-dependent-contact-rate}
 \end{equation}
 where $\mathcal{NN}_{\theta_1}$ is an \gls{ANN} whose weights and biases are represented as $\theta_1$, and $\mathcal{F}$ is the set of covariates that were used to inform the \gls{ANN} about different effects that external factors had time-dependent contact rate $\beta(t)$.
-Besides $\beta$, $\alpha$ was chosen to be another time-dependent parameter in the system because it was observed that the fatality rate could be very high when the number of cases increased exponentially and caused an overload to healthcare facilities, then the fatality rate would decrease over time as the healthcare system adapted to the situation.
+Besides $\beta$, $\alpha$ was chosen to be another time-dependent parameter in the system because it was observed that the fatality rate could be very high when the number of cases passed a certain threshold and caused an overload to healthcare facilities, then the fatality rate would decrease over time as the healthcare system adapted to the situation.
 The time-dependent fatality rate is given by
-\begin{equation*}
+\begin{equation}
     \alpha(t) = \mathcal{NN}_{\theta_2} (\frac{t}{t_\text{max}}, \frac{I(t-1)}{N(t-1)}, \frac{R(t-1)}{N(t-1)}, \frac{D(t-1)}{N(t-1)}),
-\end{equation*}
+\end{equation}
 where $\mathcal{NN}_{\theta_2}$ is an \gls{ANN} whose parameters are represented by $\theta_2$, $t$ is the currently simulated time step, $t_\text{max}$ is the training duration, $I(t-1)/N(t-1)$ is the disease prevalence, $R(t-1)/N(t-1)$ is the fraction of the population who recovered from the disease, and $D(t-1)/N(t-1)$ is the fraction of the population who died of the disease.
-Hence, the basic system of equations in \autoref{eq:methodologies-seir-model} was reformulated as
+Hence, the basic system of equations in \autoref{eq:methodologies-seir-model} can be written as
 \begin{equation}
     \begin{aligned}
         S' &= - \frac{\beta(t) SI}{N} \\
@@ -65,17 +65,17 @@ Hence, the basic system of equations in \autoref{eq:methodologies-seir-model} wa
 \end{equation}
 The system of equations in \autoref{eq:methodologies-seir-ude-model} gave us an \gls{UDE} \cite{rackauckasUniversalDifferentialEquations2020} that can be trained in an end-to-end fashion similar to the training process for \glspl{ANN}.
 From \autoref{eq:methodologies-seir-reproduction-number} and \autoref{eq:methodologies-seir-time-dependent-contact-rate}, the basic reproduction rate of the disease at time $t$ was derived to be
-\begin{equation*}
+\begin{equation}
     \mathcal{R}_t = \frac{\beta(t)}{\gamma} = \frac{\mathcal{NN}_{\theta_1}(\mathcal{F})}{\gamma}.
-\end{equation*}
+\end{equation}
 
 It had been shown that a small \gls{ANN} with a low number of hidden layers and a low number of nodes is sufficient for an \gls{UDE} to represent the complex interactions in different dynamical systems \cite{rackauckasUniversalDifferentialEquations2020}.
 Additionally, a similar model that used a small \gls{ANN} with 1 hidden layer, where the layer had 10 nodes, had been shown to achieve a good performance on Covid-19 data \cite{dandekarMachineLearningAidedGlobal2020a}.
 As a result, both the \glspl{ANN} embedded in \autoref{eq:methodologies-seir-ude-model} were chosen to be small \glspl{ANN} where $\mathcal{NN}_{\theta_1}$ has 3 hidden layers in which each layer has 8 nodes and $\mathcal{NN}_{\theta_2}$ has 1 hidden layer that has 8 nodes.
 The \textit{mish} function \cite{misraMishSelfRegularized2020} was used as the activation function for all hidden layers, and the output of the \glspl{ANN} were transformed such that
-\begin{equation*}
+\begin{equation}
     \nu_i = \nu_{i,L} + (\nu_{i,U} - \nu_{i,L}) * \sigma (z_i),
-\end{equation*}
+\end{equation}
 where $\nu_i$ is a system parameter that is encoded by an \gls{ANN} whose output is $z_i$, and $\nu_{i,L}$ and $\nu_{i,U}$ are the lower and upper bounds of the encoded parameter.
 The values of $\nu_{i,L}$ and $\nu_{i,U}$ were hyperparameters that can be chosen based on existing researches on the disease to help the model converge with reasonable parameters values.
 
@@ -86,9 +86,9 @@ In the subsequent sections, the different sets of covariates, that were chosen a
 \subsubsection{Informing the model with past states}
 The first set of covariates that were utilized as inputs for the \gls{ANN} in \autoref{eq:methodologies-seir-ude-model} was the states of the system in the previous time step.
 Concretely, the set of covariates $\mathcal{F}$ that were given as input to the \gls{ANN} at time step $t$ in this model was defined as
-\begin{equation*}
+\begin{equation}
     \mathcal{F}(t) = \left\lbrace \frac{t}{t_\text{max}}, \frac{S(t-1)}{N(t-1)}, \frac{E(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)} \right\rbrace,
-\end{equation*}
+\end{equation}
 where $t$ is the currently simulated time step, $t_\text{max}$ is the training duration, $S(t-1)/N(t-1)$ is the proportion of the population that is susceptible, $E(t-1)/N(t-1)$ is the proportion of the population that is exposed and $I(t-1)/N(t-1)$ is the incidence rate.
 Here, it was assumed that $I/N$, $E/N$, and $I/N$ were the only covariates that could have an effect on the contact rate $\beta$.
 In this form, the model is similar to the one that had been proposed in \cite{dandekarMachineLearningAidedGlobal2020a}.
@@ -105,9 +105,9 @@ As noted by the authors of \cite{dandekarMachineLearningAidedGlobal2020a}, infor
 Moreover, many have showed that mobility is an important predictor for the spread of Covid-19 \cite{changMobilityNetworkModels2021,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021,liSubstantialUndocumentedInfection2020}.
 Therefore, the Movement Range Maps dataset from Facebook (see \autoref{sec:methodologies-data-mobility-data}) was used in addition to the past system's states in the second set of covariates that were given as inputs for the \gls{ANN} in \autoref{eq:methodologies-seir-ude-model}.
 In this second version of the model, the set of covariates $\mathcal{F}$ given to the \gls{ANN} at time step $t$ was defined as
-\begin{equation*}
+\begin{equation}
     \mathcal{F}(t) = \left\lbrace \frac{t}{t_\text{max}}, \frac{S(t-1)}{N(t-1)}, \frac{E(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)}, \text{MovementRange}(t) \right\rbrace,
-\end{equation*}
+\end{equation}
 where $\text{MovementRange}(t)$ was the relative change in movement and the ratio of people who were staying put at the area that was being modeled at time $t$.
 When performing simulations with data for the \gls{US}, Vietnam and its provinces, $\text{MovementRange}(t)$ was calculated as the mean of the values of all the subregions within the area that was being modeled.
 That was done because the Movement Range Maps dataset was containing data at a much more granular level but only the country-level data and province-level data were the subjects of interests.
@@ -119,12 +119,12 @@ They had defined the \gls{SPC} index which is a metric defined specifically for 
 They also noted that the correlation between the \gls{SPC} index and the number of cases was especially strong when there were fewer restrictions on individuals' mobility.
 Thus, the \gls{SPC} index was considered as an input feature to the \gls{ANN} in addition to the Movement Range Maps dataset from Facebook and the past system's states.
 The \gls{SPC} index is calculated as
-\begin{equation*}
+\begin{equation}
     SPC_{i,t} = \sum_j^C \text{Cases per 10k}_{j,t} \frac{SCI_{i,j}}{\sum_h^C SCI_{i,h}},
-\end{equation*}
+\end{equation}
 where $SPC_{i,t}$ is the \gls{SPC} index of location $i$ at time $t$, $C$ is the number of locations, and $\text{Cases per 10k}_{j,t}$ is the number of confirmed cases out of 10,000 people at location $j$ at time $t$.
 In this third version of the model, the set of covariates $\mathcal{F}$ given to the \gls{ANN} at time step $t$ was defined as
-\begin{equation*}
+\begin{equation}
     \mathcal{F}(t) = \left\lbrace \frac{t}{t_\text{max}}, \frac{S(t-1)}{N(t-1)}, \frac{E(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)}, \text{MovementRange}(t), \text{SPC}(t) \right\rbrace,
-\end{equation*}
+\end{equation}
 where $\text{SPC}(t)$ was the \gls{SPC} index of the area that was being modeled at time $t$.

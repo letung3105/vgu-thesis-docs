@@ -3,14 +3,14 @@
 The scripts for generating the datasets described in \autoref{sec:methodologies-data}, the models defined in \autoref{sec:methodologies-models-definitions} and the training algorithm defined in \autoref{sec:methodologies-parameters-estimation} were implemented using the Julia programming language \cite{bezanson2012julia}.
 The implementation was written as a Julia package and was tested with Julia version 1.7.0.
 Julia was chosen for the implementation because of the strongly supported packages for solving differential equations and computing the gradients of those equations.
-The two main packages that were utilized are the \textit{DifferentialEquations} package \cite{rackauckas2017differentialequations} for solving the system of \glspl{ODE} defined by \autoref{eq:methodologies-seir-ude-model} and the \text{DiffEqFlux} \cite{rackauckasUniversalDifferentialEquations2020} package for computing the gradients and estimating the system's parameters.
+The two main packages that were utilized are the \textit{DifferentialEquations} package \cite{rackauckas2017differentialequations} for solving the system of \glspl{ODE} defined by \autoref{eq:methodologies-seir-ude-model} and the \textit{DiffEqFlux} \cite{rackauckasUniversalDifferentialEquations2020} package for computing the gradients and estimating the system's parameters.
 
 The experiments were conducted on two different hardware configurations.
-The first that was used for testing the models was the cloud computing instance provided by Google Collab \footnote{\url{https://colab.research.google.com}}.
-The provided system ran on the Ubuntu 18.04 operating system and included a 2 cores Intel(R) Xeon(R) CPU with each core running at 2.30GHz, and 12Gb of memory.
-The second hardware system that was used was a laptop ran on the Manjaro operating system with Linux kernel version 5.10.70-1-MANJARO and included a 2 cores Intel(R) Core(TM) i5-4260U CPU with each core running at 1.40GHz, and 4Gb of memory.
+The first that was used for testing the models was the cloud compute instance provided by Google Cloud \footnote{\url{https://cloud.google.com/compute}}.
+The system ran on the Ubuntu 20.04 operating system and was configured using the \textit{n2-standard-8} machine type provided by Google \footnote{\url{https://cloud.google.com/compute/docs/compute-optimized-machines}}.
+The second hardware system that was used was a laptop ran on the Manjaro operating system with Linux kernel version \textit{5.10.70-1-MANJARO} and included a 2 cores \textit{Intel(R) Core(TM) i5-4260U} CPU with each core running at 1.40GHz, and 4Gb of memory.
 While the models were expected to run on any operating system that was supported by Julia, it was not tested on any other operating systems besides Linux.
 Thus the model might not work as expected when running on a different operating system.
 Although the model had been tested and shown that it could run on a resource-limited system with only 4Gb memory, using a system with higher memory is recommended if the script is running along with other processes.
-Because the Julia programming language utilizes \gls{JIT} compilation on the first time a block of code is run to create optimized native code, the initial startup of the package can consume lots of hardware resources and crashes the program if there is not enough memory for the \gls{JIT} compilation process.
+Because the Julia programming language utilizes \gls{JIT} compilation on the first time a block of code is run to create optimized native code, the initial startup of the package can consume lots of hardware resources and crashes if there is not enough memory for the \gls{JIT} compilation process.
 After the initial startup process is completed, the training process and evaluation process do not require as much hardware resources.

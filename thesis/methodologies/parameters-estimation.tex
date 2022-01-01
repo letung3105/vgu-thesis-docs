@@ -7,10 +7,12 @@ For the modeled period, there was no observation for the states $\{S, E, I, R\}$
 Therefore, the model could only learn from partially-available observations where the available data for some compartments were used to supervise the learning process while other compartments were left unconstrained.
 
 The trainable parameters were $(\gamma', \lambda', \theta_1, \theta_2)$ in which $\theta_1$ and $\theta_2$ were the set of parameters for the embedded \glspl{ANN}, and $\gamma'$ and $\lambda'$ were used to determine $\gamma$ and $\lambda$, such that
-\begin{align*}
-    \gamma &= \gamma_L + (\gamma_U - \gamma_L) * \sigma (\gamma'), \\
-    \lambda &= \lambda_L + (\lambda_U - \lambda_L) * \sigma (\lambda').
-\end{align*}
+\begin{equation}
+    \begin{aligned}
+        \gamma &= \gamma_L + (\gamma_U - \gamma_L) * \sigma (\gamma'), \\
+        \lambda &= \lambda_L + (\lambda_U - \lambda_L) * \sigma (\lambda').
+    \end{aligned}
+\end{equation}
 The transformations allowed the estimated values to stay within a reasonable range based on existing knowledge about Covid-19.
 The best fitting set of parameters was estimated by minimizing the following loss function
 \begin{equation}

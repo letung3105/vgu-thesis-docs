@@ -8,7 +8,7 @@ In the case of Vietnam, both versions were able to extrapolate from the training
 Furthermore, they were able to closely follow the trend in the number of cumulative cases for up to 14 days after the training period.
 However, both failed to predict the sharp growth in the number of new cases as can be seen in \autoref{fig:pred-country-level}.
 \autoref{fig:pred-country-level} also shows that when trained with data for the \gls{US}, both versions produced similar results when predicting the trend of the disease.
-One noticeable difference between the results obtained from both versions after having trained with data for the \gls{US} was the number of cases where it was underestimated by the baseline model while the second version overestimated it.
+One noticeable difference between the results obtained from both versions was in the forecasted number of cases where the baseline model underestimated the trend while the second version overestimated it.
 
 % ERRORS
 
@@ -117,9 +117,9 @@ Hence, based on these results, mobility data did not have a positive effect on t
 \subsection{Reproduction number and fatality rate}
 
 Looking at \autoref{fig:R0-and-fatality-vietnam}, both versions of the model learned the same decreasing trend in the effective reproduction number and the fatality rate in Vietnam.
-The reproduction number reached as high as $4.5$ with the baseline model and as high as $3.5$ with the second version at the start of the simulated period.
+The reproduction number at the start of the simulated period reached as high as $4.5$ with the baseline model and as high as $3.5$ with the second version.
 Both versions learned that the effective reproduction number went below $1$ at around the 20th time step.
-Both versions predicted a very low fatality rate that followed a decreasing trend and was highest at $0.008$
+Additionally, the fatality rate predicted by both versions were different at the start but then followed a decreasing trend and was highest at $0.008$
 
 \begin{figure}[!htb]
     \centering
@@ -131,8 +131,8 @@ Both versions predicted a very low fatality rate that followed a decreasing tren
 Considering data for the \gls{US}, both versions learned the same trend of the fatality rate.
 It can be observed that the fatality rate was at its highest of around $4.5$\% at the 0th time steps and decreased exponentially as time went on.
 Then at around the 60th time step, the fatality rate was predicted to start to slowly increase.
-For the effective reproduction number, the baseline model predicted the highest value of $1$ at the 0th time step, and the effective reproduction number gradually decreased until the end of the simulation.
-On the other hand, the second version predicted a higher effective reproduction number of around $1.2$ at the 0th time step, and the effective reproduction number decreased for 20 time steps before it started to rise for 10 time steps and finally died out.
+For the effective reproduction number, the baseline model predicted the highest value of $1$ at the 0th time step followed by a gradual decrease until the end of the simulation.
+On the other hand, the second version predicted a higher effective reproduction number of around $1.2$ at the 0th time step which then decreased for the next 20 time steps before it started to rise for 10 time steps and finally died out.
 
 \begin{figure}[!htb]
     \centering

@@ -155,8 +155,7 @@ Similar to the experiments with \gls{US} counties, it was likely that the model'
 
 \subsection{Reproduction number and fatality rate}
 
-As can be seen in \autoref{fig:R0-and-fatality-binhduong}, for Binh Duong, all three models predicted a similar trend for the fatality rate that started at a maximum value of around $0.035$ at the 0th time step.
-The fatality was then predicted to decrease gradually as time went on and crossed below the $1$ threshold at around the 40th time step.
+As can be seen in \autoref{fig:R0-and-fatality-binhduong}, for Binh Duong, all three models predicted a similar trend for the fatality rate that started at a maximum value of around $0.035$ at the 0th time step and decreased gradually as time went one.
 With the effective reproduction number, at the 0th time step, the baseline model predicted a maximum value of $2.5$, the second version predicted a maximum value of $2.0$, and the third version predicted a maximum value of $4.0$.
 After the initial time steps, all versions predicted a sharp decline in the effective reproduction number where the value dropped below $1$ at around the 10th time step.
 From the baseline model, we can see that after the effective reproduction number dropped below $1$, it plateaued for 10 time steps before declining once again and stabilizing.
@@ -199,7 +198,7 @@ With the third version, the maximum predicted fatality rate was just below $0.04
 
 Finally, for Long An, \autoref{fig:R0-and-fatality-longan} shows that each version predicted a different value and trend for the fatality rate.
 The baseline model predicted a stagnated fatality rate that was around $0.03$ and did not change much over time.
-With the second version, the fatality rate started at a higher maximum of $0.04$ at the 0th time step and gradually decreased to a lower minimum that was slightly above $0.01$
+With the second version, the fatality rate started at a higher maximum of $0.04$ at the 0th time step and gradually decreased to a lower minimum that was slightly above $0.01$.
 In contrast, the third version predicted a minimum fatality rate of around $0.01$ at the 0th time step that gradually increased to a maximum of $0.04$.
 Because of these differences, the resulting dynamics for the deaths compartment from these versions were also highly different from each other.
 Looking at \autoref{fig:fit-vn-provinces1} and \autoref{fig:pred-vn-provinces1}, we can see that the second version had a much better fit to the training data and can extrapolate with high accuracy, while both the baseline model and the third version fitted poorly to training data and overestimated the number of deaths when extrapolated into the future.

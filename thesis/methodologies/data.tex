@@ -6,10 +6,10 @@
 
 The datasets for Covid-19 at both the country level and the province level were used to train and evaluate the models.
 At the country level, time series data were available for the number of confirmed cases, the number of recoveries, and the number of deaths from the disease.
-However, at the province level or the county level, time series data were only available for the number of confirmed cases and the number of deaths from the disease.
+However, at the province level and the county level, time series data were only available for the number of confirmed cases and the number of deaths from the disease.
 
-To obtain Vietnam country-level time series data, the Covid-19 datasets \footnote{\url{https://github.com/CSSEGISandData/COVID-19}} from John Hopkins University \cite{dongInteractiveWebbasedDashboard2020} were utilized.
-The repository had three separate \gls{CSV} files, each containing the global time series data since January 22th 2020 for the total number of confirmed cases, the total number of recoveries, and the total number of deaths from the disease.
+To obtain Vietnam country-level time series data, the Covid-19 dataset \footnote{\url{https://github.com/CSSEGISandData/COVID-19}} from John Hopkins University \cite{dongInteractiveWebbasedDashboard2020} were utilized.
+The dataset had three separate \gls{CSV} files, each containing the global time series data since January 22th 2020 for the total number of confirmed cases, the total number of recoveries, and the total number of deaths from the disease.
 The general structure of the files is illustrated in \autoref{tab:jhu-csse-covid-timeseries}.
 From the three \gls{CSV} files, the data for Vietnam was extracted and a single time series dataset for the country was constructed (see \autoref{tab:country-covid-timeseries} for an example).
 Because only the most recent outbreak in Vietnam (starting from 27th April 2021) was considered, the data points before 27th April 2021 were filtered out.
@@ -49,7 +49,7 @@ Because only the most recent outbreak in Vietnam (starting from 27th April 2021)
 \end{table}
 
 The data for Covid-19 cases in counties in the \gls{US} were also obtained from the John Hopkins University.
-The repository created by the John Hopkins University \cite{dongInteractiveWebbasedDashboard2020} contained 2 separated CSV files for the total number of confirmed cases time series and the total number of deaths time series for counties in the \gls{US}.
+The repository contained 2 separated CSV files for the total number of confirmed cases time series and the total number of deaths time series for counties in the \gls{US}.
 The procedure that was applied for combining Vietnam country-level data was also used to extract Covid-19 cases data for a single county.
 Similar with Vietnam's data, only data for the most recent outbreak in the \gls{US} was considered.
 1st July 2021 was chosen to be the starting date of the most recent Covid-19 outbreak in the US, which was roughly when the fourth wave of the Covid-19 pandemic started in the \gls{US}.
@@ -90,10 +90,10 @@ Facebook's data was chosen because the company had a massive number of users wit
 
 The first dataset from Facebook was the Movement Range Maps dataset \footnote{\url{https://dataforgood.facebook.com/dfg/tools/movement-range-maps}}.
 This dataset contained time series of the relative change of mobility in percentages compared to the baseline in February 2020 and the ratio of people that only stay within one area throughout the day \cite{ProtectingPrivacyFacebook2020} (the structure of the time series dataset is given in \autoref{tab:facebook-movement-range-maps}).
+This reflected how people in a geographic area reacted to different preventative measures from the government and was calculated for many subregions within a country.
 The values in the dataset were calculated using the anonymized and privacy-preserving mobile phone location history of Facebook's users that allowed the app to collect their location data.
 Other large technology companies such as Google \footnote{\url{https://www.google.com/covid19/mobility}} and Apple \footnote{\url{https://www.apple.com/covid19/mobility} }also published their mobility datasets for public use, but for consistency, only the datasets from Facebook were considered.
-This reflected how people in a geographic area reacted to different preventative measures from the government and was calculated for many subregions within a country.
-The dataset was available for Vietnam's level 2 divisions defined in the \gls{GADM}, i.e., district level.
+The dataset from Facebook was available for Vietnam's level 2 divisions defined in the \gls{GADM}, i.e., district level.
 For the \gls{US}, this data was available at the county resolution.
 
 \begin{table}[h]
@@ -118,9 +118,9 @@ For the \gls{US}, this data was available at the county resolution.
 The second dataset from Facebook was the \gls{SCI} dataset \footnote{\url{https://dataforgood.facebook.com/dfg/tools/social-connectedness-index}}.
 This dataset measured the strength of social connectedness between two geographical areas represented by Facebook friendship ties (the structure of the dataset is given in \autoref{tab:facebook-social-connectedness-index}).
 Formally the \gls{SCI} between two locations $i$ and $j$ was calculated as
-\begin{equation*}
+\begin{equation}
     \text{Social Connectedness Index}_{i,j} = \frac{\text{FB connections}_{i,j}}{\text{FB users}_i * \text{FB users}_j},
-\end{equation*}
+\end{equation}
 where $\text{FB users}_i$ and $\text{FB users}_j$ are the numbers of Facebook users in location $j$ and $j$, and $\text{FB connections}_{i,j}$ is the total number of Facebook friendship connections between people in the two locations.
 In the published dataset, the index was scaled to have a minimum value of 1 and a maximum value of 1,000,000,000.
 The $\text{Social Connectedness Index}_{i,j}$ measured the relative probability of a Facebook friendship link between a user in location $i$ and a user in location $j$.

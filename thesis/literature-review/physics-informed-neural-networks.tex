@@ -14,28 +14,28 @@ With physical constraint incorporated within the loss function, the \glspl{ANN} 
 \autoref{fig:pinn-schematic} shows the general schematic of \glspl{PINN}.
 
 To derive the loss function for \glspl{ODE} in this framework, first the following equation is considered \cite{lagarisArtificialNeuralNetworks1998}
-\begin{equation*}
+\begin{equation}
     \frac{du}{dt} = f(u, t),\ t \in [0, 1],\ u(0) = u_0
-\end{equation*}
+\end{equation}
 An \gls{ANN} is then used to approximate the solution to this problem
-\begin{equation*}
+\begin{equation}
     \mathcal{NN}(t) \approx u(t).
-\end{equation*}
+\end{equation}
 Because the \gls{ANN} is differentiable and assuming that $\mathcal{NN}(t)$ is the solution of the problem, then $d\mathcal{NN}(t)/dt = f(\mathcal(NN)(t), t)$ for all $t$.
 This condition can then be incorporated into the loss function
-\begin{equation*}
+\begin{equation}
     MSE = \frac{1}{N} \sum_i^N \left( \frac{d\mathcal{NN}(t_i)}{dt} - f(\mathcal{NN}(t_i), t_i) \right)^2.
-\end{equation*}
+\end{equation}
 Note that the initial condition $u(0) = u_0$ has to be satisfied.
 Thus a new function is defined that encodes the initial condition within itself. This function will trivially satisfies the initial condition for any possible set of parameters
-\begin{equation*}
+\begin{equation}
     g(t) = u_0 + t\mathcal{NN}(t).
-\end{equation*}
+\end{equation}
 The function above inherits the property of \glspl{ANN} as universal approximators for any continuous function while satisfies the condition $g(0) = u_0$.
 At this point, the loss function turns into
-\begin{equation*}
+\begin{equation}
     MSE = \frac{1}{N} \sum_i^N \left( \frac{dg(t_i)}{dt} - f(g(t_i), t_i) \right)^2.
-\end{equation*}
+\end{equation}
 
 \begin{figure}[h]
     \centering
@@ -57,21 +57,21 @@ The function $f(t, x)$ is defined to be given by the left-hand side of \autoref{
 \end{equation}
 The hidden solution $u(t, x)$ is then approximated by an \gls{ANN}, denoted as $\hat{u}(t, x) = \mathcal{NN}(t, x)$.
 From the approximation $\hat{u}(t, x)$ and \autoref{eq:pinn-pde-condition}, the function $\hat{f}(t, x)$ can be defined that describes the \glspl{PDE} in terms of the approximation
-\begin{equation*}
+\begin{equation}
     \hat{f} := \hat{u}_t + \mathcal{N}[\hat{u}].
-\end{equation*}
+\end{equation}
 To train the parameters of the \gls{ANN}, the following loss function is employed \cite{raissiPhysicsinformedNeuralNetworks2019}
-\begin{equation*}
+\begin{equation}
     MSE = MSE_u + MSE_f,
-\end{equation*}
+\end{equation}
 where
-\begin{equation*}
+\begin{equation}
     MSE_u = \frac{1}{N_u} \sum_{i=1}^{N_u} |\hat{u}(t_u^i, x_u^i) - u^i|^2
-\end{equation*}
+\end{equation}
 and
-\begin{equation*}
+\begin{equation}
     MSE_f = \frac{1}{N_f} \sum_{i=1}^{N_f} |\hat{f}(t_f^i, x_f^i)|^2.
-\end{equation*}
+\end{equation}
 $\{t_u^i, x_u^i, u^i\}_{i=1}^{N_u}$ are the initial and boundary training data, and $\{t_f^i, x_f^i\}_{i=1}^{N_u}$ are the collocation points.
 The loss value $MSE_u$ enforces the initial and boundary conditions on the \gls{ANN}, while the loss value $MSE_f$ enforces the dynamics specified by \autoref{eq:pinn-general-pde}.
 

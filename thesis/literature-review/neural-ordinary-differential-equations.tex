@@ -5,15 +5,15 @@ When modeling dynamical systems, it is generally challenging to create a model b
 Using \glspl{NeuralODE}, the system's dynamics can be learned through data-driven approaches without having explicitly specified \glspl{ODE} or \glspl{PDE}.
 \glspl{NeuralODE} can also be used to replace a stack of residual blocks because they perform the same functionality while reducing the memory cost of training the model.
 Models such as residual networks (see \autoref{fig:residual-network-skip-connection}), \gls{RNN} decoders, or normalizing flows build complex transformations by composing a sequence of modifications to a hidden state \cite{chenNeuralOrdinaryDifferential2019}
-\begin{equation*}
+\begin{equation}
     h_{t+1} = h_t + f(h_t, \theta_t)
-\end{equation*}
+\end{equation}
 where $t \in \{0 \cdots T\}$ and $h_t \in \mathbb{R}^D$.
 These iterative updates can be seen as an Euler discretization of a continuous transformation.
 In \gls{NeuralODE}, the continuous dynamics of hidden units are parameterized using an \gls{ODE} specified by an \gls{ANN} \cite{chenNeuralOrdinaryDifferential2019}
-\begin{equation*}
+\begin{equation}
     \frac{dh(t)}{dt} = f(h(t), t, \theta).
-\end{equation*}
+\end{equation}
 
 \begin{figure}[h]
     \centering
@@ -102,14 +102,14 @@ The approach scales linearly with the problem size, and the numerical error can 
 \end{algorithm}
 
 Considering the loss function $L$, which takes the result of an \gls{ODE} solver \cite{chenNeuralOrdinaryDifferential2019}
-\begin{equation*}
+\begin{equation}
     L(z(t_1)) = L\left(z(t_0) + \int_{t_0}^{t_1}{f(z(t), t, \theta)dt}\right) = L(ODESolve(z(t_0), f, t_0, t_1, \theta)).
-\end{equation*}
+\end{equation}
 First, the gradient of the loss with respect to the hidden state $z(t)$ is considered, called the adjoint $a(t) = \partial L / \partial z(t)$.
 The dynamics of the adjoint are then given by another \gls{ODE} \cite{chenNeuralOrdinaryDifferential2019}
-\begin{equation*}
+\begin{equation}
     \frac{da(t)}{dt} = -a(t)^T\frac{\partial f(z(t), t, \theta)}{\partial z}.
-\end{equation*}
+\end{equation}
 The gradient of the loss with respect to the hidden state at the initial time step can be calculated by integrating the adjoint dynamics backward in time starting from the value $\partial L / \partial z(t_1)$ \cite{chenNeuralOrdinaryDifferential2019}
 \begin{equation}
     \frac{dL}{dz(t_0)} = \frac{\partial L}{\partial z(t_1)} + \int_{t_1}^{t_0}{-a(t)^T\frac{\partial f(z(t), t, \theta)}{\partial z}} dt.

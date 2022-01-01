@@ -11,7 +11,7 @@ However, these results were not conclusive since we had a small sample size and 
 Even though the \gls{UDE} method had shown promising results on simulated data, our application of the approach on real-world Covid-19 data revealed many difficulties.
 These issues were circumvented with different techniques suggested by existing researches \cite{kimStiffNeuralOrdinary2021,rackauckasUniversalDifferentialEquations2020}.
 Having said that, not all issues were alleviated and many additional enhancements can be made to improve the model performance.
-Firstly, a compartmental model with additional compartments can be used to represents the characteristics of Covid-19 such as asymptomatic infection, vaccinations, etc.
+Firstly, additional compartments can be used to represents the characteristics of Covid-19 such as asymptomatic infection, vaccinations, etc.
 Secondly, additional time-varying covariates can be considered to better inform the model, especially in cases when the disease dynamics change rapidly.
 Thirdly, new improvements to training \glspl{UDE} should be considered to make a better guarantee of model convergence.
 Finally, using the model in combination with recent advancements in methods for identifying unknown dynamical systems, such as \gls{SINDy} \cite{bruntonDiscoveringGoverningEquations2016}, can help to extract the underlying governing equation from the embed \gls{ANN} and provide a fully interpretable model.

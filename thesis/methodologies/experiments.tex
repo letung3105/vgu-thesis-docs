@@ -16,8 +16,9 @@ At each location, data was obtained starting from the first date where the total
 The specific date ranges that were used at each location are given in \autoref{tab:chosen-dataset-dates}.
 In the experiments, the initial conditions varied across different locations depending on the ground truth data.
 \autoref{tab:ude-model-initial-conditions} presents the values that were chosen as the initial conditions across different locations.
-Furthermore, the initial parameters and their upper and lower bounds were initialized using the same method across different versions of the model and across different locations.
+Furthermore, the initial parameters and their upper and lower bounds were initialized using the same values across different versions of the model and across different locations.
 \autoref{tab:ude-model-initial-parameters} lists the values that were chosen as the initial parameters across different locations.
+Note that while the model might be sensitive to the choice of the initial conditions and the initial parameters, the effects of choosing a different set of initial conditions and initial parameters were not considered.
 
 \begin{table}[h]
     \centering
@@ -97,7 +98,7 @@ Furthermore, the initial parameters and their upper and lower bounds were initia
         $\theta_2$ & \textit{glorot\_normal initialization} & \textit{N/A} & \textit{N/A} \\
         \hline
     \end{tabular}
-    \caption{Initial parameters for solving the systems of \glspl{ODE} defined by each model and their boundaries. The values of $\gamma$ and $\lambda$ were chosen as fixed values to match existing information about the Covid-19 Delta variant \cite{mahaseDeltaVariantWhat2021} where the mean incubation period was roughly 4 days, and the mean infective period was roughly 14 days. For fixed parameters, the lower bounds and the upper bounds are equal}
+    \caption{Initial parameters for solving the systems of \glspl{ODE} defined by each model and their boundaries. The values of $\gamma$ and $\lambda$ were chosen as fixed values to match existing information about the Covid-19 Delta variant \cite{mahaseDeltaVariantWhat2021} where the mean incubation period was roughly 4 days, and the mean infective period was roughly 14 days. For fixed parameters, the lower bounds and the upper bounds are set to be equal}
     \label{tab:ude-model-initial-parameters}
 \end{table}
 
@@ -111,13 +112,12 @@ Using iterative growing of fit strategy, the model was first trained on a time s
 At each time span in the first stage, the ADAM optimizer was configured to run for the maximum of $1000$ iterations.
 When the first training stage finished, BFGS optimizer was used for a maximum of $1000$ iterations with the \textit{initial\_stepnorm} parameter set to $0.01$.
 The hyperparameter $\zeta$ for adjusting the weighting factor for the loss function in \autoref{eq:ude-model-loss} was chosen to be $-0.001$ to place more importance on earlier time steps which minimized the chance of getting into a bad local minima.
-Finally, the hyperparameter $\lambda$ was set to $0.00001$ to help reduce the change of over-fitting.
+Finally, the hyperparameter $\lambda$ was set to $0.00001$ to help reduce the chance of over-fitting.
 
-Noted that while the model might be sensitive to the choice of the initial conditions and the initial parameters, the effects of choosing a different set of initial conditions and initial parameters were not considered.
 The Covid-19 dataset, the Movement Range Maps dataset, and the derived \gls{SPC} index all exhibited weekly seasonality in the data.
 In the Movement Range Maps dataset, the relative change in movement tended to drop to a much lower value while the stay-put ratio increased sharply in the weekend.
-This was expected as the data was based on human mobility where people went to work during the week and stayed rested on the weekend.
-With the Covid-19 cases data the \gls{SPC} index, the values typically dipped in the weekend when fewer Covid-19 tests were made.
+This was expected as the majority of people would go to work during the week and stayed rested on the weekend.
+With the Covid-19 cases data the \gls{SPC} index, the values typically dipped in the weekend most because fewer Covid-19 tests were made.
 Therefore, in the experiments, a 7-day moving average transform was applied to these datasets to remove the weekly seasonality exhibited in the measurements.
 The elimination of weekly seasonality in the data allowed the model to better capture the overall trends and helped to avoid confusing the model with highly fluctuating values.
 Moreover, after being transformed with a 7-day moving average, values from the Movement Range Maps dataset and the \gls{SPC} index were scaled to have values ranging from 0 to 1 within the training time span.

@@ -4,9 +4,9 @@ Extracting the governing equations from data has been a great challenge in the f
 While recent rapid advances in machine learning and data science have enabled the ability to analyze and understand complex static data, methods for capturing physical models of dynamical systems from data have slowly progressed.
 To ease this problem, the \gls{SINDy} method was proposed for discovering the underlying dynamics of systems using sparse regression and compressed sensing \cite{bruntonDiscoveringGoverningEquations2016}.
 Given the dynamical systems of the form
-\begin{equation*}
+\begin{equation}
     \frac{d}{dt} x(t) = f(x(t)),
-\end{equation*}
+\end{equation}
 where $x(t)$ is a vector of the state of the system at time $t$, and the function $f(x(t))$ describes the dynamic constraints that define the behaviors of the system.
 One key observation made by the author is that in many dynamical systems, the governing function $f$ is sparse in the space of possible functions.
 Under that observation, methods in compressed sensing and sparse regression can be used to determine which terms are most likely to describe $f$ without performing a brute-force search \cite{bruntonDiscoveringGoverningEquations2016}.
@@ -19,61 +19,63 @@ Under that observation, methods in compressed sensing and sparse regression can 
 \end{figure}
 
 To determine the function $f$ from data, the history of the state $x(t)$ and its derivative $\dot{x}(t)$ at time step $t_1, t_2, \cdots, t_m$ are collected \cite{bruntonDiscoveringGoverningEquations2016}
-\begin{align*}
-    X &=
-    \begin{bmatrix}
-        X^T(t_1) \\
-        X^T(t_2) \\
-        \vdots \\
-        X^T(t_m)
-    \end{bmatrix} =
-    \begin{bmatrix}
-        x_1(t_1) & x_2(t_1) & \cdots & x_n(t_1) \\
-        x_1(t_2) & x_2(t_2) & \cdots & x_n(t_2) \\
-        \vdots & \vdots & \ddots & \vdots \\
-        x_1(t_m) & x_2(t_m) & \cdots & x_n(t_m)
-    \end{bmatrix}, \\
-    \dot{X} &=
-    \begin{bmatrix}
-        \dot{X}^T(t_1) \\
-        \dot{X}^T(t_2) \\
-        \vdots \\
-        \dot{X}^T(t_m)
-    \end{bmatrix} =
-    \begin{bmatrix}
-        \dot{x}_1(t_1) & \dot{x}_2(t_1) & \cdots & \dot{x}_n(t_1) \\
-        \dot{x}_1(t_2) & \dot{x}_2(t_2) & \cdots & \dot{x}_n(t_2) \\
-        \vdots & \vdots & \ddots & \vdots \\
-        \dot{x}_1(t_m) & \dot{x}_2(t_m) & \cdots & \dot{x}_n(t_m)
-    \end{bmatrix}.
-\end{align*}
+\begin{equation}
+    \begin{aligned}
+        X &=
+        \begin{bmatrix}
+            X^T(t_1) \\
+            X^T(t_2) \\
+            \vdots \\
+            X^T(t_m)
+        \end{bmatrix} =
+        \begin{bmatrix}
+            x_1(t_1) & x_2(t_1) & \cdots & x_n(t_1) \\
+            x_1(t_2) & x_2(t_2) & \cdots & x_n(t_2) \\
+            \vdots & \vdots & \ddots & \vdots \\
+            x_1(t_m) & x_2(t_m) & \cdots & x_n(t_m)
+        \end{bmatrix}, \\
+        \dot{X} &=
+        \begin{bmatrix}
+            \dot{X}^T(t_1) \\
+            \dot{X}^T(t_2) \\
+            \vdots \\
+            \dot{X}^T(t_m)
+        \end{bmatrix} =
+        \begin{bmatrix}
+            \dot{x}_1(t_1) & \dot{x}_2(t_1) & \cdots & \dot{x}_n(t_1) \\
+            \dot{x}_1(t_2) & \dot{x}_2(t_2) & \cdots & \dot{x}_n(t_2) \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \dot{x}_1(t_m) & \dot{x}_2(t_m) & \cdots & \dot{x}_n(t_m)
+        \end{bmatrix}.
+    \end{aligned}
+\end{equation}
 Next, a library $\Theta(X)$ of candidate nonlinear functions of the columns of $X$ is constructed.
 An example of a library that consists of constant, polynomial, and trigonometric terms is given \cite{bruntonDiscoveringGoverningEquations2016}
-\begin{equation*}
+\begin{equation}
     \Theta(X) = \begin{bmatrix}
         | & | & |       & |       &        & |      & |      & \\
         1 & X & X^{P_2} & X^{P_3} & \cdots & sin(X) & cos(X) & \cdots \\
         | & | & |       & |       &        & |      & |      &
     \end{bmatrix},
-\end{equation*}
+\end{equation}
 where $X^{P_n}$ denotes higher polynomials, i.e., $X^{P_2}$ denotes quadratic nonlinearities in the state $x$
-\begin{equation*}
+\begin{equation}
     X^{P_2} = \begin{bmatrix}
         x_1^2(t_1) & x_1(t_1)x_2(t_1) & \cdots & x_2^2(t_1) & \cdots & x_n^2(t_1) \\
         x_1^2(t_2) & x_1(t_2)x_2(t_2) & \cdots & x_2^2(t_2) & \cdots & x_n^2(t_2) \\
         \vdots     & \vdots           & \ddots & \vdots     & \ddots & \vdots \\
         x_1^2(t_n) & x_1(t_n)x_2(t_n) & \cdots & x_2^2(t_n) & \cdots & x_n^2(t_n)
     \end{bmatrix}.
-\end{equation*}
+\end{equation}
 Each column of $\Theta(X)$ represents a candidate function for the dynamics $f(x(t))$.
 Based on the observation on the sparsity of terms, i.e., only a few of the nonlinearities are active, a sparse regression problem can be set up to determine the vector of coefficients $\Xi = [\xi_1\ \xi_2\ \cdots\ \xi_n]$ such that \cite{bruntonDiscoveringGoverningEquations2016}
-\begin{equation*}
+\begin{equation}
     \dot{X} = \Theta(X)\Xi.
-\end{equation*}
+\end{equation}
 Once $\Xi$ has been found, the governing equations can be constructed as \cite{bruntonDiscoveringGoverningEquations2016}
-\begin{equation*}
+\begin{equation}
     \dot{x} = f(x) = \Xi^T(\Theta(X^T))^T,
-\end{equation*}
+\end{equation}
 where $\Theta(X^T)$ is a vector of symbolic functions of $x$, unlike $\Theta(X)$ which is a data matrix.
 
 The effectiveness of the \gls{SINDy} method depends on the choice of measurements, data quality, and sparsity of the function basis.
