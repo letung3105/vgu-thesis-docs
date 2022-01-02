@@ -14,3 +14,63 @@ Thus the model might not work as expected when running on a different operating 
 Although the model had been tested and shown that it could run on a resource-limited system with only 4Gb memory, using a system with higher memory is recommended if the script is running along with other processes.
 Because the Julia programming language utilizes \gls{JIT} compilation on the first time a block of code is run to create optimized native code, the initial startup of the package can consume lots of hardware resources and crashes if there is not enough memory for the \gls{JIT} compilation process.
 After the initial startup process is completed, the training process and evaluation process do not require as much hardware resources.
+
+\subsection{Package overview}
+
+The core of the package was the function that implemented the system of \glspl{ODE} given by \autoref{eq:methodologies-seir-model}.
+With Julia and the \textit{DifferentialEquations} package, \autoref{eq:methodologies-seir-model} could be implemented as a simple function given by \autoref{fig:diffeq-seird-inplace}.
+Using the function shown in \autoref{fig:diffeq-seird-inplace}, proxy functions on top of it could be implemented to make changes to the values of the parameters before using them to compute the derivatives.
+Several data structures were defined to help to create these proxies for the different versions of the model, and their general structure is illustrated in \autoref{fig:diffeq-seird-fb2-struct}.
+By utilizing the Julia feature that allowed us to make an object callable like a function, a proxy function around the function shown in \autoref{fig:diffeq-seird-inplace} could be created that made use of the data held by the struct in \autoref{fig:diffeq-seird-fb2-struct}.
+The definition of such proxy function is shown in \autoref{fig:diffeq-seird-fb2}.
+To solve the system of \gls{ODE} given by the function in \autoref{fig:diffeq-seird-fb2}, the function \textit{solve} together with the type \textit{ODEProblem} from the \textit{DifferentialEquations} package were used.
+The general usage of the function is given by \autoref{fig:diffeq-solve-usage}.
+Because the \textit{solve} function had several arguments that can be chosen, a callable struct was defined to hold these arguments and provided an object that can be invoked with the minimal number of arguments.
+The definition of this struct is given by \autoref{fig:diffeq-seird-predictor}.
+
+\begin{figure}[!htb]
+\begin{jllisting}
+model = SEIRDFbMobility2( /*...*/ )
+u0 = [ /* ... */ ]
+tspan = (0, 47)
+tsteps = tspan[1]:1:tspan[2]
+problem = ODEProblem(model, u0, tspan)
+solution = solve(problem, Tsit5(), saveat=tsteps)
+\end{jllisting}
+\caption{A simple usage of the \textit{solve} function from the \textit{DifferentialEquations} package. Here, \textit{model} is an object of the struct \textit{SEIRDFbMobility2} shown in \autoref{fig:diffeq-seird-fb2-struct}, \textit{u0} is the system initial state, \textit{tspan} is the modeled period, and \textit{tsteps} is the time steps where the system state will be saved for output stored by \textit{solution}. Additionally, the constructor for the type \textit{ODEProblem} could take any callable object that can be invoked with the arguments \textit{(du,u,p,t)}.}.
+\label{fig:diffeq-solve-usage}
+\end{figure}
+
+The package utilized the function \textit{sciml\_train} from the \textit{DiffEqFlux} package to train the model.
+This function defined all the necessary steps for estimating the set of parameters that minimizes an arbitrary loss function using a specific optimizer.
+The general usage of the function is illustrated by \autoref{fig:diffeq-sciml-train}.
+Because the \textit{sciml\_train} function only worked with loss functions that accept the system parameters as the only argument, we defined a callable struct that contained all the other data that was required when calculating the loss in addition to the system parameters.
+\autoref{fig:diffeq-seird-loss} shows the definition of this helper struct.
+
+\begin{figure}[!htb]
+\begin{jllisting}
+function loss(params)
+    /* ... */
+end
+params = [ /* ... /* ]
+opt = ADAM(lr=0.01)
+res = DiffEqFlux.sciml_train(loss, params, opt; maxiters=500)
+\end{jllisting}
+\caption{A simple usage of the \textit{sciml\_train} function from the \textit{DiffEqFlux} package. Here, we are finding the set of parameters that can minimize the loss function defined by \textit{loss}, which takes a set of parameters and returns a scalar loss value calculated using the given parameters. Furthermore, in this example, the ADAM optimizer is used for 500 iterations, and the variable \textit{params} holds that initial set of parameters.}
+\label{fig:diffeq-sciml-train}
+\end{figure}
+
+Most of the core functions and structs in this package are parametric over its parameters or fields to allow for a wide range of data types that can be used with them while not sacrificing performance.
+Using parametric type helps to create \textit{type-stable} functions where the type of any variables used by a function is known at compile time.
+This helps to create more performance native code as there is no runtime type checking and no heap allocation that caused by polymorphic variables.
+
+Besides core functionalities described above, the developed package also contains structs for representing time series data, and functions for data collecting and preprocessing.
+Functions that collect and process the datasets used in the experiments in the thesis are grouped into modules based on where the datasets originated from.
+The module \textit{FacebookData} contains functions for extracting data from the Movement Range Maps dataset and the Social Connectedness Index dataset.
+Moreover, this module also contains the function for calculating the \gls{SPC} index from the \gls{SCI} index.
+The module \textit{JHUCSSEData} contains functions for extracting Covid-19 cases data and for getting \gls{US} counties population from the datasets from the John Hopkins University.
+The module \textit{PopulationData} contains functions for combining Vietnam's population data from the Vietnam General Statistics Office with the administrative levels data from the \gls{GADM}.
+The module \textit{VnExpressData} contains functions for downloading Covid-19 data from VnExpress \footnote{\url{https://vnexpress.net}} and the module \textit{VnCdcData} contains functions for parsing the data from Vietnam General Department of Preventative Medicine \footnote{\url{https://ncov.vncdc.gov.vn}}
+
+Finally, using the package, several experiments were setup based on the configurations given in \autoref{sec:methodologies-experiments}, and the functions that were defined to setup these experiments were included along with the package.
+For easy access to the training and evaluation of the experiments, the package \textit{ArgParse} was used to provide a command line interface for running the experiments with predefined locations.
