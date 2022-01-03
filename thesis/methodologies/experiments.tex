@@ -46,7 +46,7 @@ Note that while the model might be sensitive to the choice of the initial condit
         Maricopa, Arizona & 1st July 2021 & 17th August 2021 & 14th September 2021 \\
         \hline
     \end{tabular}
-    \caption{The date ranges that were chosen for the training process and the evaluation process of the model.}
+    \caption[Experiment training and testing periods]{The date ranges that were chosen for the training process and the evaluation process of the model.}
     \label{tab:chosen-dataset-dates}
 \end{table}
 
@@ -76,7 +76,7 @@ Note that while the model might be sensitive to the choice of the initial condit
         Maricopa, Arizona & 3.92e6 & 1325 & 265 & 549899 \\
         \hline
     \end{tabular}
-    \caption{Initial conditions at each modeled region for solving the systems of \glspl{ODE} defined by each model. The initial values for the states $\{D, N, C, T\}$ were taken directly from the datasets, and they are not presented in this table. The value of $I(0)$ was assumed to be the number of new cases on the date of the first time step, and $E(0)$ was assumed to be 5 times the value of $I(0)$. Then $S(0)$ was calculated by subtracting $T(0)$ and $E(0)$ from average population. Lastly, $R(0)$ was calculated by subtracting $I(0)$ and $D(0)$ from $T(0)$.}
+    \caption[Experiment initial conditions]{Initial conditions at each modeled region for solving the systems of ODEs defined by each model. The initial values for the states $\{D, N, C, T\}$ were taken directly from the datasets, and they are not presented in this table. The value of $I(0)$ was assumed to be the number of new cases on the date of the first time step, and $E(0)$ was assumed to be 5 times the value of $I(0)$. Then $S(0)$ was calculated by subtracting $T(0)$ and $E(0)$ from average population. Lastly, $R(0)$ was calculated by subtracting $I(0)$ and $D(0)$ from $T(0)$.}
     \label{tab:ude-model-initial-conditions}
 \end{table}
 
@@ -98,7 +98,7 @@ Note that while the model might be sensitive to the choice of the initial condit
         $\theta_2$ & \textit{glorot\_normal initialization} & \textit{N/A} & \textit{N/A} \\
         \hline
     \end{tabular}
-    \caption{Initial parameters for solving the systems of \glspl{ODE} defined by each model and their boundaries. The values of $\gamma$ and $\lambda$ were chosen as fixed values to match existing information about the Covid-19 Delta variant \cite{mahaseDeltaVariantWhat2021} where the mean incubation period was roughly 4 days, and the mean infective period was roughly 14 days. For fixed parameters, the lower bounds and the upper bounds are set to be equal}
+    \caption[Experiment initial parameters]{Initial parameters for solving the systems of ODEs defined by each model and their boundaries. The values of $\gamma$ and $\lambda$ were chosen as fixed values to match existing information about the Covid-19 Delta variant \cite{mahaseDeltaVariantWhat2021} where the mean incubation period was roughly 4 days, and the mean infective period was roughly 14 days. For fixed parameters, the lower bounds and the upper bounds are set to be equal}
     \label{tab:ude-model-initial-parameters}
 \end{table}
 

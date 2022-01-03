@@ -37,7 +37,7 @@ tsteps = tspan[1]:1:tspan[2]
 problem = ODEProblem(model, u0, tspan)
 solution = solve(problem, Tsit5(), saveat=tsteps)
 \end{jllisting}
-\caption{A simple usage of the \textit{solve} function from the \textit{DifferentialEquations} package. Here we are solving the system of \glspl{ODE} on the time span from $0$ to $47$ and save the system state at an interval of $1$ time step. \textit{model} is an object of the struct \textit{SEIRDFbMobility2} shown in \autoref{fig:diffeq-seird-fb2-struct}, \textit{u0} is the system initial state, \textit{tspan} is the modeled period, and \textit{tsteps} is the time steps where the system state will be saved for output stored by \textit{solution}. Additionally, the first argument to the constructor of the type \textit{ODEProblem} could take any callable object that can be invoked with the arguments \textit{(du,u,p,t)}, where \textit{du} is a vector that will be modified in-place to contain the system derivatives at each time step, \textit{u} is a vector contains the current state of the system, \textit{p} is a vector contains all the system parameters, and \textit{t} is the value of the current time step.}.
+\caption[Solving system of ODEs with \textit{DifferentialEquations} package in Julia]{A simple usage of the \textit{solve} function from the \textit{DifferentialEquations} package. Here we are solving the system of ODEs on the time span from $0$ to $47$ and save the system state at an interval of $1$ time step. \textit{model} is an object of the struct \textit{SEIRDFbMobility2} shown in \autoref{fig:diffeq-seird-fb2-struct}, \textit{u0} is the system initial state, \textit{tspan} is the modeled period, and \textit{tsteps} is the time steps where the system state will be saved for output stored by \textit{solution}. Additionally, the first argument to the constructor of the type \textit{ODEProblem} could take any callable object that can be invoked with the arguments \textit{(du,u,p,t)}, where \textit{du} is a vector that will be modified in-place to contain the system derivatives at each time step, \textit{u} is a vector contains the current state of the system, \textit{p} is a vector contains all the system parameters, and \textit{t} is the value of the current time step.}.
 \label{fig:diffeq-solve-usage}
 \end{figure}
 
@@ -56,7 +56,7 @@ params = [ /* ... */ ]
 opt = ADAM(lr=0.01)
 res = DiffEqFlux.sciml_train(loss, params, opt; maxiters=500)
 \end{jllisting}
-\caption{A simple usage of the \textit{sciml\_train} function from the \textit{DiffEqFlux} package. Here, we are finding the set of parameters that can minimize the loss function defined by \textit{loss}, which takes a set of parameters and returns a scalar loss value calculated using the given parameters. Furthermore, in this example, the ADAM optimizer is used for 500 iterations, and the variable \textit{params} holds that initial set of parameters.}
+\caption[Training UDE with \textit{DiffEqFlux} package in Julia]{A simple usage of the \textit{sciml\_train} function from the \textit{DiffEqFlux} package. Here, we are finding the set of parameters that can minimize the loss function defined by \textit{loss}, which takes a set of parameters and returns a scalar loss value calculated using the given parameters. Furthermore, in this example, the ADAM optimizer is used for 500 iterations, and the variable \textit{params} holds that initial set of parameters.}
 \label{fig:diffeq-sciml-train}
 \end{figure}
 

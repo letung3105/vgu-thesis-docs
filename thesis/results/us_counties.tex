@@ -64,7 +64,7 @@ In addition, it was observed from the errors tables that the model's performance
             & Los Angeless, CA & \textbf{117.110} & \textbf{0.461} & \textbf{138.626} & 171.721 & 0.677 & 197.699 & 167.210 & 0.659 & 192.284 \\
             & Maricopa, AZ & \textbf{101.192} & \textbf{0.933} & \textbf{114.101} & 104.663 & 0.965 & 119.408 & 102.385 & 0.944 & 117.066 \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of deaths for the counties in the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of deaths for US counties]{Out-of-sample errors of the model's predictions on the number of deaths for the counties in the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-us-counties-deaths}
 \end{table}
 \end{landscape}
@@ -104,7 +104,7 @@ In addition, it was observed from the errors tables that the model's performance
             & Los Angeless, CA & \textbf{412.908} & \textbf{11.617} & \textbf{686.484} & 498.917 & 14.897 & 794.109 & 546.785 & 17.824 & 784.312 \\
             & Maricopa, AZ & 217.947 & 11.510 & 271.885 & \textbf{104.125} & \textbf{5.223} & \textbf{134.620} & 109.935 & 5.689 & 149.951 \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of new cases for the counties in the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of new cases for US counties]{Out-of-sample errors of the model's predictions on the number of new cases for the counties in the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-us-counties-new-cases}
 \end{table}
 \end{landscape}
@@ -144,7 +144,7 @@ In addition, it was observed from the errors tables that the model's performance
             & Los Angeless, CA & 6715.207 & 0.478 & 7232.734 & 7974.478 & 0.568 & 8596.755 & \textbf{6094.396} & \textbf{0.435} & \textbf{6615.172} \\
             & Maricopa, AZ & 3327.537 & 0.517 & 3705.984 & 670.792 & 0.107 & 754.504 & \textbf{452.858} & \textbf{0.071} & \textbf{533.121} \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of cumulative cases for the counties in the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of cumulative cases for US counties]{Out-of-sample errors of the model's predictions on the number of cumulative cases for the counties in the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-us-counties-total-cases}
 \end{table}
 \end{landscape}
@@ -164,7 +164,7 @@ For the period after the first $20$ time steps, the fatality rate predicted by t
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_cook_il.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Cook (Illinois), learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Cook (Illinois)]{The effective reproduction number (left) and the fatality rate (right) for Cook (Illinois), learned by different versions of the model}
     \label{fig:R0-and-fatality-cook}
 \end{figure}
 
@@ -178,7 +178,7 @@ When predicting the fatality rate, all three versions showed similar results wit
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_harris_tx.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Harris (Texas) learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Harris (Texas)]{The effective reproduction number (left) and the fatality rate (right) for Harris (Texas) learned by different versions of the model}
     \label{fig:R0-and-fatality-harris}
 \end{figure}
 
@@ -193,7 +193,7 @@ Here, the predicted fatality rate in all three versions also followed an exponen
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_losangeles_ca.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Los Angeles (California) learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Los Angeles (California)]{The effective reproduction number (left) and the fatality rate (right) for Los Angeles (California) learned by different versions of the model}
     \label{fig:R0-and-fatality-losangeles}
 \end{figure}
 
@@ -205,6 +205,6 @@ For the fatality rate, the maximum value of $0.05$ was predicted for the first f
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_maricopa_az.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Maricopa (Arizona) learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Maricopa (Arizona)]{The effective reproduction number (left) and the fatality rate (right) for Maricopa (Arizona) learned by different versions of the model}
     \label{fig:R0-and-fatality-maricopa}
 \end{figure}

@@ -36,7 +36,7 @@ In \gls{NeuralODE}, the continuous dynamics of hidden units are parameterized us
         \draw[->] (W2) to node[xshift = -2em, left]{$f(x)$} (ADD);
         \draw[->] (ADD) to node[xshift = -2em, left]{$f(x) + x$} node[right]{relu} (OUT);
     \end{tikzpicture}
-    \caption{Example of a skip connection in residual network}
+    \caption[ResNet skip connection]{Example of a skip connection in residual network}
     \label{fig:residual-network-skip-connection}
 \end{figure}
 
@@ -63,14 +63,14 @@ There are several benefits when doing this, such as \cite{chenNeuralOrdinaryDiff
     \centering
     \includegraphics[scale=0.15]{neuralode_resnet.png}
     \includegraphics[scale=0.15]{neuralode_odenet.png}
-    \caption{\textit{Left}: A residual network defines discrete sequence of transformations. \textit{Right}: A ODE network defines a vector field, which continuously transform the state. \textit{Both}: Circles represent evaluation locations. Figure is taken from \cite{chenNeuralOrdinaryDifferential2019})}
+    \caption[Comparison between NeuralODE output and normal ANN output]{\textit{Left}: A residual network defines discrete sequence of transformations. \textit{Right}: A ODE network defines a vector field, which continuously transform the state. \textit{Both}: Circles represent evaluation locations. Figure is taken from \cite{chenNeuralOrdinaryDifferential2019})}
     \label{fig:resnet-vs-odenet}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.4]{neuralode-adjoint.png}
-    \caption{Reverse-mode differentiation of an ODE solution. An augment system contains the original state and the gradients of the loss with respect to the state is solved backwards in time. If the loss depends on the state at multiple observation times, the adjoin state is updated in the direction of the gradients of the loss with respect to each observation. Figure is taken from \cite{chenNeuralOrdinaryDifferential2019}}
+    \caption[Illustration of NeuralODE reverse-mode automatic differentiation]{Reverse-mode differentiation of an ODE solution. An augment system contains the original state and the gradients of the loss with respect to the state is solved backwards in time. If the loss depends on the state at multiple observation times, the adjoin state is updated in the direction of the gradients of the loss with respect to each observation. Figure is taken from \cite{chenNeuralOrdinaryDifferential2019}}
     \label{fig:neuralode-adjoint}
 \end{figure}
 
@@ -82,7 +82,7 @@ This method can be applied to all \gls{ODE} solvers.
 The approach scales linearly with the problem size, and the numerical error can be controlled explicitly.
 
 \begin{algorithm}[h]
-    \caption{Reverse-mode derivative of an ODE initial value problem. Algorithm is taken from \cite{chenNeuralOrdinaryDifferential2019})}
+    \caption[NeuralODE reverse-mode automatic differentiation]{Reverse-mode derivative of an ODE initial value problem. Algorithm is taken from \cite{chenNeuralOrdinaryDifferential2019})}
     \label{alg:neural-ode-reverse-mode-diff}
     \begin{algorithmic}
         \Function{ODEDerivative}{$\theta, t_0, t_1, z(t_1), \frac{\partial L}{\partial z(t_1)}$}

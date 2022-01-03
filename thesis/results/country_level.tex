@@ -37,7 +37,7 @@ One noticeable difference between the results obtained from both versions was in
             & VN & 3.530 & 4.318 & 5.408 & \textbf{3.301} & \textbf{4.062} & \textbf{5.074} \\
             & US & 4512.893 & 0.697 & 5576.519 & \textbf{4495.416} & \textbf{0.695} & \textbf{5401.567} \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of deaths for Vietnam and the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of deaths for Vietnam and the US]{Out-of-sample errors of the model's predictions on the number of deaths for Vietnam and the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-country-level-deaths}
 \end{table}
 
@@ -69,7 +69,7 @@ With a forecast horizon of 28 days, the second version of the model achieved low
             & VN & 357.254 & 52.338 & 502.876 & \textbf{342.409} & \textbf{49.266} & \textbf{490.063} \\
             & US & 16943.424 & \textbf{10.771} & \textbf{21371.281} & \textbf{16516.025} & 10.859 & 21514.390 \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of new cases for Vietnam and the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of new cases for Vietnam and the US]{Out-of-sample errors of the model's predictions on the number of new cases for Vietnam and the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-country-level-new-cases}
 \end{table}
 
@@ -103,7 +103,7 @@ As previously mentioned, both versions failed to produce good predictions for th
             & VN & 2650.472 & 14.012 & 3786.242 & \textbf{2512.913} & \textbf{13.276} & \textbf{3605.530} \\
             & US & \textbf{137006.424} & \textbf{0.342} & \textbf{189405.400} & 210325.947 & 0.529 & 259678.415 \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of cumulative cases for Vietnam and the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of cumulative cases for Vietnam and the US]{Out-of-sample errors of the model's predictions on the number of cumulative cases for Vietnam and the United States. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-country-level-total-cases}
 \end{table}
 
@@ -124,7 +124,7 @@ Additionally, the fatality rate predicted by both versions were different at the
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_vietnam.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Vietnam learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Vietnam]{The effective reproduction number (left) and the fatality rate (right) for Vietnam learned by different versions of the model}
     \label{fig:R0-and-fatality-vietnam}
 \end{figure}
 
@@ -137,6 +137,6 @@ On the other hand, the second version predicted a higher effective reproduction 
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_unitedstates.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for the United States learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for the US]{The effective reproduction number (left) and the fatality rate (right) for the United States learned by different versions of the model}
     \label{fig:R0-and-fatality-usa}
 \end{figure}

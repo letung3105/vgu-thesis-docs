@@ -27,7 +27,7 @@ Because only the most recent outbreak in Vietnam (starting from 27th April 2021)
     \hline
     $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
 \end{tabular}
-\caption{Structure of the CSV file obtained from the John Hopkins University \cite{dongInteractiveWebbasedDashboard2020}. Each row in the dataset contained the Covid-19 time series data of a geographical location. The value at each time step could be the number of confirmed cases, the number of recoveries, or the number of deaths depending on the \gls{CSV} file that was used.}
+\caption[John Hopkins Covid-19 dataset structure]{Structure of the CSV file obtained from the John Hopkins University \cite{dongInteractiveWebbasedDashboard2020}. Each row in the dataset contained the Covid-19 time series data of a geographical location. The value at each time step could be the number of confirmed cases, the number of recoveries, or the number of deaths depending on the CSV file that was used.}
 \label{tab:jhu-csse-covid-timeseries}
 \end{table}
 
@@ -44,7 +44,7 @@ Because only the most recent outbreak in Vietnam (starting from 27th April 2021)
     \hline
     $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
 \end{tabular}
-\caption{Structure of the table that contained the time series for a specify location. The values in the \textit{infective} column represent the number of infective individuals on that day, and they were calculated by subtracting the values in the \textit{recoveries} column and the \textit{deaths} column from the values in the \textit{confirmed} column. Data for the columns besides \textit{infective} were taken from the dataset from John Hopkins University \cite{dongInteractiveWebbasedDashboard2020}}.
+\caption[Combined Covid-19 dataset structure]{Structure of the table that contained the time series for a specify location. The values in the \textit{infective} column represent the number of infective individuals on that day, and they were calculated by subtracting the values in the \textit{recoveries} column and the \textit{deaths} column from the values in the \textit{confirmed} column. Data for the columns besides \textit{infective} were taken from the dataset from John Hopkins University \cite{dongInteractiveWebbasedDashboard2020}}.
 \label{tab:country-covid-timeseries}
 \end{table}
 
@@ -67,7 +67,7 @@ Similar with Vietnam's data, only data for the most recent outbreak in the \gls{
     \hline
     $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
 \end{tabular}
-\caption{Each row in the dataset returned by \textit{vnexpress.net} contains the number of cases for all provinces in Vietnam on that date.}
+\caption[VnExpress Covid-19 dataset structure]{Each row in the dataset returned by \textit{vnexpress.net} contains the number of cases for all provinces in Vietnam on that date.}
 \label{tab:vietnam-provinces-timeseries}
 \end{table}
 
@@ -111,7 +111,7 @@ For the \gls{US}, this data was available at the county resolution.
     \hline
     $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
 \end{tabular}
-\caption{Each row in the Movement Range Map dataset from Facebook contains a date \textit{ds}, a three-letter ISO-3166 country code \textit{country}, a unique identifier for the geographical region \textit{polygon\_id}, the relative change in mobility compared to the baseline \textit{relative\_change}, and the proportion of people staying put \textit{ratio\_single\_tile\_users}.}
+\caption[Facebook Movement Range Maps dataset structure]{Each row in the Movement Range Map dataset from Facebook contains a date \textit{ds}, a three-letter ISO-3166 country code \textit{country}, a unique identifier for the geographical region \textit{polygon\_id}, the relative change in mobility compared to the baseline \textit{relative\_change}, and the proportion of people staying put \textit{ratio\_single\_tile\_users}.}
 \label{tab:facebook-movement-range-maps}
 \end{table}
 
@@ -144,7 +144,7 @@ Each county in this \gls{CSV} file was identified by its \gls{FIPS} code.
     \hline
     $\cdots$ & $\cdots$ & $\cdots$ \\
 \end{tabular}
-\caption{The \gls{SCI} dataset from Facebook included every (symmetric) $i$ to $j$ and $j$ to $i$ location pair, including links of each location to itself. The \textit{user\_loc} column represents the first location, the \textit{fr\_loc} column represents the second location, and the \textit{scaled\_sci} is the scaled \gls{SCI}.}
+\caption[Facebook SCI dataset structure]{The SCI dataset from Facebook included every (symmetric) $i$ to $j$ and $j$ to $i$ location pair, including links of each location to itself. The \textit{user\_loc} column represents the first location, the \textit{fr\_loc} column represents the second location, and the \textit{scaled\_sci} is the scaled SCI.}
 \label{tab:facebook-social-connectedness-index}
 \end{table}
 
@@ -179,6 +179,6 @@ In their time series for the total number of deaths for the \gls{US} counties \c
     \hline
     $\cdots$ & $\cdots$ & $\cdots$ \\
 \end{tabular}
-\caption{Illustration of the tables containing the average population of the subregions within a country. The column \textit{ID\_1} contains the FIPS code of the counties if the table contains data for US' counties. If the table contains data for other countries, \textit{ID\_1} column will contain the level 1 GADM identifier of the location. The columns \textit{NAME\_1} and \textit{AVGPOPULATION} contain the name of the location and the average population of that location, respectively.}
+\caption[John Hopkins US population dataset structure]{Illustration of the tables containing the average population of the subregions within a country. The column \textit{ID\_1} contains the FIPS code of the counties if the table contains data for US' counties. If the table contains data for other countries, \textit{ID\_1} column will contain the level 1 GADM identifier of the location. The columns \textit{NAME\_1} and \textit{AVGPOPULATION} contain the name of the location and the average population of that location, respectively.}
 \label{tab:country-subdivision-population}
 \end{table}

@@ -48,7 +48,7 @@ Specifically, the model could first be trained using time series data on the tim
 Once the training completed, the time span was increased so that later data points could be included, the model was then trained on this new time span, and the process repeated until $T'$ equals $T$.
 
 \begin{algorithm}
-    \caption{General training procedure for the proposed models.}
+    \caption[Model training procedure]{General training procedure for the proposed models.}
     \label{alg:seir-ude-training}
     \begin{algorithmic}
         \State $\text{maxiters}_\text{ADAM} \gets \text{max number of iterations to run ADAM optimizer}$

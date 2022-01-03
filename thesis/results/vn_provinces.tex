@@ -67,7 +67,7 @@ Similar to the experiments with \gls{US} counties, it was likely that the model'
             & Ho Chi Minh city & \textbf{2387.155} & \textbf{41.454} & \textbf{2637.652} & 2434.133 & 42.186 & 2693.007 & 2701.371 & 46.196 & 3022.084 \\
             & Long An & 151.608 & 45.047 & 157.341 & \textbf{16.404} & \textbf{4.841} & \textbf{17.303} & 157.136 & 45.593 & 173.810 \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of deaths for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of deaths for Vietnam provinces]{Out-of-sample errors of the model's predictions on the number of deaths for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-vn-provinces-deaths}
 \end{table}
 \end{landscape}
@@ -108,7 +108,7 @@ Similar to the experiments with \gls{US} counties, it was likely that the model'
             & Ho Chi Minh city & \textbf{1297.598} & \textbf{27.166} & 1713.583 & 1388.426 & 29.725 & \textbf{1697.844} & 1863.602 & 40.654 & 2149.100 \\
             & Long An & 118.454 & 24.197 & 152.753 & 116.804 & 23.893 & 150.918 & \textbf{98.185} & \textbf{21.637} & \textbf{128.612} \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of new cases for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of new cases for Vietnam provinces]{Out-of-sample errors of the model's predictions on the number of new cases for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-vn-provinces-new-cases}
 \end{table}
 \end{landscape}
@@ -148,7 +148,7 @@ Similar to the experiments with \gls{US} counties, it was likely that the model'
             & Ho Chi Minh city & \textbf{8875.541} & \textbf{4.700} & \textbf{13108.589} & 11039.327 & 5.797 & 15550.166 & 17695.850 & 9.442 & 23398.714 \\
             & Long An & 3549.776 & 13.298 & 3714.577 & 2237.386 & 8.175 & 2480.566 & \textbf{1193.084} & \textbf{4.410} & \textbf{1312.184} \\ \hline
     \end{tabular}
-    \caption{Out-of-sample errors of the model's predictions on the number of cumulative cases for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
+    \caption[Out-of-sample-errors for the number of cumulative cases for Vietnam provinces]{Out-of-sample errors of the model's predictions on the number of cumulative cases for the provinces in Vietnam. The lowest errors for each evaluation metrics at each location are highlighted.}
     \label{tab:errors-vn-provinces-total-cases}
 \end{table}
 \end{landscape}
@@ -165,7 +165,7 @@ This increase in the effective reproduction number lasted for around 10 time ste
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_binhduong.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Binh Duong learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Binh Duong]{The effective reproduction number (left) and the fatality rate (right) for Binh Duong learned by different versions of the model}
     \label{fig:R0-and-fatality-binhduong}
 \end{figure}
 
@@ -180,7 +180,7 @@ With the third version, the effective reproduction number at time step 0 was the
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_dongnai.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Dong Nai learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Dong Nai]{The effective reproduction number (left) and the fatality rate (right) for Dong Nai learned by different versions of the model}
     \label{fig:R0-and-fatality-dongnai}
 \end{figure}
 
@@ -192,7 +192,7 @@ With the third version, the maximum predicted fatality rate was just below $0.04
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_hcm.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Ho Chi Minh city learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Ho Chi Minh city]{The effective reproduction number (left) and the fatality rate (right) for Ho Chi Minh city learned by different versions of the model}
     \label{fig:R0-and-fatality-hochiminh}
 \end{figure}
 
@@ -211,6 +211,6 @@ Finally, the predicted effective reproduction number raised slightly and reached
 \begin{figure}[!htb]
     \centering
     \includegraphics[width=\linewidth]{Re_and_fatality_longan.pdf}
-    \caption{The effective reproduction number (left) and the fatality rate (right) for Long An learned by different versions of the model}
+    \caption[Learnt effective reproduction number and fatality rate for Long An]{The effective reproduction number (left) and the fatality rate (right) for Long An learned by different versions of the model}
     \label{fig:R0-and-fatality-longan}
 \end{figure}
