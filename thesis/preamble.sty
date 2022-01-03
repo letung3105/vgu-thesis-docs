@@ -67,14 +67,16 @@
 % Change chapter numbering style
 \titleformat{\chapter}{\huge\bf}{\thechapter.}{20pt}{\huge\bf}
 
-% Capitalized references
-\addto\extrasenglish{
+\makeatletter
+\appto\blockextras@english{%
   \def\chapterautorefname{Chapter}
   \def\sectionautorefname{Section}
   \def\subsectionautorefname{Section}
   \def\subsubsectionautorefname{Section}
   \def\algorithmautorefname{Algorithm}
+  \def\equationautorefname{Equation}
 }
+\makeatother
 
 % Extending Tikz
 \usetikzlibrary{automata, positioning, arrows}
