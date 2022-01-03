@@ -99,6 +99,38 @@ end
 \end{figure}
 
 \begin{figure}[!htb]
+\begin{jllisting}
+function experiment_loss_sse(min::AbstractVector{R},
+                             max::AbstractVector{R},
+                             ζ::R) where {R<:Real}
+    scale = max .- min
+    lossfn = function (ŷ::AbstractArray{R}, y, tsteps) where {R<:Real}
+        s = zero(R)
+        sz = size(y)
+        @inbounds for j in 1:sz[2], i in 1:sz[1]
+            s += ((ŷ[i, j] - y[i, j]) / scale[i])^2 / sz[2] * exp(ζ * tsteps[j])
+        end
+        return s
+    end
+    return lossfn
+end
+
+min = vec(minimum(train_dataset.data; dims=2))
+max = vec(maximum(train_dataset.data; dims=2))
+lossfn_inner = experiment_loss_sse(min, max, loss_time_weighting)
+
+lossfn = function (ŷ, y, params, tsteps)
+    pnamed = namedparams(model, params)
+    return lossfn_inner(ŷ, y, tsteps) +
+            loss_regularization / (2 * size(y, 2)) *
+            (sum(abs2, pnamed.θ1) + sum(abs2, pnamed.θ2))
+end
+\end{jllisting}
+\caption{The implementation for the loss function defined by \autoref{eq:ude-model-loss}. Here, \textit{lossfn\_inner} is a closure that is used for calculating the loss value with min-max scaling and time weighting, and \textit{lossfn} is a closure that is used for calculating the loss value regularized with the \glspl{ANN} parameters. These two steps are separated because how the \gls{ANN} parameters are arranged within system parameters \textit{params} can be different among different versions of the model.}
+\label{fig:diffeq-seird-experiment-loss}
+\end{figure}
+
+\begin{figure}[!htb]
 \centering
 \begin{jllisting}
 struct SEIRDFbMobility2{ANN1<:FastChain,
