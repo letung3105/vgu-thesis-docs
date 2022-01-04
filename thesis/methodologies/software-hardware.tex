@@ -62,19 +62,19 @@ res = DiffEqFlux.sciml_train(loss, params, opt; maxiters=500)
 
 Most of the core functions and structs in this package are parametric over its parameters or fields to allow for a wide range of data types that can be used with them while not sacrificing performance.
 Using parametric type helps to create \textit{type-stable} functions where the type of any variables used by a function is known at compile time.
-As a result, Julia will more performance native code as there is no runtime type checking and no heap allocation caused by polymorphic variables.
+As a result, Julia will produce more performance native code as there is no runtime type checking and no heap allocation caused by polymorphic variables.
 
 Besides the core functionalities described above, the developed package also contains structs for representing time series data and functions for data collecting and preprocessing.
-Functions that collect and process the datasets used in the experiments in the thesis are grouped into modules based on where the datasets originated from.
-The module \textit{FacebookData} contains functions for extracting data from the Movement Range Maps dataset and the Social Connectedness Index dataset.
+Functions that collect and process the datasets used in the experiments of the thesis are grouped into modules based on where the datasets originated from.
+The module \textit{FacebookData} contains functions for extracting data from the Movement Range Maps dataset and the \gls{SCI} dataset.
 Moreover, this module also contains the function for calculating the \gls{SPC} index from the \gls{SCI} index.
 The module \textit{JHUCSSEData} contains functions for extracting Covid-19 cases data and for getting \gls{US} counties population from the datasets from the John Hopkins University.
 The module \textit{PopulationData} contains functions for combining Vietnam's population data from the Vietnam General Statistics Office with the administrative levels data from the \gls{GADM}.
 The module \textit{VnExpressData} contains functions for downloading Covid-19 data from VnExpress \footnote{\url{https://vnexpress.net}} and the module \textit{VnCdcData} contains functions for parsing the data from Vietnam General Department of Preventative Medicine \footnote{\url{https://ncov.vncdc.gov.vn}}.
 All the data collecting and processing modules depended on the package \textit{DataDeps} \footnote{\url{https://github.com/oxinabox/DataDeps.jl}} for managing data dependencies.
-The \textit{DataDeps} package simplified the process of downloading static files from servers into a local machine and provided the program the paths to all the download files.
+The \textit{DataDeps} package simplified the process of downloading static files from servers into a local machine and provided the program the paths to all the downloaded files.
 
 Finally, using the package, several experiments are set up based on the configurations given in \autoref{sec:methodologies-experiments}, and the functions for setting up these experiments are included along with the package.
 The implementation the loss function defined by \autoref{eq:ude-model-loss} is included among these functions, and its definition is shown in \autoref{fig:diffeq-seird-experiment-loss}.
-Moreover, the experiments can be run in parallel when training with data from different locations by using the threads that are available in the system.
+Moreover, the experiments can be run in parallel when training with data for multiple different locations by using the threads that are available in the system.
 For easy access to the training and evaluation of the experiments, the package \textit{ArgParse} \footnote{\url{https://github.com/carlobaldassi/ArgParse.jl}} is used to provide a command-line interface for running the experiments with predefined locations.
