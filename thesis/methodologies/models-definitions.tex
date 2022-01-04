@@ -103,21 +103,21 @@ As such, the model was used as the baseline for comparisons in the experiments.
 
 As noted by the authors of \cite{dandekarMachineLearningAidedGlobal2020a}, informing the basic \gls{UDE} model for Covid-19 with mobility data could improve the forecasting ability of the model.
 Moreover, many have showed that mobility is an important predictor for the spread of Covid-19 \cite{changMobilityNetworkModels2021,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021,liSubstantialUndocumentedInfection2020}.
-Therefore, the Movement Range Maps dataset from Facebook (see \autoref{sec:methodologies-data-mobility-data}) was used in addition to the past system's states in the second set of covariates that were given as inputs for the \gls{ANN} in \autoref{eq:methodologies-seir-ude-model}.
+Therefore, the \glspl{MRM} dataset from Facebook (see \autoref{sec:methodologies-data-mobility-data}) was used in addition to the past system's states in the second set of covariates that were given as inputs for the \gls{ANN} in \autoref{eq:methodologies-seir-ude-model}.
 In this second version of the model, the set of covariates $\mathcal{F}$ given to the \gls{ANN} at time step $t$ was defined as
 \begin{equation}
     \mathcal{F}(t) = \left\lbrace \frac{t}{t_\text{max}}, \frac{S(t-1)}{N(t-1)}, \frac{E(t-1)}{N(t-1)}, \frac{I(t-1)}{N(t-1)}, \text{MovementRange}(t) \right\rbrace,
 \end{equation}
 where $\text{MovementRange}(t)$ was the relative change in movement and the ratio of people who were staying put at the area that was being modeled at time $t$.
 When performing simulations with data for the \gls{US}, Vietnam and its provinces, $\text{MovementRange}(t)$ was calculated as the mean of the values of all the subregions within the area that was being modeled.
-That was done because the Movement Range Maps dataset was containing data at a much more granular level but only the country-level data and province-level data were the subjects of interests.
+That was done because the \glspl{MRM} dataset was containing data at a much more granular level but only the country-level data and province-level data were the subjects of interests.
 
 \subsubsection{Informing the model with social network connections}
 
 As shown by the authors in \cite{kuchlerGeographicSpreadCOVID192020}, the strengths of social network connections between different regions were an important predictor of Covid-19 cases in US counties.
 They had defined the \gls{SPC} index which is a metric defined specifically for Covid-19 that measures the spreads of the disease based on the \gls{SCI} dataset from Facebook.
 They also noted that the correlation between the \gls{SPC} index and the number of cases was especially strong when there were fewer restrictions on individuals' mobility.
-Thus, the \gls{SPC} index was considered as an input feature to the \gls{ANN} in addition to the Movement Range Maps dataset from Facebook and the past system's states.
+Thus, the \gls{SPC} index was considered as an input feature to the \gls{ANN} in addition to the \glspl{MRM} dataset from Facebook and the past system's states.
 The \gls{SPC} index is calculated as
 \begin{equation}
     SPC_{i,t} = \sum_j^C \text{Cases per 10k}_{j,t} \frac{SCI_{i,j}}{\sum_h^C SCI_{i,h}},

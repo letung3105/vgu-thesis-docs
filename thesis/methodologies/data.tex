@@ -72,7 +72,7 @@ Similar with Vietnam's data, only data for the most recent outbreak in the \gls{
 \end{table}
 
 Although the datasets provided by the John Hopkins University contain data at lower levels for some countries, Vietnam was not one of them.
-Instead, two additional sources of information were utilized, which were the Covid-19 situations dashboard made by the Vietnam General Department of Preventative Medicine \footnote{\url{https://ncov.vncdc.gov.vn/}} and the Covid-19 situations dashboard made by \textit{vnexpress.net} \footnote{\url{https://vnexpress.net/covid-19/covid-19-viet-nam}}, a local online newspaper that aggregated Covid-19 data from the government's daily announcements on Covid-19 cases).
+Instead, two additional sources of information were utilized, which were the Covid-19 situations dashboard made by the \gls{VNCDC} \footnote{\url{https://ncov.vncdc.gov.vn/}} and the Covid-19 situations dashboard made by \textit{vnexpress.net} \footnote{\url{https://vnexpress.net/covid-19/covid-19-viet-nam}}, a local online newspaper that aggregated Covid-19 data from the government's daily announcements on Covid-19 cases).
 Data from these two sources were available for the outbreak period in Vietnam starting from \date{27th April 2021}.
 From the first source, the number of confirmed cases and the number of deaths from Covid-19 for four cities/provinces that had the highest number of confirmed cases in the countries were downloaded.
 The cities/provinces were Ho Chi Minh city, Binh Duong province, Dong Nai province, and Long An province.
@@ -80,7 +80,7 @@ The downloaded time series data for each province was parsed from its original \
 For consistency, the structure of the time series data for each province was similar to the one given in \autoref{tab:country-covid-timeseries}, but with the \textit{infective} and \textit{recoveries} columns omitted.
 From the second source, the number of confirmed cases for all provinces in Vietnam was obtained by accessing the underlying \gls{API} of the website.
 This data was used to derive the spatiotemporal metric for Covid-19 that was used as the input to the model (see \autoref{sec:methodologies-models-definitions}).
-The number of confirmed cases was obtained from the second source instead of the first one because the data here was given in bulk for all the provinces (see \autoref{tab:vietnam-provinces-timeseries}) instead of as individual data files when working with the website from the Vietnam General Department of Preventative Medicine.
+The number of confirmed cases was obtained from the second source instead of the first one because the data here was given in bulk for all the provinces (see \autoref{tab:vietnam-provinces-timeseries}) instead of as individual data files when working with the website from the \gls{VNCDC}.
 
 \subsection{Facebook's data}
 \label{sec:methodologies-data-mobility-data}
@@ -88,7 +88,7 @@ The number of confirmed cases was obtained from the second source instead of the
 Because it had been shown that population mobility can greatly reflect to spread of the disease \cite{changMobilityNetworkModels2021,liSubstantialUndocumentedInfection2020,ihmecovid-19forecastingteamModelingCOVID19Scenarios2021}, the public datasets from Facebook \footnote{\url{https://dataforgood.facebook.com}} were utilized to inform the model about the spatiotemporal factors that could have an effect on the disease dynamics.
 Facebook's data was chosen because the company had a massive number of users with 2.89 billion users worldwide and about 71 million users in Vietnam, which took account for more than two-thirds of the country's population.
 
-The first dataset from Facebook was the Movement Range Maps dataset \footnote{\url{https://dataforgood.facebook.com/dfg/tools/movement-range-maps}}.
+The first dataset from Facebook was the \glspl{MRM} dataset \footnote{\url{https://dataforgood.facebook.com/dfg/tools/movement-range-maps}}.
 This dataset contained time series of the relative change of mobility in percentages compared to the baseline in February 2020 and the ratio of people that only stay within one area throughout the day \cite{ProtectingPrivacyFacebook2020} (the structure of the time series dataset is given in \autoref{tab:facebook-movement-range-maps}).
 This reflected how people in a geographic area reacted to different preventative measures from the government and was calculated for many subregions within a country.
 The values in the dataset were calculated using the anonymized and privacy-preserving mobile phone location history of Facebook's users that allowed the app to collect their location data.
@@ -111,7 +111,7 @@ For the \gls{US}, this data was available at the county resolution.
     \hline
     $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
 \end{tabular}
-\caption[Facebook Movement Range Maps dataset structure]{Each row in the Movement Range Map dataset from Facebook contains a date \textit{ds}, a three-letter ISO-3166 country code \textit{country}, a unique identifier for the geographical region \textit{polygon\_id}, the relative change in mobility compared to the baseline \textit{relative\_change}, and the proportion of people staying put \textit{ratio\_single\_tile\_users}.}
+\caption[Facebook MRMs dataset structure]{Each row in the MRMs dataset from Facebook contains a date \textit{ds}, a three-letter ISO-3166 country code \textit{country}, a unique identifier for the geographical region \textit{polygon\_id}, the relative change in mobility compared to the baseline \textit{relative\_change}, and the proportion of people staying put \textit{ratio\_single\_tile\_users}.}
 \label{tab:facebook-movement-range-maps}
 \end{table}
 
@@ -151,7 +151,7 @@ Each county in this \gls{CSV} file was identified by its \gls{FIPS} code.
 \subsection{Average population's data}
 
 The average population data for counties in the \gls{US} and for provinces in Vietnam were obtained to facilitate the calculation of the \gls{SPC} index, defined in \autoref{sec:methodologies-models-definitions}.
-Vietnam provinces' average population data was taken from Vietnam's General Statistics Office \footnote{\url{https://gso.gov.vn}}.
+Vietnam provinces' average population data was taken from \gls{GSO} \footnote{\url{https://gso.gov.vn}}.
 In addition, the average population data for Vietnam's provinces was combined with with the dataset from the \gls{GADM} \footnote{\url{https://gadm.org}} (version 2.8).
 This was done so that a province could be referred to using the level 1 \gls{GADM} identifier for that province when calculating the \gls{SPC} index.
 The \gls{US} counties' average population data was taken from the John Hopkins University.

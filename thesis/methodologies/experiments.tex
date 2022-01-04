@@ -103,7 +103,7 @@ Note that while the model might be sensitive to the choice of the initial condit
 \end{table}
 
 At the country level, data for 2 countries Vietnam and the \gls{US} were used to train and evaluate the performance of the model.
-Two versions of the model evaluated in this setting were the baseline model and the model that used Facebook's Movement Range Maps dataset.
+Two versions of the model evaluated in this setting were the baseline model and the model that used Facebook's \glspl{MRM} dataset.
 Because the \gls{SPC} index was not defined at the country level, the version that used the \gls{SPC} index was not considered.
 At the country's subdivision level, all three versions of the model were trained on Covid-19 time series data for the top 4 most populous counties in the \gls{US} (Los Angeles - California, Cook County - Illinois, Harris County - Texas, and Maricopa County - Arizona) and the top 4 provinces in Vietnam that had the highest cases counts during the outbreak starting from 27th April 2021 (Ho Chi Minh city, Binh Duong, Dong Nai, and Long An).
 
@@ -114,12 +114,12 @@ When the first training stage finished, BFGS optimizer was used for a maximum of
 The hyperparameter $\zeta$ for adjusting the weighting factor for the loss function in \autoref{eq:ude-model-loss} was chosen to be $-0.001$ to place more importance on earlier time steps which minimized the chance of getting into a bad local minima.
 Finally, the hyperparameter $\lambda$ was set to $0.00001$ to help reduce the chance of over-fitting.
 
-The Covid-19 dataset, the Movement Range Maps dataset, and the derived \gls{SPC} index all exhibited weekly seasonality in the data.
-In the Movement Range Maps dataset, the relative change in movement tended to drop to a much lower value while the stay-put ratio increased sharply in the weekend.
+The Covid-19 dataset, the \glspl{MRM} dataset, and the derived \gls{SPC} index all exhibited weekly seasonality in the data.
+In the \glspl{MRM} dataset, the relative change in movement tended to drop to a much lower value while the stay-put ratio increased sharply in the weekend.
 This was expected as the majority of people would go to work during the week and stayed rested on the weekend.
 With the Covid-19 cases data the \gls{SPC} index, the values typically dipped in the weekend most because fewer Covid-19 tests were made.
 Therefore, in the experiments, a 7-day moving average transform was applied to these datasets to remove the weekly seasonality exhibited in the measurements.
 The elimination of weekly seasonality in the data allowed the model to better capture the overall trends and helped to avoid confusing the model with highly fluctuating values.
-Moreover, after being transformed with a 7-day moving average, values from the Movement Range Maps dataset and the \gls{SPC} index were scaled to have values ranging from 0 to 1 within the training time span.
+Moreover, after being transformed with a 7-day moving average, values from the \glspl{MRM} dataset and the \gls{SPC} index were scaled to have values ranging from 0 to 1 within the training time span.
 This ensured all the input features to the \glspl{ANN} had the same scale during training which would help to improve the performance of the model.
 Because issues with bad local minima could occur when learning from time series data, we trained the model at each location for 5 times and selected the set of weights that produced the minimum training loss among the samples.
