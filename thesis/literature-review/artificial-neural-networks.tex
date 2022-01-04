@@ -170,7 +170,7 @@ By iterating backward and utilizing the chain rule, recalculations of derivative
 
 \subsection{Activation functions}
 
-An activation function introduces non-linearity into the \gls{ANN} without it, the \gls{ANN} becomes a simple linear transformation and does not have the power to express complex relations between the input and the output.
+An activation function introduces non-linearity into the \gls{ANN}, without it, the \gls{ANN} becomes a simple linear transformation and does not have the power to express complex relations between the input and the output.
 In the case of perceptron, the output of the node is either one or zero based on some threshold applied to the product sum.
 The activation function that gets applied in that case is called the Heaviside activation.
 The derivative of the Heaviside activation function is undefined at zero and is zero at every other point, making it unsuitable in deep \gls{ANN}, which is trained using gradient-based optimization methods.
