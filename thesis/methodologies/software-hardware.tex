@@ -68,7 +68,7 @@ Besides the core functionalities described above, the developed package also con
 Functions that collect and process the datasets used in the experiments of the thesis are grouped into modules based on where the datasets originated from.
 The module \textit{FacebookData} contains functions for extracting data from the \glspl{MRM} dataset and the \gls{SCI} dataset.
 Moreover, this module also contains the function for calculating the \gls{SPC} index from the \gls{SCI} index.
-The module \textit{JHUCSSEData} contains functions for extracting Covid-19 cases data and for getting \gls{US} counties population from the datasets from the John Hopkins University.
+The module \textit{JHUCSSEData} contains functions for extracting Covid-19 cases data and for getting \gls{US} counties population from the datasets from the \gls{JHU}.
 The module \textit{PopulationData} contains functions for combining Vietnam's population data from the \gls{GSO} with the administrative levels data from the \gls{GADM}.
 The module \textit{VnExpressData} contains functions for downloading Covid-19 data from VnExpress \footnote{\url{https://vnexpress.net}} and the module \textit{VnCdcData} contains functions for parsing the data from \gls{VNCDC} \footnote{\url{https://ncov.vncdc.gov.vn}}.
 All the data collecting and processing modules depended on the package \textit{DataDeps} \footnote{\url{https://github.com/oxinabox/DataDeps.jl}} for managing data dependencies.
