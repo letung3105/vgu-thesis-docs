@@ -1,0 +1,116 @@
+\ProvidesPackage{preamble}
+
+\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage[style=english]{csquotes}
+\usepackage{polyglossia}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{neuralnetwork}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[section]{placeins}
+\usepackage{multirow}
+\usepackage{lscape}
+\usepackage{caption}
+\usepackage{glossaries}
+\usepackage{jlcode}
+\usepackage[
+  backend=biber,
+  style=ieee,
+  url=false,
+  doi=false,
+  isbn=false,
+  eprint=false
+]{biblatex}
+
+\setdefaultlanguage{english}
+
+\usetheme{Darmstadt}
+\mode<presentation>{}
+\AtBeginSection[]
+{
+\begin{frame}{Outline for \secname}
+\tableofcontents[
+  currentsection,
+  currentsubsection,
+  sectionstyle=show/hide,
+  subsectionstyle=show/show/hide
+]
+\end{frame}
+}
+
+\title{Assessing Covid-19 Situation in Vietnam\\Using a Data-Driven Epidemiological\\Compartmental Model}
+\author{
+    Vo Le Tung\\
+    Assessor: Assoc. Prof. Huynh Trung Hieu\\
+    Co-Assessor: Assoc. Prof. Nguyen Tuan Duc
+}
+\institute{Vietnamese - German University\\Frankfurt University of Applied Sciences}
+\date{\today}
+
+% Path to images
+\graphicspath{ {../figures} }
+
+% Path to bibliography
+\addbibresource{../references.bib}
+
+\makeatletter
+\appto\blockextras@english{%
+  \def\chapterautorefname{Chapter}
+  \def\sectionautorefname{Section}
+  \def\subsectionautorefname{Section}
+  \def\subsubsectionautorefname{Section}
+  \def\algorithmautorefname{Algorithm}
+  \def\equationautorefname{Equation}
+}
+\makeatother
+
+% Extending Tikz
+\usetikzlibrary{automata, positioning, arrows}
+
+% Glossary items
+\makeglossaries
+\newacronym{ANN}{ANN}{Artificial Neural Network}
+\newacronym{API}{API}{Application Programming Interface}
+\newacronym{ARIMA}{ARIMA}{Autoregressive Integrated Moving Average}
+\newacronym{Bi-LSTM}{Bi-LSTM}{Bidirectional Long Short Term Memory}
+\newacronym{CNN}{CNN}{Convolutional Neural Network}
+\newacronym{CSV}{CSV}{Comma Separated Values}
+\newacronym{FIPS}{FIPS}{Federation Information Processing Standards}
+\newacronym{GADM}{GADM}{Database of Global Administrative Area}
+\newacronym{GAN}{GAN}{Generative Adversarial Network}
+\newacronym{GDP}{GDP}{Gross Domestic Product}
+\newacronym{GPU}{GPU}{Graphics Processing Unit}
+\newacronym{GRU}{GRU}{Gated Recurrent Unit}
+\newacronym{GSO}{GSO}{Vietnam General Statistics Office}
+\newacronym{ICU}{ICU}{Intensive Care Unit}
+\newacronym{JHU}{JHU}{John Hopkins University}
+\newacronym{JIT}{JIT}{Just-In-Time}
+\newacronym{JSON}{JSON}{Javascript Object Notation}
+\newacronym{LSTM}{LSTM}{Long Short Term Memory}
+\newacronym{MAE}{MAE}{Mean Absolute Error}
+\newacronym{MLP}{MLP}{Multi-Layer Perceptron}
+\newacronym{MRM}{MRM}{Movement Range Map}
+\newacronym{MSE}{MSE}{Mean Squared Error}
+\newacronym{NeuralODE}{NeuralODE}{Neural Ordinary Differential Equation}
+\newacronym{NPI}{NPI}{Non-Pharmaceutical Intervention}
+\newacronym{ODE}{ODE}{Ordinary Differential Equation}
+\newacronym{PDE}{PDE}{Partial Differential Equation}
+\newacronym{PINN}{PINN}{Physics-Informed Neural Network}
+\newacronym{ReLU}{ReLU}{Rectified Linear Unit}
+\newacronym{RMSE}{RMSE}{Root Mean Squared Error}
+\newacronym{MAPE}{MAPE}{Mean Absolute Percentage Error}
+\newacronym{RNN}{RNN}{Recurrent Neural Network}
+\newacronym{SCI}{SCI}{Social Connectedness Index}
+\newacronym{SPC}{SPC}{Social Proximity to Cases}
+\newacronym{SEIR}{SEIR}{Susceptible-Exposed-Infective-Removed}
+\newacronym{SINDy}{SINDy}{Sparse Identification of Nonlinear Dynamical System}
+\newacronym{SIR}{SIR}{Susceptible-Infective-Removed}
+\newacronym{UDE}{UDE}{Universal Differential Equation}
+\newacronym{US}{US}{United States}
+\newacronym{VNCDC}{VNCDC}{Vietnam General Department of Preventative Medicine}
+\glsaddall
