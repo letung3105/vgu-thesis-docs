@@ -1,4 +1,38 @@
 \section{Discussion}
 
-\begin{frame}{Discussion}
+\begin{frame}{About the results}
+    \begin{itemize}
+        \item Could capture the disease trends with high accuracy
+        \item Accuracy get lower as we extrapolated further into the future
+        \item Bad fit and low forecast accuracy when applied to data with high fluctuation
+        \item No improvement in the forecast accuracy when mobility data was incorporated
+    \end{itemize}
+\end{frame}
+
+\subsection{Model's convergence and generalizability}
+
+\begin{frame}{Model's convergence and generalizability}
+    \begin{itemize}
+        \item The model could get stuck in bad local minima, due to
+        \begin{itemize}
+            \item \glspl{ODE} \textit{stiffness}
+            \item High frequency changes
+        \end{itemize}
+        \item The model was separately trained at each location and only capable of making forecast for the location that it was trained with
+        \item Forecast can only be made for a short period after the training period
+    \end{itemize}
+\end{frame}
+
+\subsection{Model's limitations}
+
+\begin{frame}{Model's limitations}
+    \begin{itemize}
+        \item Issues with ground truth data
+        \item Inability to capture rapid trend changes
+        \item Bad local minima
+        \item Compartmental model bias
+        \item Covariates bias
+        \item Inability to capture real dynamics of the disease
+        \item Neural network interpretability
+    \end{itemize}
 \end{frame}

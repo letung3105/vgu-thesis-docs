@@ -1,4 +1,70 @@
 \section{Results}
 
-\begin{frame}{Results}
+\subsection{Model's outputs for Vietnam and the United States}
+
+\begin{frame}[allowframebreaks]{Forecasts for country-level data}
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.2]{pred_country_level.pdf}
+        \caption{Forecasts made by all versions of the model}
+    \end{figure}
+
+    \framebreak
+
+    \begin{figure}[!htb]
+        \centering
+        \subcaptionbox{Viet nam}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_vietnam.pdf}}
+        \subcaptionbox{United States}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_unitedstates.pdf}}
+        \caption{The effective reproduction number and the fatality rate learned by different versions of the model}
+    \end{figure}
+
+\end{frame}
+
+\subsection{Model's outputs for counties in the United States}
+
+\begin{frame}[allowframebreaks]{Forecasts for counties in the US}
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.2]{pred_us_counties1.pdf}
+        \includegraphics[scale=0.2]{pred_us_counties2.pdf}
+        \caption{Forecasts made by all versions of the model}
+    \end{figure}
+
+    \framebreak
+
+    \begin{figure}[!htb]
+        \centering
+        \subcaptionbox{Harris, TX}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_harris_tx.pdf}}
+        \subcaptionbox{Los Angeles, CA}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_losangeles_ca.pdf}}
+        \subcaptionbox{Maricopa, AZ}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_maricopa_az.pdf}}
+        \subcaptionbox{Cook, IL}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_cook_il.pdf}}
+        \caption{The effective reproduction number and the fatality rate learned by different versions of the model}
+    \end{figure}
+
+\end{frame}
+
+\subsection{Model's outputs for provinces in Vietnam}
+
+\begin{frame}[allowframebreaks]{Forecasts for provinces in Vietnam}
+
+    \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.15]{pred_vn_provinces1.pdf}
+        \includegraphics[scale=0.15]{pred_vn_provinces2.pdf}
+        \caption{Forecasts made by all versions of the model}
+    \end{figure}
+
+    \framebreak
+
+    \begin{figure}[!htb]
+        \centering
+        \subcaptionbox{Dong Nai}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_dongnai.pdf}}
+        \subcaptionbox{Long An}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_longan.pdf}}
+        \subcaptionbox{Binh Duong}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_binhduong.pdf}}
+        \subcaptionbox{Ho Chi Minh city}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_hcm.pdf}}
+        \caption{The effective reproduction number and the fatality rate learned by different versions of the model}
+    \end{figure}
+
 \end{frame}

@@ -1,4 +1,23 @@
 \section{Conclusion}
 
-\begin{frame}{Conclusion}
+\begin{frame}{What has been done?}
+    \textbf{Goals:} An explainable Covid-19 model that can work with the low data availability in Vietnam
+    \begin{itemize}
+        \item Collect and process Covid-19 related data for various locations
+        \item Implement a model an explainable Covid-19 model using \gls{UDE}
+        \begin{itemize}
+            \item Progression of all compartments can be given by the model
+            \item Metric about the disease, e.g. $\mathcal{R}_0$, can be derived
+        \end{itemize}
+        \item Add mobility data to the model and show that ineffectiveness of the approach
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Future improvements}
+    \begin{itemize}
+        \item Increase the model complexity with additional compartments and parameters
+        \item Include additional time-varying covariates
+        \item Implement better methods and algorithms for training \gls{UDE}
+        \item Use methods such as \gls{SINDy} to find a governing equation and improve the model interpretability
+    \end{itemize}
 \end{frame}

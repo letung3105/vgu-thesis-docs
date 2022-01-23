@@ -31,7 +31,7 @@
                 (E) edge node[above]{$\kappa$} (I)
                 (I) edge node[above]{$\alpha$} (R);
         \end{tikzpicture}
-        \caption[SEIR model transitions]{Graph of transitions between each compartment in the SEIR model}
+        \caption{Graph of transitions between each compartment in the SEIR model}
         \label{fig:seir-model-transition-graph}
     \end{figure}
 
@@ -92,7 +92,7 @@
 
 \begin{frame}[allowframebreaks]{Data-driven models}
 
-    ARIMA models \cite{ceylanEstimationCOVID19Prevalence2020,singhPredictionCOVID19Pandemic2020,ribeiroShorttermForecastingCOVID192020}
+    \gls{ARIMA} models \cite{ceylanEstimationCOVID19Prevalence2020,singhPredictionCOVID19Pandemic2020,ribeiroShorttermForecastingCOVID192020}
     \begin{itemize}
         \item Suitable for modeling changing trends, periodic changes, and random noises
         \item Suitable for different types of data
@@ -101,12 +101,14 @@
 
     \framebreak
 
-    Deep-learning models \cite{chimmulaTimeSeriesForecasting2020,shahidPredictionsCOVID19Deep2020,ramchandaniDeepCOVIDNetInterpretableDeep2020}
+    \gls{RNN} models \cite{chimmulaTimeSeriesForecasting2020,shahidPredictionsCOVID19Deep2020}
     \begin{itemize}
         \item \gls{LSTM}
         \item \gls{Bi-LSTM}
         \item \gls{GRU}
     \end{itemize}
+
+    Explainable \gls{ANN} encoder \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}
 
     \framebreak
 
@@ -178,6 +180,45 @@
 
     \framebreak
 
+    \begin{block}{Perceptron}
+        \begin{equation*}
+            \begin{aligned}
+                a_i^k &= b_i^k + \sum_{j=1}^{r_{k-1}} w_{ij}^k z_j^{k-1} \\
+                z_i^k &= \phi (a_i^k)
+            \end{aligned}
+        \end{equation*}
+    \end{block}
+
+    \begin{block}{Multi-layer perception}
+        \begin{equation*}
+            g(X) = \phi_n(W_n \phi_{n - 1}(\cdots (W_2 \phi_1(W_1 X + b_1) + b_2) + \cdots) + b_n)
+        \end{equation*}
+    \end{block}
+
+    \begin{theorem}
+        Given appropriate weights, \glspl{ANN} can approximate any arbitrary function $f: \mathbb{R}^M \to \mathbb{R}^N$
+    \end{theorem}
+
+    \framebreak
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.25]{ann_activation_01.png}
+        \includegraphics[scale=0.25]{ann_activation_02.png}
+        \caption[Common activation functions]{A visual comparison between the outputs of Heaviside, sigmoid, tanh, ReLU, Leaky ReLU, and hard swish activation functions}
+        \label{fig:heaviside-sigmoid-tanh}
+    \end{figure}
+
+    \framebreak
+
+    \begin{block}{\gls{MSE}}
+        \begin{equation*}
+            \mathcal{L} = \frac{1}{N} \sum_{i=1}^N (g(X_i) - Y_i)^2
+        \end{equation*}
+    \end{block}
+
+    \framebreak
+
     \begin{figure}[h]
         \centering
         \begin{neuralnetwork}
@@ -195,6 +236,95 @@
         \caption[Illustration of a multi-layer perceptron]{Graph representation of the back-propagation algorithm on a multi-layer perceptron with four layers}
         \label{fig:multi-layer-perceptron-backpropagation}
     \end{figure}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Physics-informed neural networks}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.2]{pinn-schematic.png}
+        \caption[PINN schematic]{The schematic of PINNs for solving PDEs \cite{guoSolvingPartialDifferential2020}.}
+        \label{fig:pinn-schematic}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Neural ordinary differential equations}
+
+    \begin{figure}[h]
+        \centering
+        \begin{tikzpicture}[->, >=stealth, node distance = 3em, thick]
+            \tikzset{
+                block/.style  = {draw, thick, rectangle},
+                arith/.style  = {draw, thick, circle},
+                input/.style  = {coordinate},
+                output/.style = {coordinate}
+            }
+            \node[input] (IN) {};
+            \node[block, below of = IN] (W1) {weight layer};
+            \node[block, below of = W1] (W2) {weight layer};
+            \node[arith, below of = W2] (ADD) {+};
+            \node[output, below of = ADD] (OUT) {+};
+
+            \draw[->] (IN) to node[left, name = X]{$X$} (W1);
+            \draw[->] (X) to [out = 0, in = 0, looseness = 2.5] (ADD);
+            \draw[->] (W1) to node[right]{relu} (W2);
+            \draw[->] (W2) to node[xshift = -2em, left]{$f(x)$} (ADD);
+            \draw[->] (ADD) to node[xshift = -2em, left]{$f(x) + x$} node[right]{relu} (OUT);
+        \end{tikzpicture}
+        \caption[ResNet skip connection]{Example of a skip connection in residual network}
+        \label{fig:residual-network-skip-connection}
+    \end{figure}
+
+    \framebreak
+
+    \begin{block}{Sequence of modifications to a hidden state}
+        \begin{equation*}
+            h_{t+1} = h_t + f(h_t, \theta_t)
+        \end{equation*}
+        \begin{equation*}
+            \frac{dh(t)}{dt} = f(h(t), t, \theta).
+        \end{equation*}
+    \end{block}
+
+    \begin{block}{NeuralODE output and loss}
+        \begin{equation*}
+            \begin{aligned}
+                L(z(t_1))
+                &= L\left(z(t_0) + \int_{t_0}^{t_1}{f(z(t), t, \theta)dt}\right)\\
+                &= L(ODESolve(z(t_0), f, t_0, t_1, \theta)).
+            \end{aligned}
+        \end{equation*}
+    \end{block}
+
+    \framebreak
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.1]{neuralode_resnet.png}
+        \includegraphics[scale=0.1]{neuralode_odenet.png}
+        \caption[Comparison between NeuralODE output and normal ANN output]{\textit{Left}: A residual network defines discrete sequence of transformations. \textit{Right}: A ODE network defines a vector field, which continuously transform the state. \textit{Both}: Circles represent evaluation locations. \cite{chenNeuralOrdinaryDifferential2019})}
+        \label{fig:resnet-vs-odenet}
+    \end{figure}
+
+    \framebreak
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.3]{neuralode-adjoint.png}
+        \caption[Illustration of NeuralODE reverse-mode automatic differentiation]{Reverse-mode differentiation of an ODE solution. \cite{chenNeuralOrdinaryDifferential2019}}
+        \label{fig:neuralode-adjoint}
+    \end{figure}
+
+    \framebreak
+
+    \begin{itemize}
+        \item Memory efficiency
+        \item Adaptive computation
+        \item Scalable and invertible normalizing flows
+        \item Continuous time series models
+    \end{itemize}
 
 \end{frame}
 
