@@ -26,7 +26,7 @@
                 (E) edge node[above]{$\kappa$} (I)
                 (I) edge node[above]{$\alpha$} (R);
         \end{tikzpicture}
-        \caption{States graph for the SEIR model}
+        \caption{States graph for the \gls{SEIR} model}
         \label{fig:seir-model-transition-graph}
     \end{figure}
 \end{frame}
@@ -74,13 +74,13 @@
 
 \begin{frame}{Data-driven models}
     \begin{itemize}
-        \item<1-> \gls{ARIMA} models \cite{ceylanEstimationCOVID19Prevalence2020,singhPredictionCOVID19Pandemic2020,ribeiroShorttermForecastingCOVID192020}
-        \item<2-> Explainable \gls{ANN} encoder \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}
-        \item<3-> \glspl{RNN} \cite{chimmulaTimeSeriesForecasting2020,shahidPredictionsCOVID19Deep2020}
+        \item<1-> \glsfirst{ARIMA} models \cite{ceylanEstimationCOVID19Prevalence2020,singhPredictionCOVID19Pandemic2020,ribeiroShorttermForecastingCOVID192020}
+        \item<2-> Explainable \glsfirst{ANN} encoder \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}
+        \item<3-> \glsfirst{RNN} \cite{chimmulaTimeSeriesForecasting2020,shahidPredictionsCOVID19Deep2020}
         \begin{itemize}
-            \item \glspl{LSTM}
-            \item \glspl{Bi-LSTM}
-            \item \glspl{GRU}
+            \item \glsfirst{LSTM}
+            \item \glsfirst{Bi-LSTM}
+            \item \glsfirst{GRU}
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -106,12 +106,12 @@
     \begin{figure}[!htb]
         \centering
         \includegraphics[scale=0.2]{nature-chang-mobility-covid19.png}
-        \caption{SEIR model informed with mobility data \cite{changMobilityNetworkModels2021}}
+        \caption{\gls{SEIR} model informed with mobility data \cite{changMobilityNetworkModels2021}}
         \label{fig:nature-chang-mobility-covid19}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Novel compartmental models: Using ANNs}
+\begin{frame}{Novel compartmental models: Using neural networks}
     \begin{figure}[!htb]
         \centering
         \subcaptionbox{QSIR \cite{dandekarMachineLearningAidedGlobal2020a}}{
@@ -142,17 +142,17 @@
             \outputlayer[count=2, bias=false, title={}, text=\nodey]
             \linklayers[title=$W_3$]
         \end{neuralnetwork}
-        \caption{A multi-layer perceptron with four layers}
+        \caption{A \gls{MLP} with four layers}
         \label{fig:multi-layer-perceptron}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Multi-layer perceptron: Mathematical representation}
-    \begin{block}<1->{Multi-layer perception}
+    \begin{definition}<1->
         \begin{equation*}
             g(X) = \phi_n(W_n \phi_{n - 1}(\cdots (W_2 \phi_1(W_1 X + b_1) + b_2) + \cdots) + b_n)
         \end{equation*}
-    \end{block}
+    \end{definition}
 
     \begin{theorem}<2->
         Given appropriate weights, \glspl{ANN} can approximate any arbitrary function $f: \mathbb{R}^M \to \mathbb{R}^N$ \cite{cybenkotApproximationSuperpositionsSigmoidal, hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}
@@ -189,8 +189,8 @@
 \begin{frame}{Physics-informed neural networks}
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.3]{pinn-schematic.png}
-        \caption{The schematic of PINNs for solving PDEs \cite{guoSolvingPartialDifferential2020}.}
+        \includegraphics[scale=0.25]{pinn-schematic.png}
+        \caption{The schematic of \glspl{PINN} for solving \glspl{PDE} \cite{guoSolvingPartialDifferential2020}.}
         \label{fig:pinn-schematic}
     \end{figure}
 \end{frame}
@@ -224,12 +224,12 @@
             \end{figure}
         \end{column}
         \begin{column}{0.5\linewidth}
-            \begin{block}<1->{Euler method}
+            \begin{block}<2->{Observation}
                 \begin{equation*}
-                    h_{t+1} = h_t + f(h_t, \theta_t)
-                \end{equation*}
-                \begin{equation*}
-                    \frac{dh(t)}{dt} = f(h(t), t, \theta).
+                    \begin{aligned}
+                        h_{t+1} &= h_t + f(h_t, \theta_t)\\
+                        \Leftrightarrow \frac{dh(t)}{dt} &= f(h(t), t, \theta)
+                    \end{aligned}
                 \end{equation*}
             \end{block}
         \end{column}
@@ -238,17 +238,17 @@
 
 \begin{frame}{Neural ordinary differential equations: Formulation}
 
-    \begin{block}<1->{NeuralODE output and loss}
+    \begin{block}<1->{\glsfirst{NeuralODE} output}
         \begin{equation*}
-            L(z(t_1)) = L\left(z(t_0) + \int_{t_0}^{t_1}{f(z(t), t, \theta)dt}\right)
+            z(t_1) = z(t_0) + \int_{t_0}^{t_1}{f(z(t), t, \theta)dt}
         \end{equation*}
     \end{block}
 
     \begin{itemize}
         \item<2-> Memory efficiency
-        \item<2-> Adaptive computation
-        \item<2-> Scalable and invertible normalizing flows
-        \item<2-> Continuous time series models
+        \item<3-> Adaptive computation
+        \item<4-> Scalable and invertible normalizing flows
+        \item<5-> Continuous time series models
     \end{itemize}
 \end{frame}
 
@@ -261,7 +261,7 @@
         \subcaptionbox{NeuralODE}{
             \includegraphics[scale=0.1]{neuralode_odenet.png}
         }
-        \caption{Comparison between ResNet's discrete state transformations and NeuralODE continuous state transformations}
+        \caption{Comparison between ResNet's discrete state transformations and \gls{NeuralODE} continuous state transformations}
         \label{fig:resnet-vs-odenet}
     \end{figure}
 \end{frame}
@@ -269,8 +269,8 @@
 \begin{frame}{Neural ordinary differential equations: Gradients}
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.4]{neuralode-adjoint.png}
-        \caption{Reverse-mode differentiation of an ODE solution. \cite{chenNeuralOrdinaryDifferential2019}}
+        \includegraphics[scale=0.35]{neuralode-adjoint.png}
+        \caption{Reverse-mode differentiation of an \gls{ODE} solution. \cite{chenNeuralOrdinaryDifferential2019}}
         \label{fig:neuralode-adjoint}
     \end{figure}
 \end{frame}

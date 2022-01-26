@@ -2,10 +2,10 @@
 
 \begin{frame}{About the results}
     \begin{itemize}
-        \item Could capture the disease trends with high accuracy
-        \item Accuracy get lower as we extrapolated further into the future
-        \item Bad fit and low forecast accuracy when applied to data with high fluctuation
-        \item No improvement in the forecast accuracy when mobility data was incorporated
+        \item<1-> Could capture the disease trends with high accuracy
+        \item<2-> Accuracy get lower as we extrapolated further into the future
+        \item<3-> Bad fit and low forecast accuracy when applied to data with high fluctuation
+        \item<4-> No improvement in the forecast accuracy when mobility data was incorporated
     \end{itemize}
 \end{frame}
 
@@ -13,13 +13,13 @@
 
 \begin{frame}{Model's convergence and generalizability}
     \begin{itemize}
-        \item The model could get stuck in bad local minima, due to
+        \item<1-> The model could get stuck in bad local minima, due to
         \begin{itemize}
             \item \glspl{ODE} \textit{stiffness}
             \item High frequency changes
         \end{itemize}
-        \item The model was separately trained at each location and only capable of making forecast for the location that it was trained with
-        \item Forecast can only be made for a short period after the training period
+        \item<2-> The model was separately trained at each location and only capable of making forecast for the location that it was trained with
+        \item<3-> Forecast can only be made for a short period after the training period
     \end{itemize}
 \end{frame}
 
@@ -27,12 +27,12 @@
 
 \begin{frame}{Model's limitations}
     \begin{itemize}
-        \item Issues with ground truth data
-        \item Inability to capture rapid trend changes
-        \item Bad local minima
-        \item Compartmental model bias
-        \item Covariates bias
-        \item Inability to capture real dynamics of the disease
-        \item Neural network interpretability
+        \item<1-> Issues with ground truth data
+        \item<2-> Inability to capture rapid trend changes
+        \item<3-> Bad local minima
+        \item<4-> Compartmental model bias
+        \item<5-> Covariates bias
+        \item<6-> Inability to capture real dynamics of the disease
+        \item<7-> Neural network interpretability
     \end{itemize}
 \end{frame}
