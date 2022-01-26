@@ -2,11 +2,8 @@
 
 \subsection{Related works}
 
-\begin{frame}[allowframebreaks]{Mathematical models}
-
-    Compartmental models \cite{brauerCompartmentalModelsEpidemiology2008}
-
-    \begin{block}{\gls{SEIR} model}
+\begin{frame}{Mathematical models: Compartmental}
+    \begin{block}{\gls{SEIR} model \cite{brauerCompartmentalModelsEpidemiology2008}}
         \begin{equation*}
             \begin{aligned}
                 S' &= - \beta(N)SI \\
@@ -17,8 +14,6 @@
             \end{aligned}
         \end{equation*}
     \end{block}
-
-    \framebreak
 
     \begin{figure}
         \centering
@@ -31,48 +26,36 @@
                 (E) edge node[above]{$\kappa$} (I)
                 (I) edge node[above]{$\alpha$} (R);
         \end{tikzpicture}
-        \caption{Graph of transitions between each compartment in the SEIR model}
+        \caption{States graph for the SEIR model}
         \label{fig:seir-model-transition-graph}
     \end{figure}
+\end{frame}
 
-    \framebreak
-
-    Changes made to classical compartmental model for Covid-19 \cite{zhaoModelingEpidemicDynamics2020,heSEIRModelingCOVID192020,ndairouMathematicalModelingCOVID192020,bastosModelingForecastingEarly2020,sarkarModelingForecastingCOVID192020}:
-    \begin{itemize}
-        \item Inclusion of compartments that represent government interventions
-        \item Inclusion of compartments that specifically represent the behavior of SARS-NCOV-2
-        \item Separation of the infectious compartment into multiple compartments representing the severity of the patients
-    \end{itemize}
-
-    \framebreak
-
-    Agent-based models \cite{kerrCovasimAgentbasedModel2021,silvaCOVIDABSAgentbasedModel2020,hoertelStochasticAgentbasedModel2020}
-    \begin{itemize}
-        \item Model of individualistic behaviors
-        \item Based on population size, age structure, transmission networks
-    \end{itemize}
-
-    \framebreak
-
+\begin{frame}{Mathematical models: Agent-based}
     \begin{figure}[!htb]
         \centering
-        \includegraphics[scale=0.6]{covasim-compartments.jpg}
-        \caption[Agent states used in Covasim]{Agent states used in Covasim \cite{kerrCovasimAgentbasedModel2021}}
-        \label{fig:covasim-compartments}
+        \subcaptionbox{Transmission networks}{
+            \includegraphics[scale=0.7]{covasim-networks.jpg}
+        }
+        \subcaptionbox{States graph}{
+            \includegraphics[scale=0.5]{covasim-compartments.jpg}
+        }
+        \caption{Covasim model \cite{kerrCovasimAgentbasedModel2021}}
+        \label{fig:covasim-schematics}
     \end{figure}
+\end{frame}
 
-    \framebreak
+% \begin{frame}{Mathematical models: Covid-19}
+%     Changes made to classical compartmental model for infectious disease \cite{zhaoModelingEpidemicDynamics2020,heSEIRModelingCOVID192020,ndairouMathematicalModelingCOVID192020,bastosModelingForecastingEarly2020,sarkarModelingForecastingCOVID192020}:
+%     \begin{itemize}
+%         \item<2-> Inclusion of compartments that represent government interventions
+%         \item<3-> Inclusion of compartments that specifically represent the behavior of SARS-NCOV-2
+%         \item<4-> Separation of the infectious compartment into multiple compartments representing the severity of the patients
+%     \end{itemize}
+% \end{frame}
 
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[scale=0.8]{covasim-networks.jpg}
-        \caption[Transmission networks used in Covasim]{Transmission networks used in Covasim \cite{kerrCovasimAgentbasedModel2021}}
-        \label{fig:covasim-networks}
-    \end{figure}
-
-    \framebreak
-
-    \begin{exampleblock}{Pros}
+\begin{frame}{Mathematical models: Pros \& cons}
+    \begin{exampleblock}<1->{Pros}
     \begin{itemize}
         \item Explainable
         \item Based on many years of research
@@ -80,270 +63,214 @@
     \end{itemize}
     \end{exampleblock}
 
-    \begin{alertblock}{Cons}
+    \begin{alertblock}<2->{Cons}
     \begin{itemize}
         \item Low representational capabilities
         \item The represented dynamics are stationary
         \item Unrealistic assumptions about real-world scenarios
     \end{itemize}
     \end{alertblock}
-
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Data-driven models}
-
-    \gls{ARIMA} models \cite{ceylanEstimationCOVID19Prevalence2020,singhPredictionCOVID19Pandemic2020,ribeiroShorttermForecastingCOVID192020}
+\begin{frame}{Data-driven models}
     \begin{itemize}
-        \item Suitable for modeling changing trends, periodic changes, and random noises
-        \item Suitable for different types of data
-        \item Can capture temporal dependency of time series
+        \item<1-> \gls{ARIMA} models \cite{ceylanEstimationCOVID19Prevalence2020,singhPredictionCOVID19Pandemic2020,ribeiroShorttermForecastingCOVID192020}
+        \item<2-> Explainable \gls{ANN} encoder \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}
+        \item<3-> \glspl{RNN} \cite{chimmulaTimeSeriesForecasting2020,shahidPredictionsCOVID19Deep2020}
+        \begin{itemize}
+            \item \glspl{LSTM}
+            \item \glspl{Bi-LSTM}
+            \item \glspl{GRU}
+        \end{itemize}
     \end{itemize}
+\end{frame}
 
-    \framebreak
-
-    \gls{RNN} models \cite{chimmulaTimeSeriesForecasting2020,shahidPredictionsCOVID19Deep2020}
-    \begin{itemize}
-        \item \gls{LSTM}
-        \item \gls{Bi-LSTM}
-        \item \gls{GRU}
-    \end{itemize}
-
-    Explainable \gls{ANN} encoder \cite{ramchandaniDeepCOVIDNetInterpretableDeep2020}
-
-    \framebreak
-
-    \begin{exampleblock}{Pros}
+\begin{frame}{Data-driven models: Pros \& cons}
+    \begin{exampleblock}<1->{Pros}
     \begin{itemize}
         \item High prediction accuracy
         \item Allow for modeling without needing domain knowledge
     \end{itemize}
     \end{exampleblock}
 
-    \begin{alertblock}{Cons}
+    \begin{alertblock}<2->{Cons}
     \begin{itemize}
         \item Unexplainable
         \item Relied on large amount of data
         \item Inability to capture the true disease dynamics
     \end{itemize}
     \end{alertblock}
-
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Novel compartmental models}
-
-    Mitigate the disadvantages of compartmental models by incorporating covariates
-    \begin{itemize}
-        \item using predefined functions based on domain knowledge
-        \item using neural networks
-    \end{itemize}
-
-    \framebreak
-
+\begin{frame}{Novel compartmental models: Using mobility data}
     \begin{figure}[!htb]
         \centering
         \includegraphics[scale=0.2]{nature-chang-mobility-covid19.png}
-        \caption[SEIR model weighted using complex mappings of point-to-point mobility data]{SEIR model weighted using complex mappings of point-to-point mobility data \cite{changMobilityNetworkModels2021}}
+        \caption{SEIR model informed with mobility data \cite{changMobilityNetworkModels2021}}
         \label{fig:nature-chang-mobility-covid19}
     \end{figure}
-
-    \begin{figure}[!htb]
-        \centering
-        \includegraphics[width=0.4\linewidth]{mit-dandekar-qsir.jpg}
-        \includegraphics[width=0.4\linewidth]{jung-sir-pinn.png}
-        \caption[Using neural networks to predicts the parameters for compartmental models]{Using neural networks to predicts the parameters for compartmental models. On the left is the schematic for the QSIR model \cite{dandekarMachineLearningAidedGlobal2020a}, on the right is the schematic for the time-dependent SIR model \cite{jungRealWorldImplicationsRapidly2020}.}
-        \label{fig:compartmentals-models-with-neural-networks}
-    \end{figure}
-
 \end{frame}
 
-\subsection{Artificial Neural Network}
+\begin{frame}{Novel compartmental models: Using ANNs}
+    \begin{figure}[!htb]
+        \centering
+        \subcaptionbox{QSIR \cite{dandekarMachineLearningAidedGlobal2020a}}{
+            \includegraphics[width=0.4\linewidth]{mit-dandekar-qsir.jpg}
+        }
+        \subcaptionbox{Time-dependent SIR \cite{jungRealWorldImplicationsRapidly2020}}{
+            \includegraphics[width=0.4\linewidth]{jung-sir-pinn.png}
+        }
+        \caption{Predict the parameters of compartmental models with \glspl{ANN}}
+        \label{fig:compartmentals-models-with-neural-networks}
+    \end{figure}
+\end{frame}
 
-\begin{frame}[allowframebreaks]{Multi-layer perceptron}
+\subsection{Artificial neural networks}
 
+\begin{frame}[fragile]{Multi-layer perceptron: Graph representation}
     \begin{figure}[h]
         \centering
         \begin{neuralnetwork}
             \newcommand{\nodex}[2]{$x_#2$}
             \newcommand{\nodey}[2]{$y_#2$}
 
-            \inputlayer[count=3, bias=false, title={Input\\layer}, text=\nodex]
-            \hiddenlayer[count=4, bias=false, title={Hidden\\layer}]
+            \inputlayer[count=3, bias=false, title={}, text=\nodex]
+            \hiddenlayer[count=4, bias=false, title={}]
             \linklayers[title=$W_1$]
-            \hiddenlayer[count=4, bias=false, title={Hidden\\layer}]
+            \hiddenlayer[count=4, bias=false, title={}]
             \linklayers[title=$W_2$]
-            \outputlayer[count=2, bias=false, title={Output\\layer}, text=\nodey]
+            \outputlayer[count=2, bias=false, title={}, text=\nodey]
             \linklayers[title=$W_3$]
         \end{neuralnetwork}
-        \caption[Illustration of a multi-layer perceptron]{Graph representation of a multi-layer perceptron with four layers}
+        \caption{A multi-layer perceptron with four layers}
         \label{fig:multi-layer-perceptron}
     \end{figure}
+\end{frame}
 
-    \framebreak
-
-    \begin{block}{Perceptron}
-        \begin{equation*}
-            \begin{aligned}
-                a_i^k &= b_i^k + \sum_{j=1}^{r_{k-1}} w_{ij}^k z_j^{k-1} \\
-                z_i^k &= \phi (a_i^k)
-            \end{aligned}
-        \end{equation*}
-    \end{block}
-
-    \begin{block}{Multi-layer perception}
+\begin{frame}{Multi-layer perceptron: Mathematical representation}
+    \begin{block}<1->{Multi-layer perception}
         \begin{equation*}
             g(X) = \phi_n(W_n \phi_{n - 1}(\cdots (W_2 \phi_1(W_1 X + b_1) + b_2) + \cdots) + b_n)
         \end{equation*}
     \end{block}
 
-    \begin{theorem}
-        Given appropriate weights, \glspl{ANN} can approximate any arbitrary function $f: \mathbb{R}^M \to \mathbb{R}^N$
+    \begin{theorem}<2->
+        Given appropriate weights, \glspl{ANN} can approximate any arbitrary function $f: \mathbb{R}^M \to \mathbb{R}^N$ \cite{cybenkotApproximationSuperpositionsSigmoidal, hornikApproximationCapabilitiesMultilayer1991, hornikMultilayerFeedforwardNetworks1989}
     \end{theorem}
+\end{frame}
 
-    \framebreak
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[scale=0.25]{ann_activation_01.png}
-        \includegraphics[scale=0.25]{ann_activation_02.png}
-        \caption[Common activation functions]{A visual comparison between the outputs of Heaviside, sigmoid, tanh, ReLU, Leaky ReLU, and hard swish activation functions}
-        \label{fig:heaviside-sigmoid-tanh}
-    \end{figure}
-
-    \framebreak
-
+\begin{frame}[fragile]{Training neural networks: Back-propagation}
     \begin{block}{\gls{MSE}}
         \begin{equation*}
             \mathcal{L} = \frac{1}{N} \sum_{i=1}^N (g(X_i) - Y_i)^2
         \end{equation*}
     \end{block}
-
-    \framebreak
-
     \begin{figure}[h]
         \centering
-        \begin{neuralnetwork}
-            \newcommand{\nodex}[2]{$x_#2$}
-            \newcommand{\nodey}[2]{$y_#2$}
+        \scalebox{0.6}{
+            \begin{neuralnetwork}
+                \newcommand{\nodex}[2]{$x_#2$}
+                \newcommand{\nodey}[2]{$y_#2$}
 
-            \inputlayer[count=3, bias=false, title={Input\\layer}, text=\nodex]
-            \hiddenlayer[count=4, bias=false, title={Hidden\\layer}]
-            \linklayers[title=$\frac{\delta a^1}{\delta W^1}$,style={<-,draw=red}]
-            \hiddenlayer[count=4, bias=false, title={Hidden\\layer}]
-            \linklayers[title=$\frac{\delta a^2}{\delta W^2}$,style={<-,draw=red}]
-            \outputlayer[count=2, bias=false, title={Output\\layer}, text=\nodey]
-            \linklayers[title=$\frac{\delta a^3}{\delta W^3}$,style={<-,draw=red}]
-        \end{neuralnetwork}
-        \caption[Illustration of a multi-layer perceptron]{Graph representation of the back-propagation algorithm on a multi-layer perceptron with four layers}
+                \inputlayer[count=3, bias=false, title={Input\\layer}, text=\nodex]
+                \hiddenlayer[count=4, bias=false, title={Hidden\\layer}]
+                \linklayers[title=$\frac{\delta \mathcal{L}}{\delta a^1}\frac{\delta a^1}{\delta z^1}$,style={<-,draw=red}]
+                \hiddenlayer[count=4, bias=false, title={Hidden\\layer}]
+                \linklayers[title=$\frac{\delta \mathcal{L}}{\delta a^2}\frac{\delta a^2}{\delta z^2}$,style={<-,draw=red}]
+                \outputlayer[count=2, bias=false, title={Output\\layer}, text=\nodey]
+                \linklayers[title=$\frac{\delta \mathcal{L}}{\delta a^3}\frac{\delta a^3}{\delta z^3}$,style={<-,draw=red}]
+            \end{neuralnetwork}
+        }
+        \caption{Graph representation of the back-propagation algorithm}
         \label{fig:multi-layer-perceptron-backpropagation}
     \end{figure}
-
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Physics-informed neural networks}
-
+\begin{frame}{Physics-informed neural networks}
     \begin{figure}[h]
         \centering
-        \includegraphics[scale=0.2]{pinn-schematic.png}
-        \caption[PINN schematic]{The schematic of PINNs for solving PDEs \cite{guoSolvingPartialDifferential2020}.}
+        \includegraphics[scale=0.3]{pinn-schematic.png}
+        \caption{The schematic of PINNs for solving PDEs \cite{guoSolvingPartialDifferential2020}.}
         \label{fig:pinn-schematic}
     \end{figure}
-
 \end{frame}
 
-\begin{frame}[allowframebreaks]{Neural ordinary differential equations}
+\begin{frame}[fragile]{Neural ordinary differential equations: Idea}
+    \begin{columns}
+        \begin{column}{0.5\linewidth}
+            \begin{figure}[h]
+                \centering
+                \begin{tikzpicture}[->, >=stealth, node distance = 3em, thick]
+                    \tikzset{
+                        block/.style  = {draw, thick, rectangle},
+                        arith/.style  = {draw, thick, circle},
+                        input/.style  = {coordinate},
+                        output/.style = {coordinate}
+                    }
+                    \node[input] (IN) {};
+                    \node[block, below of = IN] (W1) {weight layer};
+                    \node[block, below of = W1] (W2) {weight layer};
+                    \node[arith, below of = W2] (ADD) {+};
+                    \node[output, below of = ADD] (OUT) {+};
 
-    \begin{figure}[h]
-        \centering
-        \begin{tikzpicture}[->, >=stealth, node distance = 3em, thick]
-            \tikzset{
-                block/.style  = {draw, thick, rectangle},
-                arith/.style  = {draw, thick, circle},
-                input/.style  = {coordinate},
-                output/.style = {coordinate}
-            }
-            \node[input] (IN) {};
-            \node[block, below of = IN] (W1) {weight layer};
-            \node[block, below of = W1] (W2) {weight layer};
-            \node[arith, below of = W2] (ADD) {+};
-            \node[output, below of = ADD] (OUT) {+};
+                    \draw[->] (IN) to node[left, name = X]{$X$} (W1);
+                    \draw[->] (X) to [out = 0, in = 0, looseness = 2.5] (ADD);
+                    \draw[->] (W1) to node[right]{relu} (W2);
+                    \draw[->] (W2) to node[xshift = -2em, left]{$f(x)$} (ADD);
+                    \draw[->] (ADD) to node[xshift = -2em, left]{$f(x) + x$} node[right]{relu} (OUT);
+                \end{tikzpicture}
+                \caption{Skip connection}
+                \label{fig:residual-network-skip-connection}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.5\linewidth}
+            \begin{block}<1->{Euler method}
+                \begin{equation*}
+                    h_{t+1} = h_t + f(h_t, \theta_t)
+                \end{equation*}
+                \begin{equation*}
+                    \frac{dh(t)}{dt} = f(h(t), t, \theta).
+                \end{equation*}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
 
-            \draw[->] (IN) to node[left, name = X]{$X$} (W1);
-            \draw[->] (X) to [out = 0, in = 0, looseness = 2.5] (ADD);
-            \draw[->] (W1) to node[right]{relu} (W2);
-            \draw[->] (W2) to node[xshift = -2em, left]{$f(x)$} (ADD);
-            \draw[->] (ADD) to node[xshift = -2em, left]{$f(x) + x$} node[right]{relu} (OUT);
-        \end{tikzpicture}
-        \caption[ResNet skip connection]{Example of a skip connection in residual network}
-        \label{fig:residual-network-skip-connection}
-    \end{figure}
+\begin{frame}{Neural ordinary differential equations: Formulation}
 
-    \framebreak
-
-    \begin{block}{Sequence of modifications to a hidden state}
+    \begin{block}<1->{NeuralODE output and loss}
         \begin{equation*}
-            h_{t+1} = h_t + f(h_t, \theta_t)
-        \end{equation*}
-        \begin{equation*}
-            \frac{dh(t)}{dt} = f(h(t), t, \theta).
+            L(z(t_1)) = L\left(z(t_0) + \int_{t_0}^{t_1}{f(z(t), t, \theta)dt}\right)
         \end{equation*}
     \end{block}
-
-    \begin{block}{NeuralODE output and loss}
-        \begin{equation*}
-            \begin{aligned}
-                L(z(t_1))
-                &= L\left(z(t_0) + \int_{t_0}^{t_1}{f(z(t), t, \theta)dt}\right)\\
-                &= L(ODESolve(z(t_0), f, t_0, t_1, \theta)).
-            \end{aligned}
-        \end{equation*}
-    \end{block}
-
-    \framebreak
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[scale=0.1]{neuralode_resnet.png}
-        \includegraphics[scale=0.1]{neuralode_odenet.png}
-        \caption[Comparison between NeuralODE output and normal ANN output]{\textit{Left}: A residual network defines discrete sequence of transformations. \textit{Right}: A ODE network defines a vector field, which continuously transform the state. \textit{Both}: Circles represent evaluation locations. \cite{chenNeuralOrdinaryDifferential2019})}
-        \label{fig:resnet-vs-odenet}
-    \end{figure}
-
-    \framebreak
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[scale=0.3]{neuralode-adjoint.png}
-        \caption[Illustration of NeuralODE reverse-mode automatic differentiation]{Reverse-mode differentiation of an ODE solution. \cite{chenNeuralOrdinaryDifferential2019}}
-        \label{fig:neuralode-adjoint}
-    \end{figure}
-
-    \framebreak
 
     \begin{itemize}
-        \item Memory efficiency
-        \item Adaptive computation
-        \item Scalable and invertible normalizing flows
-        \item Continuous time series models
+        \item<2-> Memory efficiency
+        \item<2-> Adaptive computation
+        \item<2-> Scalable and invertible normalizing flows
+        \item<2-> Continuous time series models
     \end{itemize}
-
 \end{frame}
 
-% \subsection{Data-driven models}
-% \begin{frame}{Data-driven models}
-% \begin{itemize}
-%     \item Statistical models
-%     \item Deep-learning models
-% \end{itemize}
-% \end{frame}
+\begin{frame}{Neural ordinary differential equations: Outputs}
+    \begin{figure}[h]
+        \centering
+        \subcaptionbox{ResNet}{
+            \includegraphics[scale=0.1]{neuralode_resnet.png}
+        }
+        \subcaptionbox{NeuralODE}{
+            \includegraphics[scale=0.1]{neuralode_odenet.png}
+        }
+        \caption{Comparison between ResNet's discrete state transformations and NeuralODE continuous state transformations}
+        \label{fig:resnet-vs-odenet}
+    \end{figure}
+\end{frame}
 
-% \subsection{Data-driven compartmental models}
-
-% \begin{frame}{Data-driven compartmental models}
-% \begin{itemize}
-%     \item Informed with covariates
-
-%     \item Informed with neural networks
-% \end{itemize}
-% \end{frame}
-
-% \subsection{Scientific machine learning}
+\begin{frame}{Neural ordinary differential equations: Gradients}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.4]{neuralode-adjoint.png}
+        \caption{Reverse-mode differentiation of an ODE solution. \cite{chenNeuralOrdinaryDifferential2019}}
+        \label{fig:neuralode-adjoint}
+    \end{figure}
+\end{frame}
