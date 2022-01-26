@@ -3,12 +3,17 @@
 \subsection{Model definition}
 
 \begin{frame}{Universal differential equation}
-    \gls{UDE} \cite{rackauckasUniversalDifferentialEquations2020} is a neural network architecture based on \gls{NeuralODE}
-    \begin{definition}
+    \gls{UDE} \cite{rackauckasUniversalDifferentialEquations2020} is a neural network architecture based on \gls{NeuralODE} \cite{chenNeuralOrdinaryDifferential2019}
+    \begin{block}<2->{Generalized \gls{NeuralODE}}
+        \begin{equation*}
+            u' = U_\theta(u, t)
+        \end{equation*}
+    \end{block}
+    \begin{block}<3->{Generalized \gls{UDE}}
         \begin{equation*}
             u' = f(u, t, U_\theta(u, t))
         \end{equation*}
-    \end{definition}
+    \end{block}
 \end{frame}
 
 \begin{frame}{System of \glspl{ODE}}
@@ -188,6 +193,28 @@
     \end{figure}
 \end{frame}
 
+\subsection{Evaluation metrics}
+
+\begin{frame}{Error functions}
+    \begin{block}{Mean absolute error}
+        \begin{equation*}
+            MAE = \frac{1}{n} \sum_{i=1}^n \left| \hat{y}_i - y_i \right|
+        \end{equation*}
+    \end{block}
+
+    \begin{block}{Mean absolute percentage error}
+        \begin{equation*}
+            MAPE = \frac{100}{n} \sum_{i=1}^n \left| \frac{\hat{y}_i - y_i}{y_i} \right|
+        \end{equation*}
+    \end{block}
+
+    \begin{block}{Root mean squared error}
+        \begin{equation*}
+            RMSE = \sqrt{\frac{1}{n} \sum_{i=1}{n} (\hat{y}_i - y_i)^2}
+        \end{equation*}
+    \end{block}
+\end{frame}
+
 \subsection{Experiments}
 
 \begin{frame}{Data preprocessing}
@@ -203,33 +230,10 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Differential equation solver configurations}
+\begin{frame}{Differential equation solver}
     \begin{itemize}
         \item Tsit5 solver (Tsitouras Runge-Kutta 5/4 method \cite{tsitourasRungeKuttaPairs2011})
         \item InterpolatingAdjoint technique for approximating gradients in \gls{NeuralODE} \cite{daulbaevInterpolationTechniqueSpeed2020}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Optimizer configurations}
-    \begin{itemize}
-        \item<1-> Initial time span of 4 days
-        \item<1-> Time span increment of 4 days
-        \item<2-> Time weighting parameter $\zeta = -0.001$
-        \item<3-> ADAM optimizer
-        \begin{itemize}
-            \item Learning rate 0.05
-            \begin{itemize}
-                \item decay rate 0.5
-                \item decay step 1000
-                \item decay limit 0.00001
-            \end{itemize}
-            \item 1000 iterations on each time span
-        \end{itemize}
-        \item<4-> BFGS optimizer
-        \begin{itemize}
-            \item \textit{Initial stepnorm} 0.01
-            \item 1000 iterations on the full time span
-        \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -288,64 +292,3 @@
         \label{tab:ude-model-initial-parameters}
     \end{table}
 \end{frame}
-
-% \subsection{Evaluation metrics}
-% \begin{frame}{Error functions}
-%     \begin{block}{Mean absolute error}
-%         \begin{equation*}
-%             MAE = \frac{1}{n} \sum_{i=1}^n \left| \hat{y}_i - y_i \right|
-%         \end{equation*}
-%     \end{block}
-
-%     \begin{block}{Mean absolute percentage error}
-%         \begin{equation*}
-%             MAPE = \frac{100}{n} \sum_{i=1}^n \left| \frac{\hat{y}_i - y_i}{y_i} \right|
-%         \end{equation*}
-%     \end{block}
-
-%     \begin{block}{Root mean squared error}
-%         \begin{equation*}
-%             RMSE = \sqrt{\frac{1}{n} \sum_{i=1}{n} (\hat{y}_i - y_i)^2}
-%         \end{equation*}
-%     \end{block}
-% \end{frame}
-% \subsection{Software and hardware}
-
-% \begin{frame}{Software and hardware}
-%     Julia programming language
-%     \begin{itemize}
-%         \item \textit{DifferentialEquations} package
-%         \item \textit{DiffEqFlux} package
-%     \end{itemize}
-
-%     Linux systems
-%     \begin{itemize}
-%         \item Google Cloud Compute \textit{n2-standard-8} instance
-%         \item Personal laptop with 2-core \textit{Intel(R) Core(TM) i5-4260U} CPU 1.40GHz, and 4Gb of memory.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}[fragile]{Julia example}
-% \begin{figure}[!htb]
-% \centering
-% \begin{jllisting}
-% function SEIRD!(du, u, p, t)
-%     @inbounds begin
-%         S, E, I, _, _, N, C, _ = u
-%         β, γ, λ, α = p
-%         du[1] = -β * S * I / N
-%         du[2] = β * S * I / N - γ * E
-%         du[3] = γ * E - λ * I
-%         du[4] = (1 - α) * λ * I
-%         du[5] = α * λ * I
-%         du[6] = -α * λ * I
-%         du[7] = -C + γ * E
-%         du[8] = γ * E
-%     end
-%     return nothing
-% end
-% \end{jllisting}
-% \caption{Implementation of the system of ODEs in Julia}
-% \label{fig:diffeq-seird-inplace}
-% \end{figure}
-% \end{frame}

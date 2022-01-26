@@ -2,6 +2,14 @@
 
 \subsection{Model's outputs for Vietnam and the United States}
 
+\begin{frame}{MAPE: Country-level data}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.6\linewidth]{errors_country.pdf}
+        \caption{MAPE for 28-day forecast horizon}
+    \end{figure}
+\end{frame}
+
 \begin{frame}{Forecasts: Country-level data}
     \begin{figure}[!htb]
         \centering
@@ -19,15 +27,15 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{MAPE: Country-level data}
+\subsection{Model's outputs for counties in the United States}
+
+\begin{frame}{MAPE: Counties in the United States}
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.6\linewidth]{errors_country.pdf}
+        \includegraphics[width=0.6\linewidth]{errors_us.pdf}
         \caption{MAPE for 28-day forecast horizon}
     \end{figure}
 \end{frame}
-
-\subsection{Model's outputs for counties in the United States}
 
 \begin{frame}{Forecasts: Counties in the United States}
     \begin{figure}[!htb]
@@ -49,15 +57,15 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{MAPE: Counties in the United States}
+\subsection{Model's outputs for provinces in Vietnam}
+
+\begin{frame}{MAPE: Provinces in Vietnam}
     \begin{figure}[h]
         \centering
-        \includegraphics[width=0.6\linewidth]{errors_us.pdf}
+        \includegraphics[width=0.6\linewidth]{errors_vn.pdf}
         \caption{MAPE for 28-day forecast horizon}
     \end{figure}
 \end{frame}
-
-\subsection{Model's outputs for provinces in Vietnam}
 
 \begin{frame}{Forecasts: Provinces in Vietnam}
     \begin{figure}[!htb]
@@ -76,13 +84,5 @@
         \subcaptionbox{Binh Duong}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_binhduong.pdf}}
         \subcaptionbox{Ho Chi Minh city}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_hcm.pdf}}
         \caption{Disease metrics learned by different versions of the model}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{MAPE: Provinces in Vietnam}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.6\linewidth]{errors_vn.pdf}
-        \caption{MAPE for 28-day forecast horizon}
     \end{figure}
 \end{frame}
