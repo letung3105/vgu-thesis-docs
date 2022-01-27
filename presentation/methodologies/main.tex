@@ -16,21 +16,54 @@
     \end{block}
 \end{frame}
 
-\begin{frame}{System of \glspl{ODE}}
-    \begin{definition}
-        \begin{equation*}
-            \begin{aligned}
-                S' &= - \frac{\beta(t) SI}{N} \\
-                E' &= \frac{\beta(t) SI}{N} - \gamma E \\
-                I' &= \gamma E - \lambda I \\
-                R' &= (1 - \alpha(t)) * \lambda * I \\
-                D' &= \alpha(t) * \lambda * I \\
-                N' &= - \alpha * \lambda * I \\
-                C' &= -C + \gamma * E \\
-                T' &= \gamma * E \\
-            \end{aligned}
-        \end{equation*}
-    \end{definition}
+\begin{frame}{System of ODEs}
+    \begin{columns}
+        \begin{column}{0.5\linewidth}
+            \begin{definition}<1->
+                \begin{equation*}
+                    \begin{aligned}
+                        S' &= - \frac{\beta(t) SI}{N} \\
+                        E' &= \frac{\beta(t) SI}{N} - \gamma E \\
+                        I' &= \gamma E - \lambda I \\
+                        R' &= (1 - \alpha(t)) \lambda I \\
+                        D' &= \alpha(t) \lambda I \\
+                        N' &= - \alpha \lambda I \\
+                        C' &= -C + \gamma E \\
+                        T' &= \gamma E \\
+                    \end{aligned}
+                \end{equation*}
+            \end{definition}
+        \end{column}
+        \begin{column}{0.5\linewidth}
+            \begin{block}<2->{Reproduction number}
+                \begin{equation*}
+                    \mathcal{R}^* = \frac{\beta}{\gamma}
+                \end{equation*}
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{States graph}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}[->, > = stealth', node distance = 2cm, thick]
+            \node[state]               (S) {S};
+            \node[state, right of = S] (E) {E};
+            \node[state, right of = E] (I) {I};
+            \node[state, above right of = E] (C) {C};
+            \node[state, below right of = E] (T) {T};
+            \node[state, above right of = I, xshift=1.5cm] (R) {R};
+            \node[state, below right of = I, xshift=1.5cm] (D) {D};
+            \draw (S) edge node[above]{$\beta(t)$} (E)
+                (E) edge node[above]{$\gamma$} (I)
+                (E) edge node[above,rotate=45]{$\gamma$} (C)
+                (E) edge node[above,rotate=-45]{$\gamma$} (T)
+                (I) edge node[above,rotate=29]{$(1 - \alpha(t)) \lambda$} (R)
+                (I) edge node[above,rotate=-29]{$\alpha(t) \lambda$} (D);
+        \end{tikzpicture}
+        \caption{States graph for the proposed model}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{System parameters}
@@ -193,27 +226,27 @@
     \end{figure}
 \end{frame}
 
-\subsection{Evaluation metrics}
+% \subsection{Evaluation metrics}
 
-\begin{frame}{Error functions}
-    \begin{block}{Mean absolute error}
-        \begin{equation*}
-            MAE = \frac{1}{n} \sum_{i=1}^n \left| \hat{y}_i - y_i \right|
-        \end{equation*}
-    \end{block}
+% \begin{frame}{Error functions}
+%     \begin{block}{Mean absolute error}
+%         \begin{equation*}
+%             MAE = \frac{1}{n} \sum_{i=1}^n \left| \hat{y}_i - y_i \right|
+%         \end{equation*}
+%     \end{block}
 
-    \begin{block}{Mean absolute percentage error}
-        \begin{equation*}
-            MAPE = \frac{100}{n} \sum_{i=1}^n \left| \frac{\hat{y}_i - y_i}{y_i} \right|
-        \end{equation*}
-    \end{block}
+%     \begin{block}{Mean absolute percentage error}
+%         \begin{equation*}
+%             MAPE = \frac{100}{n} \sum_{i=1}^n \left| \frac{\hat{y}_i - y_i}{y_i} \right|
+%         \end{equation*}
+%     \end{block}
 
-    \begin{block}{Root mean squared error}
-        \begin{equation*}
-            RMSE = \sqrt{\frac{1}{n} \sum_{i=1}{n} (\hat{y}_i - y_i)^2}
-        \end{equation*}
-    \end{block}
-\end{frame}
+%     \begin{block}{Root mean squared error}
+%         \begin{equation*}
+%             RMSE = \sqrt{\frac{1}{n} \sum_{i=1}{n} (\hat{y}_i - y_i)^2}
+%         \end{equation*}
+%     \end{block}
+% \end{frame}
 
 \subsection{Experiments}
 

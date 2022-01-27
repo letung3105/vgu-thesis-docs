@@ -13,11 +13,11 @@ Formally, the system of \glspl{ODE} that governs the extended \gls{SEIR} model w
         S' &= - \frac{\beta SI}{N} \\
         E' &= \frac{\beta SI}{N} - \gamma E \\
         I' &= \gamma E - \lambda I \\
-        R' &= (1 - \alpha) * \lambda * I \\
-        D' &= \alpha * \lambda * I \\
-        N' &= - \alpha * \lambda * I \\
-        C' &= -C + \gamma * E \\
-        T' &= \gamma * E \\
+        R' &= (1 - \alpha) \lambda I \\
+        D' &= \alpha \lambda I \\
+        N' &= - \alpha \lambda I \\
+        C' &= -C + \gamma E \\
+        T' &= \gamma E \\
     \end{aligned}
     \label{eq:methodologies-seir-model}
 \end{equation}
@@ -52,11 +52,11 @@ Hence, the basic system of equations in \autoref{eq:methodologies-seir-model} ca
         S' &= - \frac{\beta(t) SI}{N} \\
         E' &= \frac{\beta(t) SI}{N} - \gamma E \\
         I' &= \gamma E - \lambda I \\
-        R' &= (1 - \alpha(t)) * \lambda * I \\
-        D' &= \alpha(t) * \lambda * I \\
-        N' &= - \alpha * \lambda * I \\
-        C' &= -C + \gamma * E \\
-        T' &= \gamma * E \\
+        R' &= (1 - \alpha(t)) \lambda I \\
+        D' &= \alpha(t) \lambda I \\
+        N' &= - \alpha \lambda I \\
+        C' &= -C + \gamma E \\
+        T' &= \gamma E \\
         \beta(t) &= \mathcal{NN}_{\theta_1}(\mathcal{F}) \\
         \alpha(t) &= \mathcal{NN}_{\theta_2} (\frac{t}{t_\text{max}}, \frac{I(t-1)}{N(t-1)}, \frac{R(t-1)}{N(t-1)}, \frac{D(t-1)}{N(t-1)})
     \end{aligned}
@@ -73,7 +73,7 @@ Additionally, a similar model that used a small \gls{ANN} with 1 hidden layer, w
 As a result, both the \glspl{ANN} embedded in \autoref{eq:methodologies-seir-ude-model} were chosen to be small \glspl{ANN} where $\mathcal{NN}_{\theta_1}$ has 3 hidden layers in which each layer has 8 nodes and $\mathcal{NN}_{\theta_2}$ has 1 hidden layer that has 8 nodes.
 The \textit{mish} function \cite{misraMishSelfRegularized2020} was used as the activation function for all hidden layers, and the output of the \glspl{ANN} were transformed such that
 \begin{equation}
-    \nu_i = \nu_{i,L} + (\nu_{i,U} - \nu_{i,L}) * \sigma (z_i),
+    \nu_i = \nu_{i,L} + (\nu_{i,U} - \nu_{i,L}) \sigma (z_i),
 \end{equation}
 where $\nu_i$ is a system parameter that is encoded by an \gls{ANN} whose output is $z_i$, and $\nu_{i,L}$ and $\nu_{i,U}$ are the lower and upper bounds of the encoded parameter.
 The values of $\nu_{i,L}$ and $\nu_{i,U}$ were hyperparameters that can be chosen based on existing researches on the disease to help the model converge with reasonable parameters values.

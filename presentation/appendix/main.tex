@@ -1,8 +1,6 @@
 \appendix
 
-\section{Appendix}
-
-\subsection{Mathematical models}
+\section{Mathematical models}
 
 \begin{frame}{Improvements for Covid-19}
     Changes made to classical models for infectious disease \cite{zhaoModelingEpidemicDynamics2020,heSEIRModelingCOVID192020,ndairouMathematicalModelingCOVID192020,bastosModelingForecastingEarly2020,sarkarModelingForecastingCOVID192020}:
@@ -13,7 +11,7 @@
     \end{itemize}
 \end{frame}
 
-\subsection{Multi-layer perceptron}
+\section{MLPs}
 
 \begin{frame}[fragile]{Multi-layer perceptron: Graph representation}
     \begin{figure}[h]
@@ -74,7 +72,7 @@
     \end{figure}
 \end{frame}
 
-\subsection{Physics-informed neural networks}
+\section{PINNs}
 
 \begin{frame}{Physics-informed neural networks}
     \begin{figure}[h]
@@ -85,7 +83,7 @@
     \end{figure}
 \end{frame}
 
-\subsection{Neural ordinary differential equations}
+\section{NeuralODEs}
 
 \begin{frame}[fragile]{Neural ordinary differential equations: Idea}
     \begin{columns}
@@ -167,7 +165,7 @@
     \end{figure}
 \end{frame}
 
-\subsection{Software and hardware}
+\section{Software and hardware}
 
 \begin{frame}{Software and hardware}
     Julia programming language
@@ -208,7 +206,7 @@ end
 \end{figure}
 \end{frame}
 
-\subsection{Hyperparameters}
+\section{Hyperparameters}
 
 \begin{frame}{Hyperparameters}
     \begin{itemize}
@@ -231,4 +229,37 @@ end
             \item 1000 iterations on the full time span
         \end{itemize}
     \end{itemize}
+\end{frame}
+
+\section{$R_0$ and fatality rate}
+
+\begin{frame}{$R_0$ and fatality rate: Country-level data}
+    \begin{figure}[!htb]
+        \centering
+        \subcaptionbox{Viet nam}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_vietnam.pdf}}
+        \subcaptionbox{United States}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_unitedstates.pdf}}
+        \caption{Disease metrics learned by different versions of the model}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{$R_0$ and fatality rate: Counties in the United States}
+    \begin{figure}[!htb]
+        \centering
+        \subcaptionbox{Harris, TX}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_harris_tx.pdf}}
+        \subcaptionbox{Los Angeles, CA}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_losangeles_ca.pdf}}
+        \subcaptionbox{Maricopa, AZ}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_maricopa_az.pdf}}
+        \subcaptionbox{Cook, IL}{\includegraphics[width=0.4\linewidth]{Re_and_fatality_cook_il.pdf}}
+        \caption{Disease metrics learned by different versions of the model}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{$R_0$ and fatality rate: Provinces in Vietnam}
+    \begin{figure}[!htb]
+        \centering
+        \subcaptionbox{Dong Nai}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_dongnai.pdf}}
+        \subcaptionbox{Long An}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_longan.pdf}}
+        \subcaptionbox{Binh Duong}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_binhduong.pdf}}
+        \subcaptionbox{Ho Chi Minh city}{\includegraphics[width=0.45\linewidth]{Re_and_fatality_hcm.pdf}}
+        \caption{Disease metrics learned by different versions of the model}
+    \end{figure}
 \end{frame}
