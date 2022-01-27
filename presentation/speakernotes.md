@@ -59,3 +59,22 @@ Used complex networks of Point-to-Point visits/hour data as weighting factors fo
 
 Utilizing advanced methods for approximating gradients and techniques for integrating ANNs with mechanistic models, we can create models that can utilize existing knowledge captured by the system of ODEs and have the flexibility of data-driven models.
 
+# Limitations
+
+**Issues with ground truth data**
+Like all data-driven methods, the quality of our model depended on the quality of the collected data. It had been noted that the method for collecting Covid-19 data varied across different locations, and the collected data might suffer detection and measurement biases. Thus the performance of the model could change drastically based on the location.
+
+**Inability to capture rapid trend changes**
+As shown in the result, our model failed to capture the disease dynamics when the number of cases became very flat or very sharp. In some cases, such trends occurred due to modifications to the number of cases in the report, in other cases, they might be caused by other covariates that we did not consider.  Bad local minima While we implemented different techniques for lowering the chance of getting into bad local minima, the problem still existed. One method that we tried that was not mentioned in previous sections was to use a different loss function, but the obtained results were unsatisfactory.
+
+**Compartmental model bias**
+Like all compartmental models, our model made many assumptions such that real-world scenarios can be approximated with feasible computational power. Hence, many aspects of the disease were simplified, one of which was the disease transmission process. Moreover, because we wanted to limit the complexity in the model training process, we did not consider additional compartments that better reflected our current knowledge about Covid-19 such as asymptomatic infections, reinfections, vaccinations, and quarantine control measures.
+
+**Covariates bias**
+Our two versions of the model were informed using the datasets from Facebook which may introduce biases. We chose these datasets because of the large number of Facebook users in Vietnam, however, these datasets might not be representative of the whole population and introduced certain biases into the model predictions.
+
+**The changing dynamics of Covid-19**
+The dynamics of the disease constantly changes due to a multitude of factors, and our knowledge of these dynamics will improve over time.  Thus the results produced by our model are not final, and changes to the model that incorporate new findings are needed to improve its robustness.
+
+**Neural network interpretability**
+Even though the model produced domain-specific encoding that can be understood by experts, the ANN was still a black-box algorithm that was not interpretable. This property may be undesirable if we want to apply the model in situations where full transparency is required.
